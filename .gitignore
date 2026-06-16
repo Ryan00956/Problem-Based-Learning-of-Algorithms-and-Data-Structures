@@ -1,0 +1,15 @@
+# Raw datasets are large and should be downloaded locally.
+/data/
+
+# Python cache and local virtual environments.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local server logs and OS/editor noise.
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

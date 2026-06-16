@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommendation Lab</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Dashboard navigation">
+        <div class="brand">
+          <div class="brand-mark">M</div>
+          <div>
+            <strong>Movie Lab</strong>
+            <span>Algorithm Project</span>
+          </div>
+        </div>
+        <nav>
+          <a class="nav-item active" href="#recommendations">Top-N</a>
+          <a class="nav-item" href="#search">Search</a>
+          <a class="nav-item" href="#similar">Similar</a>
+          <a class="nav-item" href="#runtime">Runtime</a>
+        </nav>
+        <div class="method-note">
+          <span>Algorithms</span>
+          <strong>Merge Sort</strong>
+          <strong>Heap Sort</strong>
+          <strong>Indexed Search</strong>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Movie Recommendation Lab</h1>
+            <p>影视流媒体用户观看行为排序与推荐系统</p>
+          </div>
+          <div class="dataset-status" id="datasetStatus">Loading data...</div>
+        </header>
+
+        <section class="stats-grid" aria-label="Dataset summary">
+          <div class="stat">
+            <span>Movies</span>
+            <strong id="movieCount">-</strong>
+          </div>
+          <div class="stat">
+            <span>Ratings</span>
+            <strong id="ratingCount">-</strong>
+          </div>
+          <div class="stat">
+            <span>Tags</span>
+            <strong id="tagCount">-</strong>
+          </div>
+          <div class="stat">
+            <span>Users</span>
+            <strong id="userCount">-</strong>
+          </div>
+        </section>
+
+        <section id="recommendations" class="panel recommendation-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Top-N Recommendations</h2>
+              <p>按综合评分排序，展示评分质量、热度和标签活跃度。</p>
+            </div>
+            <div class="controls">
+              <label>
+                Top N
+                <select id="topLimit">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </label>
+              <label>
+                Algorithm
+                <select id="algorithmSelect">
+                  <option value="heap">Heap Sort</option>
+                  <option value="merge">Merge Sort</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Movie</th>
+                  <th>Genres</th>
+                  <th>Rating</th>
+                  <th>Count</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="topMoviesBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="workspace-grid">
+          <div id="search" class="panel">
+            <div class="panel-header compact">
+              <div>
+                <h2>Movie Search</h2>
+                <p>支持电影名、类别和标签检索。</p>
+              </div>
+            </div>
+            <div class="search-row">
+              <select id="searchKind">
+                <option value="title">Title</option>
+                <option value="genre">Genre</option>
+                <option value="tag">Tag</option>
+              </select>
+              <input id="searchInput" type="search" value="Toy Story" placeholder="Search movies" />
+              <button id="searchButton" type="button">Search</button>
+            </div>
+            <div id="searchMeta" class="result-meta"></div>
+            <div id="searchResults" class="result-list"></div>
+          </div>
+
+          <div id="similar" class="panel">
+            <div class="panel-header compact">
+              <div>
+                <h2>Similar Movies</h2>
+                <p>根据共同类别、共同标签和综合评分推荐。</p>
+              </div>
+            </div>
+            <div class="search-row">
+              <input id="similarInput" type="search" value="Toy Story" placeholder="Movie title" />
+              <button id="similarButton" type="button">Recommend</button>
+            </div>
+            <div id="similarTarget" class="result-meta"></div>
+            <div id="similarResults" class="result-list"></div>
+          </div>
+        </section>
+
+        <section id="runtime" class="panel runtime-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Runtime Comparison</h2>
+              <p>排序实验与检索实验的运行时间对比。</p>
+            </div>
+          </div>
+          <div class="runtime-grid">
+            <div>
+              <h3>Sorting</h3>
+              <div id="sortChart" class="chart"></div>
+            </div>
+            <div>
+              <h3>Search</h3>
+              <div id="searchChart" class="chart"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
