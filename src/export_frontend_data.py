@@ -38,7 +38,6 @@ def export_frontend_data() -> dict[str, Path]:
         "movies": searchable,
         "sortRuntime": _read_csv(OUTPUT_DIR / "sorting_runtime.csv"),
         "searchRuntime": _read_csv(OUTPUT_DIR / "search_runtime.csv"),
-        "netflixRuntime": _read_csv(OUTPUT_DIR / "netflix_sorting_runtime.csv"),
     }
 
     path = WEB_DATA_DIR / "dashboard-data.json"

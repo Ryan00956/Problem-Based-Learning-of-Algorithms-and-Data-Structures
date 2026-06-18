@@ -13,11 +13,6 @@ Main dataset: MovieLens `ml-latest-small`.
 - `ratings.csv`: user id, movie id, rating, timestamp.
 - `tags.csv`: user id, movie id, text tag, timestamp.
 
-Extension dataset: Netflix Prize.
-
-- `movie_titles.txt`: movie id, release year, title.
-- `training_set`: one rating file per movie.
-
 ## 3. Data Preprocessing
 
 For each movie, the system computes:
@@ -83,14 +78,13 @@ Output files:
 
 - `output/sorting_runtime.csv`
 - `output/search_runtime.csv`
-- `output/netflix_sorting_runtime.csv`
 - `output/runtime_chart.svg`
 
 Experiment comparisons:
 
 - Merge sort vs heap sort.
 - Linear search vs index search.
-- MovieLens main dataset and Netflix sample dataset.
+- MovieLens dataset.
 
 ## 8. Conclusion
 

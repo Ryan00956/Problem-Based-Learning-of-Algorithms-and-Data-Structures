@@ -1,4 +1,0 @@
-﻿task,data_size,merge_sort_seconds,heap_sort_seconds
-netflix_sample_sort_by_score,50,4.2e-05,6.28e-05
-netflix_sample_sort_by_score,100,0.000106,0.000144
-netflix_sample_sort_by_score,200,0.000221,0.000315

@@ -8,7 +8,6 @@ from typing import Callable
 from src.data_loader import (
     OUTPUT_DIR,
     build_movie_profiles,
-    build_netflix_sample_profiles,
     load_movielens,
     save_profiles_csv,
 )
@@ -53,23 +52,6 @@ def run_experiments(output_dir: Path = OUTPUT_DIR) -> dict[str, Path]:
     sort_csv = output_dir / "sorting_runtime.csv"
     _write_csv(sort_csv, sort_results)
 
-    netflix_profiles = build_netflix_sample_profiles(limit_movies=200)
-    save_profiles_csv(netflix_profiles, output_dir / "netflix_sample_profiles.csv")
-    netflix_sort_results = []
-    for size in [50, 100, 200]:
-        subset = netflix_profiles[:size]
-        _, merge_seconds = timed_call(merge_sort, subset, key="comprehensive_score", reverse=True)
-        _, heap_seconds = timed_call(heap_sort, subset, key="comprehensive_score", reverse=True)
-        netflix_sort_results.append(
-            {
-                "task": "netflix_sample_sort_by_score",
-                "data_size": size,
-                "merge_sort_seconds": round(merge_seconds, 8),
-                "heap_sort_seconds": round(heap_seconds, 8),
-            }
-        )
-    _write_csv(output_dir / "netflix_sorting_runtime.csv", netflix_sort_results)
-
     engine = MovieSearchEngine(profiles)
     search_cases = [
         ("title", "Toy Story", engine.linear_title_search, engine.index_title_search),
@@ -99,9 +81,7 @@ def run_experiments(output_dir: Path = OUTPUT_DIR) -> dict[str, Path]:
 
     return {
         "profiles": output_dir / "movie_profiles.csv",
-        "netflix_sample_profiles": output_dir / "netflix_sample_profiles.csv",
         "sorting_runtime": sort_csv,
-        "netflix_sorting_runtime": output_dir / "netflix_sorting_runtime.csv",
         "search_runtime": search_csv,
         "runtime_chart": chart_svg,
     }

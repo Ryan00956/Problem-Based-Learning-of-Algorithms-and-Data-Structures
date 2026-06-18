@@ -1,4 +1,4 @@
 ﻿query_type,query,linear_seconds,index_seconds,linear_result_count,index_result_count
-title,Toy Story,0.0008299,0.00054,3,3
-genre,Comedy,0.0020307,4.3e-06,3756,3756
-tag,funny,0.0017354,3.59e-05,25,25
+title,Toy Story,0.0009163,0.0005839,3,3
+genre,Comedy,0.002278,4e-06,3756,3756
+tag,funny,0.0017307,4.29e-05,25,25

@@ -19,7 +19,7 @@
       "genres_text": "Comedy|Crime|Drama|Thriller",
       "avg_rating": 4.1971,
       "rating_count": 307,
-      "tag_count": 181,
+      "tag_count": 173,
       "tags": [
         "1990s",
         "AWESOME",
@@ -214,7 +214,7 @@
         "prison",
         "wrongful imprisonment"
       ],
-      "comprehensive_score": 88.393
+      "comprehensive_score": 88.4064
     },
     {
       "movieId": 2959,
@@ -228,7 +228,7 @@
       "genres_text": "Action|Crime|Drama|Thriller",
       "avg_rating": 4.2729,
       "rating_count": 218,
-      "tag_count": 54,
+      "tag_count": 48,
       "tags": [
         "Brad Pitt",
         "Chuck Palahniuk",
@@ -279,7 +279,7 @@
         "violence",
         "violent"
       ],
-      "comprehensive_score": 86.9037
+      "comprehensive_score": 86.8253
     },
     {
       "movieId": 260,
@@ -292,7 +292,7 @@
       "genres_text": "Action|Adventure|Sci-Fi",
       "avg_rating": 4.2311,
       "rating_count": 251,
-      "tag_count": 26,
+      "tag_count": 18,
       "tags": [
         "EPIC",
         "Nerd",
@@ -313,7 +313,7 @@
         "space epic",
         "space opera"
       ],
-      "comprehensive_score": 86.2392
+      "comprehensive_score": 85.9262
     },
     {
       "movieId": 356,
@@ -339,7 +339,7 @@
         "stupid is as stupid does",
         "touching"
       ],
-      "comprehensive_score": 85.5102
+      "comprehensive_score": 85.5295
     },
     {
       "movieId": 2571,
@@ -360,7 +360,7 @@
         "post apocalyptic",
         "sci-fi"
       ],
-      "comprehensive_score": 84.692
+      "comprehensive_score": 84.707
     },
     {
       "movieId": 527,
@@ -382,7 +382,7 @@
         "moving",
         "thought-provoking"
       ],
-      "comprehensive_score": 84.4195
+      "comprehensive_score": 84.4369
     },
     {
       "movieId": 593,
@@ -404,7 +404,7 @@
         "psychology",
         "suspense"
       ],
-      "comprehensive_score": 84.4194
+      "comprehensive_score": 84.4357
     },
     {
       "movieId": 1196,
@@ -430,7 +430,7 @@
         "space",
         "space opera"
       ],
-      "comprehensive_score": 84.4152
+      "comprehensive_score": 84.4353
     },
     {
       "movieId": 50,
@@ -452,7 +452,7 @@
         "tricky",
         "twist ending"
       ],
-      "comprehensive_score": 84.1457
+      "comprehensive_score": 84.1619
     },
     {
       "movieId": 1198,
@@ -464,7 +464,7 @@
       "genres_text": "Action|Adventure",
       "avg_rating": 4.2075,
       "rating_count": 200,
-      "tag_count": 8,
+      "tag_count": 6,
       "tags": [
         "Steven Spielberg",
         "adventure",
@@ -473,7 +473,7 @@
         "indiana jones",
         "treasure hunt"
       ],
-      "comprehensive_score": 83.8787
+      "comprehensive_score": 83.6536
     },
     {
       "movieId": 858,
@@ -489,7 +489,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 83.4004
+      "comprehensive_score": 83.4062
     },
     {
       "movieId": 7361,
@@ -502,7 +502,7 @@
       "genres_text": "Drama|Romance|Sci-Fi",
       "avg_rating": 4.1603,
       "rating_count": 131,
-      "tag_count": 34,
+      "tag_count": 31,
       "tags": [
         "Jim Carrey",
         "alternate reality",
@@ -536,7 +536,7 @@
         "surrealism",
         "thought-provoking"
       ],
-      "comprehensive_score": 82.7101
+      "comprehensive_score": 82.653
     },
     {
       "movieId": 7153,
@@ -563,7 +563,7 @@
         "scenic",
         "stylized"
       ],
-      "comprehensive_score": 82.4971
+      "comprehensive_score": 82.5171
     },
     {
       "movieId": 58559,
@@ -584,7 +584,7 @@
         "psychology",
         "superhero"
       ],
-      "comprehensive_score": 82.4829
+      "comprehensive_score": 82.4963
     },
     {
       "movieId": 110,
@@ -610,7 +610,7 @@
         "revenge",
         "sword fight"
       ],
-      "comprehensive_score": 82.338
+      "comprehensive_score": 82.3581
     },
     {
       "movieId": 4993,
@@ -632,7 +632,7 @@
         "tolkien",
         "wizards"
       ],
-      "comprehensive_score": 82.3023
+      "comprehensive_score": 82.3197
     },
     {
       "movieId": 1089,
@@ -645,7 +645,7 @@
       "genres_text": "Crime|Mystery|Thriller",
       "avg_rating": 4.2023,
       "rating_count": 131,
-      "tag_count": 11,
+      "tag_count": 10,
       "tags": [
         "Quentin Tarantino",
         "Tarantino",
@@ -658,32 +658,7 @@
         "stylized",
         "violence"
       ],
-      "comprehensive_score": 82.2694
-    },
-    {
-      "movieId": 4226,
-      "title": "Memento (2000)",
-      "genres": [
-        "Mystery",
-        "Thriller"
-      ],
-      "genres_text": "Mystery|Thriller",
-      "avg_rating": 4.1226,
-      "rating_count": 159,
-      "tag_count": 13,
-      "tags": [
-        "Backwards. memory",
-        "Mindfuck",
-        "cerebral",
-        "dark",
-        "dreamlike",
-        "mystery",
-        "nonlinear",
-        "psychological",
-        "psychology",
-        "twist ending"
-      ],
-      "comprehensive_score": 82.1318
+      "comprehensive_score": 82.2059
     },
     {
       "movieId": 1210,
@@ -702,7 +677,32 @@
         "luke skywalker",
         "space opera"
       ],
-      "comprehensive_score": 82.0365
+      "comprehensive_score": 82.0481
+    },
+    {
+      "movieId": 4226,
+      "title": "Memento (2000)",
+      "genres": [
+        "Mystery",
+        "Thriller"
+      ],
+      "genres_text": "Mystery|Thriller",
+      "avg_rating": 4.1226,
+      "rating_count": 159,
+      "tag_count": 10,
+      "tags": [
+        "Backwards. memory",
+        "Mindfuck",
+        "cerebral",
+        "dark",
+        "dreamlike",
+        "mystery",
+        "nonlinear",
+        "psychological",
+        "psychology",
+        "twist ending"
+      ],
+      "comprehensive_score": 81.9201
     },
     {
       "movieId": 48516,
@@ -715,7 +715,7 @@
       "genres_text": "Crime|Drama|Thriller",
       "avg_rating": 4.2523,
       "rating_count": 107,
-      "tag_count": 10,
+      "tag_count": 8,
       "tags": [
         "Jack Nicholson",
         "Leonardo DiCaprio",
@@ -726,46 +726,7 @@
         "undercover cop",
         "way too long"
       ],
-      "comprehensive_score": 82.0214
-    },
-    {
-      "movieId": 1221,
-      "title": "Godfather: Part II, The (1974)",
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "genres_text": "Crime|Drama",
-      "avg_rating": 4.2597,
-      "rating_count": 129,
-      "tag_count": 3,
-      "tags": [
-        "Al Pacino",
-        "Mafia"
-      ],
-      "comprehensive_score": 81.9516
-    },
-    {
-      "movieId": 750,
-      "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)",
-      "genres": [
-        "Comedy",
-        "War"
-      ],
-      "genres_text": "Comedy|War",
-      "avg_rating": 4.268,
-      "rating_count": 97,
-      "tag_count": 10,
-      "tags": [
-        "Atomic bomb",
-        "Quirky",
-        "Slim Pickens",
-        "black comedy",
-        "dark comedy",
-        "purity of essence",
-        "satire"
-      ],
-      "comprehensive_score": 81.8224
+      "comprehensive_score": 81.847
     },
     {
       "movieId": 608,
@@ -787,7 +748,7 @@
         "based on a true story",
         "dark comedy"
       ],
-      "comprehensive_score": 81.7804
+      "comprehensive_score": 81.7954
     },
     {
       "movieId": 2329,
@@ -807,7 +768,7 @@
         "racism",
         "thought-provoking"
       ],
-      "comprehensive_score": 81.7443
+      "comprehensive_score": 81.7593
     },
     {
       "movieId": 1197,
@@ -827,7 +788,46 @@
         "Inigo Montoya",
         "six-fingered man"
       ],
-      "comprehensive_score": 81.704
+      "comprehensive_score": 81.7132
+    },
+    {
+      "movieId": 1221,
+      "title": "Godfather: Part II, The (1974)",
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "genres_text": "Crime|Drama",
+      "avg_rating": 4.2597,
+      "rating_count": 129,
+      "tag_count": 2,
+      "tags": [
+        "Al Pacino",
+        "Mafia"
+      ],
+      "comprehensive_score": 81.6844
+    },
+    {
+      "movieId": 750,
+      "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)",
+      "genres": [
+        "Comedy",
+        "War"
+      ],
+      "genres_text": "Comedy|War",
+      "avg_rating": 4.268,
+      "rating_count": 97,
+      "tag_count": 7,
+      "tags": [
+        "Atomic bomb",
+        "Quirky",
+        "Slim Pickens",
+        "black comedy",
+        "dark comedy",
+        "purity of essence",
+        "satire"
+      ],
+      "comprehensive_score": 81.5338
     },
     {
       "movieId": 79132,
@@ -844,7 +844,7 @@
       "genres_text": "Action|Crime|Drama|Mystery|Sci-Fi|Thriller|IMAX",
       "avg_rating": 4.0664,
       "rating_count": 143,
-      "tag_count": 26,
+      "tag_count": 21,
       "tags": [
         "Leonardo DiCaprio",
         "action",
@@ -868,7 +868,7 @@
         "thought-provoking",
         "visually appealing"
       ],
-      "comprehensive_score": 81.5217
+      "comprehensive_score": 81.3508
     },
     {
       "movieId": 2028,
@@ -885,7 +885,7 @@
       "tags": [
         "World War II"
       ],
-      "comprehensive_score": 81.3111
+      "comprehensive_score": 81.3169
     },
     {
       "movieId": 1193,
@@ -902,7 +902,7 @@
         "jack nicholson",
         "mental illness"
       ],
-      "comprehensive_score": 81.2887
+      "comprehensive_score": 81.3003
     },
     {
       "movieId": 589,
@@ -925,7 +925,7 @@
         "sci-fi",
         "time travel"
       ],
-      "comprehensive_score": 81.0538
+      "comprehensive_score": 81.0721
     },
     {
       "movieId": 1213,
@@ -941,7 +941,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 81.0494
+      "comprehensive_score": 81.0552
     },
     {
       "movieId": 1136,
@@ -961,7 +961,7 @@
         "Monty Python",
         "british comedy"
       ],
-      "comprehensive_score": 81.0212
+      "comprehensive_score": 81.0347
     },
     {
       "movieId": 293,
@@ -975,7 +975,7 @@
       "genres_text": "Action|Crime|Drama|Thriller",
       "avg_rating": 4.0188,
       "rating_count": 133,
-      "tag_count": 35,
+      "tag_count": 32,
       "tags": [
         "Action",
         "French",
@@ -1010,7 +1010,7 @@
         "touching",
         "unique"
       ],
-      "comprehensive_score": 80.8209
+      "comprehensive_score": 80.7665
     },
     {
       "movieId": 541,
@@ -1023,7 +1023,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 4.1008,
       "rating_count": 124,
-      "tag_count": 13,
+      "tag_count": 12,
       "tags": [
         "Philip K. Dick",
         "androids",
@@ -1038,7 +1038,7 @@
         "robots",
         "sci-fi"
       ],
-      "comprehensive_score": 80.7618
+      "comprehensive_score": 80.7121
     },
     {
       "movieId": 904,
@@ -1059,7 +1059,7 @@
         "photography",
         "voyeurism"
       ],
-      "comprehensive_score": 80.6886
+      "comprehensive_score": 80.7049
     },
     {
       "movieId": 32,
@@ -1072,7 +1072,7 @@
       "genres_text": "Mystery|Sci-Fi|Thriller",
       "avg_rating": 3.9831,
       "rating_count": 177,
-      "tag_count": 10,
+      "tag_count": 8,
       "tags": [
         "Brad Pitt",
         "Bruce Willis",
@@ -1083,7 +1083,7 @@
         "time travel",
         "twist ending"
       ],
-      "comprehensive_score": 80.4054
+      "comprehensive_score": 80.231
     },
     {
       "movieId": 5952,
@@ -1100,7 +1100,7 @@
         "Myth",
         "Tolkein"
       ],
-      "comprehensive_score": 79.9507
+      "comprehensive_score": 79.9599
     },
     {
       "movieId": 1208,
@@ -1117,7 +1117,7 @@
       "tags": [
         "Vietnam"
       ],
-      "comprehensive_score": 79.9255
+      "comprehensive_score": 79.9313
     },
     {
       "movieId": 912,
@@ -1133,7 +1133,7 @@
       "tags": [
         "start of a beautiful friendship"
       ],
-      "comprehensive_score": 79.9218
+      "comprehensive_score": 79.9277
     },
     {
       "movieId": 47,
@@ -1151,7 +1151,7 @@
         "serial killer",
         "twist ending"
       ],
-      "comprehensive_score": 79.9136
+      "comprehensive_score": 79.9252
     },
     {
       "movieId": 4973,
@@ -1167,24 +1167,7 @@
       "tags": [
         "whimsical"
       ],
-      "comprehensive_score": 79.9074
-    },
-    {
-      "movieId": 1704,
-      "title": "Good Will Hunting (1997)",
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "genres_text": "Drama|Romance",
-      "avg_rating": 4.078,
-      "rating_count": 141,
-      "tag_count": 3,
-      "tags": [
-        "heartwarming",
-        "inspirational"
-      ],
-      "comprehensive_score": 79.7888
+      "comprehensive_score": 79.9132
     },
     {
       "movieId": 2858,
@@ -1221,7 +1204,7 @@
         "psychological",
         "suspense"
       ],
-      "comprehensive_score": 79.6321
+      "comprehensive_score": 79.6514
     },
     {
       "movieId": 2324,
@@ -1246,7 +1229,24 @@
         "tear jerker",
         "tearjerking"
       ],
-      "comprehensive_score": 79.5299
+      "comprehensive_score": 79.5483
+    },
+    {
+      "movieId": 1704,
+      "title": "Good Will Hunting (1997)",
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "genres_text": "Drama|Romance",
+      "avg_rating": 4.078,
+      "rating_count": 141,
+      "tag_count": 2,
+      "tags": [
+        "heartwarming",
+        "inspirational"
+      ],
+      "comprehensive_score": 79.5216
     },
     {
       "movieId": 3578,
@@ -1270,27 +1270,7 @@
         "imdb top 250",
         "revenge"
       ],
-      "comprehensive_score": 79.4122
-    },
-    {
-      "movieId": 1,
-      "title": "Toy Story (1995)",
-      "genres": [
-        "Adventure",
-        "Animation",
-        "Children",
-        "Comedy",
-        "Fantasy"
-      ],
-      "genres_text": "Adventure|Animation|Children|Comedy|Fantasy",
-      "avg_rating": 3.9209,
-      "rating_count": 215,
-      "tag_count": 3,
-      "tags": [
-        "fun",
-        "pixar"
-      ],
-      "comprehensive_score": 79.3979
+      "comprehensive_score": 79.4306
     },
     {
       "movieId": 1270,
@@ -1307,7 +1287,143 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 79.3891
+      "comprehensive_score": 79.3949
+    },
+    {
+      "movieId": 457,
+      "title": "Fugitive, The (1993)",
+      "genres": [
+        "Thriller"
+      ],
+      "genres_text": "Thriller",
+      "avg_rating": 3.9921,
+      "rating_count": 190,
+      "tag_count": 1,
+      "tags": [
+        "based on a TV show"
+      ],
+      "comprehensive_score": 79.2039
+    },
+    {
+      "movieId": 1,
+      "title": "Toy Story (1995)",
+      "genres": [
+        "Adventure",
+        "Animation",
+        "Children",
+        "Comedy",
+        "Fantasy"
+      ],
+      "genres_text": "Adventure|Animation|Children|Comedy|Fantasy",
+      "avg_rating": 3.9209,
+      "rating_count": 215,
+      "tag_count": 2,
+      "tags": [
+        "fun",
+        "pixar"
+      ],
+      "comprehensive_score": 79.1307
+    },
+    {
+      "movieId": 3147,
+      "title": "Green Mile, The (1999)",
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "genres_text": "Crime|Drama",
+      "avg_rating": 4.1486,
+      "rating_count": 111,
+      "tag_count": 1,
+      "tags": [
+        "Stephen King"
+      ],
+      "comprehensive_score": 79.0944
+    },
+    {
+      "movieId": 1291,
+      "title": "Indiana Jones and the Last Crusade (1989)",
+      "genres": [
+        "Action",
+        "Adventure"
+      ],
+      "genres_text": "Action|Adventure",
+      "avg_rating": 4.0464,
+      "rating_count": 140,
+      "tag_count": 2,
+      "tags": [
+        "Holy Grail",
+        "archaeology"
+      ],
+      "comprehensive_score": 79.0489
+    },
+    {
+      "movieId": 2762,
+      "title": "Sixth Sense, The (1999)",
+      "genres": [
+        "Drama",
+        "Horror",
+        "Mystery"
+      ],
+      "genres_text": "Drama|Horror|Mystery",
+      "avg_rating": 3.8939,
+      "rating_count": 179,
+      "tag_count": 8,
+      "tags": [
+        "Atmospheric",
+        "Bruce Willis",
+        "I see dead people",
+        "ghosts",
+        "imdb top 250",
+        "mindfuck",
+        "stylized",
+        "twist ending"
+      ],
+      "comprehensive_score": 79.0304
+    },
+    {
+      "movieId": 68157,
+      "title": "Inglourious Basterds (2009)",
+      "genres": [
+        "Action",
+        "Drama",
+        "War"
+      ],
+      "genres_text": "Action|Drama|War",
+      "avg_rating": 4.1364,
+      "rating_count": 88,
+      "tag_count": 5,
+      "tags": [
+        "Brad Pitt",
+        "Christoph Waltz",
+        "Quentin Tarantino",
+        "black comedy",
+        "satire"
+      ],
+      "comprehensive_score": 78.9962
+    },
+    {
+      "movieId": 364,
+      "title": "Lion King, The (1994)",
+      "genres": [
+        "Adventure",
+        "Animation",
+        "Children",
+        "Drama",
+        "Musical",
+        "IMAX"
+      ],
+      "genres_text": "Adventure|Animation|Children|Drama|Musical|IMAX",
+      "avg_rating": 3.9419,
+      "rating_count": 172,
+      "tag_count": 4,
+      "tags": [
+        "Disney",
+        "Disney animated feature",
+        "Oscar (Best Music - Original Score)",
+        "soundtrack"
+      ],
+      "comprehensive_score": 78.9618
     },
     {
       "movieId": 4878,
@@ -1321,7 +1437,7 @@
       "genres_text": "Drama|Mystery|Sci-Fi|Thriller",
       "avg_rating": 3.9817,
       "rating_count": 109,
-      "tag_count": 29,
+      "tag_count": 19,
       "tags": [
         "atmospheric",
         "cerebral",
@@ -1343,123 +1459,7 @@
         "time travel",
         "weird"
       ],
-      "comprehensive_score": 79.2748
-    },
-    {
-      "movieId": 457,
-      "title": "Fugitive, The (1993)",
-      "genres": [
-        "Thriller"
-      ],
-      "genres_text": "Thriller",
-      "avg_rating": 3.9921,
-      "rating_count": 190,
-      "tag_count": 1,
-      "tags": [
-        "based on a TV show"
-      ],
-      "comprehensive_score": 79.1981
-    },
-    {
-      "movieId": 364,
-      "title": "Lion King, The (1994)",
-      "genres": [
-        "Adventure",
-        "Animation",
-        "Children",
-        "Drama",
-        "Musical",
-        "IMAX"
-      ],
-      "genres_text": "Adventure|Animation|Children|Drama|Musical|IMAX",
-      "avg_rating": 3.9419,
-      "rating_count": 172,
-      "tag_count": 5,
-      "tags": [
-        "Disney",
-        "Disney animated feature",
-        "Oscar (Best Music - Original Score)",
-        "soundtrack"
-      ],
-      "comprehensive_score": 79.1235
-    },
-    {
-      "movieId": 2762,
-      "title": "Sixth Sense, The (1999)",
-      "genres": [
-        "Drama",
-        "Horror",
-        "Mystery"
-      ],
-      "genres_text": "Drama|Horror|Mystery",
-      "avg_rating": 3.8939,
-      "rating_count": 179,
-      "tag_count": 9,
-      "tags": [
-        "Atmospheric",
-        "Bruce Willis",
-        "I see dead people",
-        "ghosts",
-        "imdb top 250",
-        "mindfuck",
-        "stylized",
-        "twist ending"
-      ],
-      "comprehensive_score": 79.1132
-    },
-    {
-      "movieId": 3147,
-      "title": "Green Mile, The (1999)",
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "genres_text": "Crime|Drama",
-      "avg_rating": 4.1486,
-      "rating_count": 111,
-      "tag_count": 1,
-      "tags": [
-        "Stephen King"
-      ],
-      "comprehensive_score": 79.0886
-    },
-    {
-      "movieId": 1291,
-      "title": "Indiana Jones and the Last Crusade (1989)",
-      "genres": [
-        "Action",
-        "Adventure"
-      ],
-      "genres_text": "Action|Adventure",
-      "avg_rating": 4.0464,
-      "rating_count": 140,
-      "tag_count": 2,
-      "tags": [
-        "Holy Grail",
-        "archaeology"
-      ],
-      "comprehensive_score": 79.0397
-    },
-    {
-      "movieId": 68157,
-      "title": "Inglourious Basterds (2009)",
-      "genres": [
-        "Action",
-        "Drama",
-        "War"
-      ],
-      "genres_text": "Action|Drama|War",
-      "avg_rating": 4.1364,
-      "rating_count": 88,
-      "tag_count": 5,
-      "tags": [
-        "Brad Pitt",
-        "Christoph Waltz",
-        "Quentin Tarantino",
-        "black comedy",
-        "satire"
-      ],
-      "comprehensive_score": 78.9812
+      "comprehensive_score": 78.9104
     },
     {
       "movieId": 68954,
@@ -1489,32 +1489,7 @@
         "heartbreaking",
         "touching"
       ],
-      "comprehensive_score": 78.7064
-    },
-    {
-      "movieId": 1200,
-      "title": "Aliens (1986)",
-      "genres": [
-        "Action",
-        "Adventure",
-        "Horror",
-        "Sci-Fi"
-      ],
-      "genres_text": "Action|Adventure|Horror|Sci-Fi",
-      "avg_rating": 3.9643,
-      "rating_count": 126,
-      "tag_count": 9,
-      "tags": [
-        "SPACE TRAVEL",
-        "action",
-        "aliens",
-        "horror",
-        "sci-fi",
-        "space",
-        "space craft",
-        "suspense"
-      ],
-      "comprehensive_score": 78.5957
+      "comprehensive_score": 78.7285
     },
     {
       "movieId": 6016,
@@ -1538,7 +1513,32 @@
         "true story",
         "violence"
       ],
-      "comprehensive_score": 78.5928
+      "comprehensive_score": 78.6091
+    },
+    {
+      "movieId": 1200,
+      "title": "Aliens (1986)",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Horror",
+        "Sci-Fi"
+      ],
+      "genres_text": "Action|Adventure|Horror|Sci-Fi",
+      "avg_rating": 3.9643,
+      "rating_count": 126,
+      "tag_count": 8,
+      "tags": [
+        "SPACE TRAVEL",
+        "action",
+        "aliens",
+        "horror",
+        "sci-fi",
+        "space",
+        "space craft",
+        "suspense"
+      ],
+      "comprehensive_score": 78.5129
     },
     {
       "movieId": 1732,
@@ -1585,7 +1585,7 @@
         "satirical",
         "violence"
       ],
-      "comprehensive_score": 78.4475
+      "comprehensive_score": 78.4768
     },
     {
       "movieId": 60069,
@@ -1607,7 +1607,7 @@
         "love story",
         "social commentary"
       ],
-      "comprehensive_score": 78.4173
+      "comprehensive_score": 78.4308
     },
     {
       "movieId": 1222,
@@ -1624,7 +1624,7 @@
         "Vietnam",
         "anti-war"
       ],
-      "comprehensive_score": 78.4085
+      "comprehensive_score": 78.4177
     },
     {
       "movieId": 924,
@@ -1637,7 +1637,7 @@
       "genres_text": "Adventure|Drama|Sci-Fi",
       "avg_rating": 3.8945,
       "rating_count": 109,
-      "tag_count": 41,
+      "tag_count": 40,
       "tags": [
         "Arthur C. Clarke",
         "Dull",
@@ -1680,7 +1680,7 @@
         "visual",
         "visually appealing"
       ],
-      "comprehensive_score": 78.3779
+      "comprehensive_score": 78.3859
     },
     {
       "movieId": 1225,
@@ -1696,7 +1696,7 @@
         "Mozart",
         "Salieri"
       ],
-      "comprehensive_score": 78.3607
+      "comprehensive_score": 78.3699
     },
     {
       "movieId": 111,
@@ -1713,7 +1713,7 @@
       "tags": [
         "assassination"
       ],
-      "comprehensive_score": 78.2101
+      "comprehensive_score": 78.2159
     },
     {
       "movieId": 6377,
@@ -1733,7 +1733,7 @@
         "fish",
         "heartwarming"
       ],
-      "comprehensive_score": 78.1505
+      "comprehensive_score": 78.1621
     },
     {
       "movieId": 5618,
@@ -1750,7 +1750,7 @@
       "tags": [
         "anime"
       ],
-      "comprehensive_score": 78.1403
+      "comprehensive_score": 78.1461
     },
     {
       "movieId": 778,
@@ -1770,7 +1770,7 @@
         "drug abuse",
         "narrated"
       ],
-      "comprehensive_score": 78.0758
+      "comprehensive_score": 78.0892
     },
     {
       "movieId": 150,
@@ -1789,7 +1789,7 @@
         "moon",
         "space"
       ],
-      "comprehensive_score": 78.0568
+      "comprehensive_score": 78.0684
     },
     {
       "movieId": 1276,
@@ -1804,7 +1804,7 @@
       "tags": [
         "prison"
       ],
-      "comprehensive_score": 77.9776
+      "comprehensive_score": 77.9834
     },
     {
       "movieId": 2502,
@@ -1821,30 +1821,7 @@
         "stapler",
         "workplace"
       ],
-      "comprehensive_score": 77.9534
-    },
-    {
-      "movieId": 1219,
-      "title": "Psycho (1960)",
-      "genres": [
-        "Crime",
-        "Horror"
-      ],
-      "genres_text": "Crime|Horror",
-      "avg_rating": 4.0361,
-      "rating_count": 83,
-      "tag_count": 9,
-      "tags": [
-        "Alfred Hitchcock",
-        "Norman Bates",
-        "black and white",
-        "imdb top 250",
-        "psychology",
-        "remade",
-        "suspenseful",
-        "tense"
-      ],
-      "comprehensive_score": 77.8197
+      "comprehensive_score": 77.9626
     },
     {
       "movieId": 1203,
@@ -1867,7 +1844,7 @@
         "gritty",
         "thought-provoking"
       ],
-      "comprehensive_score": 77.8047
+      "comprehensive_score": 77.824
     },
     {
       "movieId": 4011,
@@ -1898,7 +1875,30 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 77.7483
+      "comprehensive_score": 77.7541
+    },
+    {
+      "movieId": 1219,
+      "title": "Psycho (1960)",
+      "genres": [
+        "Crime",
+        "Horror"
+      ],
+      "genres_text": "Crime|Horror",
+      "avg_rating": 4.0361,
+      "rating_count": 83,
+      "tag_count": 8,
+      "tags": [
+        "Alfred Hitchcock",
+        "Norman Bates",
+        "black and white",
+        "imdb top 250",
+        "psychology",
+        "remade",
+        "suspenseful",
+        "tense"
+      ],
+      "comprehensive_score": 77.7368
     },
     {
       "movieId": 1240,
@@ -1911,7 +1911,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 3.8969,
       "rating_count": 131,
-      "tag_count": 8,
+      "tag_count": 7,
       "tags": [
         "Action",
         "Sci-Fi",
@@ -1921,7 +1921,7 @@
         "tense",
         "time travel"
       ],
-      "comprehensive_score": 77.7182
+      "comprehensive_score": 77.6224
     },
     {
       "movieId": 6874,
@@ -1939,7 +1939,7 @@
         "martial arts",
         "revenge"
       ],
-      "comprehensive_score": 77.571
+      "comprehensive_score": 77.5802
     },
     {
       "movieId": 5989,
@@ -1962,7 +1962,7 @@
         "smart",
         "twists & turns"
       ],
-      "comprehensive_score": 77.5083
+      "comprehensive_score": 77.5267
     },
     {
       "movieId": 4995,
@@ -1978,7 +1978,7 @@
       "tags": [
         "mathematics"
       ],
-      "comprehensive_score": 77.4463
+      "comprehensive_score": 77.4521
     },
     {
       "movieId": 908,
@@ -1999,7 +1999,7 @@
         "Mount Rushmore",
         "imdb top 250"
       ],
-      "comprehensive_score": 77.4155
+      "comprehensive_score": 77.4271
     },
     {
       "movieId": 1204,
@@ -2016,7 +2016,7 @@
       "tags": [
         "Middle East"
       ],
-      "comprehensive_score": 77.3713
+      "comprehensive_score": 77.3771
     },
     {
       "movieId": 1617,
@@ -2034,7 +2034,7 @@
       "tags": [
         "Police"
       ],
-      "comprehensive_score": 77.2978
+      "comprehensive_score": 77.3036
     },
     {
       "movieId": 1252,
@@ -2052,7 +2052,7 @@
       "tags": [
         "incest"
       ],
-      "comprehensive_score": 77.2829
+      "comprehensive_score": 77.2887
     },
     {
       "movieId": 1206,
@@ -2070,7 +2070,7 @@
       "tags": [
         "brainwashing"
       ],
-      "comprehensive_score": 77.2824
+      "comprehensive_score": 77.2882
     },
     {
       "movieId": 1201,
@@ -2087,7 +2087,7 @@
       "tags": [
         "spaghetti western"
       ],
-      "comprehensive_score": 77.2039
+      "comprehensive_score": 77.2097
     },
     {
       "movieId": 4306,
@@ -2107,7 +2107,7 @@
       "tags": [
         "fairy tales"
       ],
-      "comprehensive_score": 76.9788
+      "comprehensive_score": 76.9846
     },
     {
       "movieId": 48780,
@@ -2127,7 +2127,7 @@
         "enigmatic",
         "ummarti2006"
       ],
-      "comprehensive_score": 76.8561
+      "comprehensive_score": 76.8677
     },
     {
       "movieId": 480,
@@ -2145,30 +2145,7 @@
       "tags": [
         "Dinosaur"
       ],
-      "comprehensive_score": 76.7751
-    },
-    {
-      "movieId": 109487,
-      "title": "Interstellar (2014)",
-      "genres": [
-        "Sci-Fi",
-        "IMAX"
-      ],
-      "genres_text": "Sci-Fi|IMAX",
-      "avg_rating": 3.9932,
-      "rating_count": 73,
-      "tag_count": 10,
-      "tags": [
-        "Christopher Nolan",
-        "bad dialogue",
-        "black hole",
-        "philosophical issues",
-        "sci-fi",
-        "thought-provoking",
-        "time-travel",
-        "visually appealing"
-      ],
-      "comprehensive_score": 76.7629
+      "comprehensive_score": 76.7809
     },
     {
       "movieId": 590,
@@ -2186,7 +2163,7 @@
         "American Indians",
         "Native Americans"
       ],
-      "comprehensive_score": 76.7625
+      "comprehensive_score": 76.7717
     },
     {
       "movieId": 91529,
@@ -2211,7 +2188,7 @@
         "political commentary",
         "superhero"
       ],
-      "comprehensive_score": 76.7452
+      "comprehensive_score": 76.7636
     },
     {
       "movieId": 1265,
@@ -2227,6 +2204,29 @@
       "tag_count": 0,
       "tags": [],
       "comprehensive_score": 76.6417
+    },
+    {
+      "movieId": 109487,
+      "title": "Interstellar (2014)",
+      "genres": [
+        "Sci-Fi",
+        "IMAX"
+      ],
+      "genres_text": "Sci-Fi|IMAX",
+      "avg_rating": 3.9932,
+      "rating_count": 73,
+      "tag_count": 8,
+      "tags": [
+        "Christopher Nolan",
+        "bad dialogue",
+        "black hole",
+        "philosophical issues",
+        "sci-fi",
+        "thought-provoking",
+        "time-travel",
+        "visually appealing"
+      ],
+      "comprehensive_score": 76.5885
     },
     {
       "movieId": 74458,
@@ -2249,7 +2249,7 @@
         "psychological",
         "thought-provoking"
       ],
-      "comprehensive_score": 76.5017
+      "comprehensive_score": 76.5191
     },
     {
       "movieId": 6818,
@@ -2269,7 +2269,7 @@
         "gritty",
         "harsh"
       ],
-      "comprehensive_score": 76.4577
+      "comprehensive_score": 76.4727
     },
     {
       "movieId": 57669,
@@ -2294,7 +2294,7 @@
         "irreverent",
         "stylized"
       ],
-      "comprehensive_score": 76.4438
+      "comprehensive_score": 76.4622
     },
     {
       "movieId": 1247,
@@ -2311,7 +2311,7 @@
       "tags": [
         "Simon and Garfunkel"
       ],
-      "comprehensive_score": 76.4431
+      "comprehensive_score": 76.4489
     },
     {
       "movieId": 1104,
@@ -2326,7 +2326,7 @@
       "tags": [
         "Tennessee Williams"
       ],
-      "comprehensive_score": 76.441
+      "comprehensive_score": 76.4468
     },
     {
       "movieId": 922,
@@ -2345,20 +2345,7 @@
         "movie business",
         "movies"
       ],
-      "comprehensive_score": 76.3638
-    },
-    {
-      "movieId": 6460,
-      "title": "Trial, The (Procès, Le) (1962)",
-      "genres": [
-        "Drama"
-      ],
-      "genres_text": "Drama",
-      "avg_rating": 4.9,
-      "rating_count": 5,
-      "tag_count": 0,
-      "tags": [],
-      "comprehensive_score": 76.3243
+      "comprehensive_score": 76.3754
     },
     {
       "movieId": 1207,
@@ -2374,7 +2361,20 @@
         "Harper Lee",
         "racism"
       ],
-      "comprehensive_score": 76.3235
+      "comprehensive_score": 76.3327
+    },
+    {
+      "movieId": 6460,
+      "title": "Trial, The (Procès, Le) (1962)",
+      "genres": [
+        "Drama"
+      ],
+      "genres_text": "Drama",
+      "avg_rating": 4.9,
+      "rating_count": 5,
+      "tag_count": 0,
+      "tags": [],
+      "comprehensive_score": 76.3243
     },
     {
       "movieId": 588,
@@ -2393,7 +2393,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 76.2406
+      "comprehensive_score": 76.2464
     }
   ],
   "movies": [
@@ -2421,7 +2421,7 @@
         "stupid is as stupid does",
         "touching"
       ],
-      "comprehensive_score": 85.5102
+      "comprehensive_score": 85.5295
     },
     {
       "movieId": 318,
@@ -2440,7 +2440,7 @@
         "prison",
         "wrongful imprisonment"
       ],
-      "comprehensive_score": 88.393
+      "comprehensive_score": 88.4064
     },
     {
       "movieId": 296,
@@ -2454,7 +2454,7 @@
       "genres_text": "Comedy|Crime|Drama|Thriller",
       "avg_rating": 4.1971,
       "rating_count": 307,
-      "tag_count": 181,
+      "tag_count": 173,
       "tags": [
         "1990s",
         "AWESOME",
@@ -2652,7 +2652,7 @@
         "psychology",
         "suspense"
       ],
-      "comprehensive_score": 84.4194
+      "comprehensive_score": 84.4357
     },
     {
       "movieId": 2571,
@@ -2673,7 +2673,7 @@
         "post apocalyptic",
         "sci-fi"
       ],
-      "comprehensive_score": 84.692
+      "comprehensive_score": 84.707
     },
     {
       "movieId": 260,
@@ -2686,7 +2686,7 @@
       "genres_text": "Action|Adventure|Sci-Fi",
       "avg_rating": 4.2311,
       "rating_count": 251,
-      "tag_count": 26,
+      "tag_count": 18,
       "tags": [
         "EPIC",
         "Nerd",
@@ -2707,7 +2707,7 @@
         "space epic",
         "space opera"
       ],
-      "comprehensive_score": 86.2392
+      "comprehensive_score": 85.9262
     },
     {
       "movieId": 480,
@@ -2725,7 +2725,7 @@
       "tags": [
         "Dinosaur"
       ],
-      "comprehensive_score": 76.7751
+      "comprehensive_score": 76.7809
     },
     {
       "movieId": 110,
@@ -2751,7 +2751,7 @@
         "revenge",
         "sword fight"
       ],
-      "comprehensive_score": 82.338
+      "comprehensive_score": 82.3581
     },
     {
       "movieId": 589,
@@ -2774,7 +2774,7 @@
         "sci-fi",
         "time travel"
       ],
-      "comprehensive_score": 81.0538
+      "comprehensive_score": 81.0721
     },
     {
       "movieId": 527,
@@ -2796,7 +2796,7 @@
         "moving",
         "thought-provoking"
       ],
-      "comprehensive_score": 84.4195
+      "comprehensive_score": 84.4369
     },
     {
       "movieId": 2959,
@@ -2810,7 +2810,7 @@
       "genres_text": "Action|Crime|Drama|Thriller",
       "avg_rating": 4.2729,
       "rating_count": 218,
-      "tag_count": 54,
+      "tag_count": 48,
       "tags": [
         "Brad Pitt",
         "Chuck Palahniuk",
@@ -2861,7 +2861,7 @@
         "violence",
         "violent"
       ],
-      "comprehensive_score": 86.9037
+      "comprehensive_score": 86.8253
     },
     {
       "movieId": 1,
@@ -2876,12 +2876,12 @@
       "genres_text": "Adventure|Animation|Children|Comedy|Fantasy",
       "avg_rating": 3.9209,
       "rating_count": 215,
-      "tag_count": 3,
+      "tag_count": 2,
       "tags": [
         "fun",
         "pixar"
       ],
-      "comprehensive_score": 79.3979
+      "comprehensive_score": 79.1307
     },
     {
       "movieId": 1196,
@@ -2907,7 +2907,7 @@
         "space",
         "space opera"
       ],
-      "comprehensive_score": 84.4152
+      "comprehensive_score": 84.4353
     },
     {
       "movieId": 50,
@@ -2929,7 +2929,7 @@
         "tricky",
         "twist ending"
       ],
-      "comprehensive_score": 84.1457
+      "comprehensive_score": 84.1619
     },
     {
       "movieId": 2858,
@@ -2961,7 +2961,7 @@
         "serial killer",
         "twist ending"
       ],
-      "comprehensive_score": 79.9136
+      "comprehensive_score": 79.9252
     },
     {
       "movieId": 780,
@@ -2979,7 +2979,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 71.8089
+      "comprehensive_score": 71.8147
     },
     {
       "movieId": 150,
@@ -2998,7 +2998,7 @@
         "moon",
         "space"
       ],
-      "comprehensive_score": 78.0568
+      "comprehensive_score": 78.0684
     },
     {
       "movieId": 1198,
@@ -3010,7 +3010,7 @@
       "genres_text": "Action|Adventure",
       "avg_rating": 4.2075,
       "rating_count": 200,
-      "tag_count": 8,
+      "tag_count": 6,
       "tags": [
         "Steven Spielberg",
         "adventure",
@@ -3019,7 +3019,7 @@
         "indiana jones",
         "treasure hunt"
       ],
-      "comprehensive_score": 83.8787
+      "comprehensive_score": 83.6536
     },
     {
       "movieId": 4993,
@@ -3041,7 +3041,7 @@
         "tolkien",
         "wizards"
       ],
-      "comprehensive_score": 82.3023
+      "comprehensive_score": 82.3197
     },
     {
       "movieId": 1210,
@@ -3060,7 +3060,7 @@
         "luke skywalker",
         "space opera"
       ],
-      "comprehensive_score": 82.0365
+      "comprehensive_score": 82.0481
     },
     {
       "movieId": 858,
@@ -3076,7 +3076,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 83.4004
+      "comprehensive_score": 83.4062
     },
     {
       "movieId": 457,
@@ -3091,7 +3091,7 @@
       "tags": [
         "based on a TV show"
       ],
-      "comprehensive_score": 79.1981
+      "comprehensive_score": 79.2039
     },
     {
       "movieId": 592,
@@ -3108,7 +3108,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 71.286
+      "comprehensive_score": 71.2918
     },
     {
       "movieId": 2028,
@@ -3125,7 +3125,7 @@
       "tags": [
         "World War II"
       ],
-      "comprehensive_score": 81.3111
+      "comprehensive_score": 81.3169
     },
     {
       "movieId": 5952,
@@ -3142,7 +3142,7 @@
         "Myth",
         "Tolkein"
       ],
-      "comprehensive_score": 79.9507
+      "comprehensive_score": 79.9599
     },
     {
       "movieId": 7153,
@@ -3169,7 +3169,7 @@
         "scenic",
         "stylized"
       ],
-      "comprehensive_score": 82.4971
+      "comprehensive_score": 82.5171
     },
     {
       "movieId": 588,
@@ -3188,7 +3188,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 76.2406
+      "comprehensive_score": 76.2464
     },
     {
       "movieId": 608,
@@ -3210,7 +3210,7 @@
         "based on a true story",
         "dark comedy"
       ],
-      "comprehensive_score": 81.7804
+      "comprehensive_score": 81.7954
     },
     {
       "movieId": 2762,
@@ -3223,7 +3223,7 @@
       "genres_text": "Drama|Horror|Mystery",
       "avg_rating": 3.8939,
       "rating_count": 179,
-      "tag_count": 9,
+      "tag_count": 8,
       "tags": [
         "Atmospheric",
         "Bruce Willis",
@@ -3234,7 +3234,7 @@
         "stylized",
         "twist ending"
       ],
-      "comprehensive_score": 79.1132
+      "comprehensive_score": 79.0304
     },
     {
       "movieId": 380,
@@ -3253,7 +3253,7 @@
       "tags": [
         "spies"
       ],
-      "comprehensive_score": 71.9896
+      "comprehensive_score": 71.9954
     },
     {
       "movieId": 32,
@@ -3266,7 +3266,7 @@
       "genres_text": "Mystery|Sci-Fi|Thriller",
       "avg_rating": 3.9831,
       "rating_count": 177,
-      "tag_count": 10,
+      "tag_count": 8,
       "tags": [
         "Brad Pitt",
         "Bruce Willis",
@@ -3277,7 +3277,7 @@
         "time travel",
         "twist ending"
       ],
-      "comprehensive_score": 80.4054
+      "comprehensive_score": 80.231
     },
     {
       "movieId": 364,
@@ -3293,14 +3293,14 @@
       "genres_text": "Adventure|Animation|Children|Drama|Musical|IMAX",
       "avg_rating": 3.9419,
       "rating_count": 172,
-      "tag_count": 5,
+      "tag_count": 4,
       "tags": [
         "Disney",
         "Disney animated feature",
         "Oscar (Best Music - Original Score)",
         "soundtrack"
       ],
-      "comprehensive_score": 79.1235
+      "comprehensive_score": 78.9618
     },
     {
       "movieId": 377,
@@ -3317,7 +3317,7 @@
       "tags": [
         "bus"
       ],
-      "comprehensive_score": 72.2663
+      "comprehensive_score": 72.2721
     },
     {
       "movieId": 1270,
@@ -3334,7 +3334,7 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 79.3891
+      "comprehensive_score": 79.3949
     },
     {
       "movieId": 3578,
@@ -3358,7 +3358,7 @@
         "imdb top 250",
         "revenge"
       ],
-      "comprehensive_score": 79.4122
+      "comprehensive_score": 79.4306
     },
     {
       "movieId": 4306,
@@ -3378,7 +3378,7 @@
       "tags": [
         "fairy tales"
       ],
-      "comprehensive_score": 76.9788
+      "comprehensive_score": 76.9846
     },
     {
       "movieId": 1580,
@@ -3395,7 +3395,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 71.5342
+      "comprehensive_score": 71.54
     },
     {
       "movieId": 590,
@@ -3413,7 +3413,7 @@
         "American Indians",
         "Native Americans"
       ],
-      "comprehensive_score": 76.7625
+      "comprehensive_score": 76.7717
     },
     {
       "movieId": 648,
@@ -3431,7 +3431,7 @@
       "tags": [
         "based on a TV show"
       ],
-      "comprehensive_score": 72.1437
+      "comprehensive_score": 72.1496
     },
     {
       "movieId": 344,
@@ -3456,7 +3456,7 @@
       "genres_text": "Mystery|Thriller",
       "avg_rating": 4.1226,
       "rating_count": 159,
-      "tag_count": 13,
+      "tag_count": 10,
       "tags": [
         "Backwards. memory",
         "Mindfuck",
@@ -3469,7 +3469,7 @@
         "psychology",
         "twist ending"
       ],
-      "comprehensive_score": 82.1318
+      "comprehensive_score": 81.9201
     },
     {
       "movieId": 367,
@@ -3503,7 +3503,7 @@
       "tags": [
         "swashbuckler"
       ],
-      "comprehensive_score": 75.1662
+      "comprehensive_score": 75.1721
     },
     {
       "movieId": 58559,
@@ -3524,7 +3524,7 @@
         "psychology",
         "superhero"
       ],
-      "comprehensive_score": 82.4829
+      "comprehensive_score": 82.4963
     },
     {
       "movieId": 595,
@@ -3544,7 +3544,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 74.9675
+      "comprehensive_score": 74.9733
     },
     {
       "movieId": 1214,
@@ -3560,7 +3560,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 77.7483
+      "comprehensive_score": 77.7541
     },
     {
       "movieId": 1036,
@@ -3608,7 +3608,7 @@
         "divorce",
         "men in drag"
       ],
-      "comprehensive_score": 70.2312
+      "comprehensive_score": 70.2428
     },
     {
       "movieId": 1265,
@@ -3640,7 +3640,7 @@
       "genres_text": "Action|Crime|Drama|Mystery|Sci-Fi|Thriller|IMAX",
       "avg_rating": 4.0664,
       "rating_count": 143,
-      "tag_count": 26,
+      "tag_count": 21,
       "tags": [
         "Leonardo DiCaprio",
         "action",
@@ -3664,7 +3664,7 @@
         "thought-provoking",
         "visually appealing"
       ],
-      "comprehensive_score": 81.5217
+      "comprehensive_score": 81.3508
     },
     {
       "movieId": 1197,
@@ -3684,7 +3684,7 @@
         "Inigo Montoya",
         "six-fingered man"
       ],
-      "comprehensive_score": 81.704
+      "comprehensive_score": 81.7132
     },
     {
       "movieId": 1704,
@@ -3696,12 +3696,12 @@
       "genres_text": "Drama|Romance",
       "avg_rating": 4.078,
       "rating_count": 141,
-      "tag_count": 3,
+      "tag_count": 2,
       "tags": [
         "heartwarming",
         "inspirational"
       ],
-      "comprehensive_score": 79.7888
+      "comprehensive_score": 79.5216
     },
     {
       "movieId": 6377,
@@ -3721,7 +3721,7 @@
         "fish",
         "heartwarming"
       ],
-      "comprehensive_score": 78.1505
+      "comprehensive_score": 78.1621
     },
     {
       "movieId": 316,
@@ -3738,7 +3738,7 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 69.2502
+      "comprehensive_score": 69.256
     },
     {
       "movieId": 1291,
@@ -3755,7 +3755,7 @@
         "Holy Grail",
         "archaeology"
       ],
-      "comprehensive_score": 79.0397
+      "comprehensive_score": 79.0489
     },
     {
       "movieId": 1721,
@@ -3772,7 +3772,7 @@
         "romance",
         "shipwreck"
       ],
-      "comprehensive_score": 70.1897
+      "comprehensive_score": 70.1989
     },
     {
       "movieId": 2628,
@@ -3790,7 +3790,7 @@
         "prequel",
         "the Force"
       ],
-      "comprehensive_score": 65.8897
+      "comprehensive_score": 65.8989
     },
     {
       "movieId": 153,
@@ -3804,11 +3804,11 @@
       "genres_text": "Action|Adventure|Comedy|Crime",
       "avg_rating": 2.9161,
       "rating_count": 137,
-      "tag_count": 2,
+      "tag_count": 1,
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 63.1218
+      "comprehensive_score": 62.7381
     },
     {
       "movieId": 1136,
@@ -3828,7 +3828,7 @@
         "Monty Python",
         "british comedy"
       ],
-      "comprehensive_score": 81.0212
+      "comprehensive_score": 81.0347
     },
     {
       "movieId": 597,
@@ -3844,7 +3844,7 @@
       "tags": [
         "prostitution"
       ],
-      "comprehensive_score": 70.6371
+      "comprehensive_score": 70.6429
     },
     {
       "movieId": 231,
@@ -3872,7 +3872,7 @@
       "genres_text": "Action|Crime|Drama|Thriller",
       "avg_rating": 4.0188,
       "rating_count": 133,
-      "tag_count": 35,
+      "tag_count": 32,
       "tags": [
         "Action",
         "French",
@@ -3907,7 +3907,7 @@
         "touching",
         "unique"
       ],
-      "comprehensive_score": 80.8209
+      "comprehensive_score": 80.7665
     },
     {
       "movieId": 1193,
@@ -3924,7 +3924,7 @@
         "jack nicholson",
         "mental illness"
       ],
-      "comprehensive_score": 81.2887
+      "comprehensive_score": 81.3003
     },
     {
       "movieId": 3793,
@@ -3937,7 +3937,7 @@
       "genres_text": "Action|Adventure|Sci-Fi",
       "avg_rating": 3.6992,
       "rating_count": 133,
-      "tag_count": 6,
+      "tag_count": 5,
       "tags": [
         "action",
         "comic book",
@@ -3945,7 +3945,7 @@
         "marvel",
         "superhero"
       ],
-      "comprehensive_score": 74.7738
+      "comprehensive_score": 74.6407
     },
     {
       "movieId": 10,
@@ -3990,7 +3990,7 @@
       "genres_text": "Crime|Mystery|Thriller",
       "avg_rating": 4.2023,
       "rating_count": 131,
-      "tag_count": 11,
+      "tag_count": 10,
       "tags": [
         "Quentin Tarantino",
         "Tarantino",
@@ -4003,7 +4003,7 @@
         "stylized",
         "violence"
       ],
-      "comprehensive_score": 82.2694
+      "comprehensive_score": 82.2059
     },
     {
       "movieId": 1240,
@@ -4016,7 +4016,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 3.8969,
       "rating_count": 131,
-      "tag_count": 8,
+      "tag_count": 7,
       "tags": [
         "Action",
         "Sci-Fi",
@@ -4026,7 +4026,7 @@
         "tense",
         "time travel"
       ],
-      "comprehensive_score": 77.7182
+      "comprehensive_score": 77.6224
     },
     {
       "movieId": 6874,
@@ -4044,7 +4044,7 @@
         "martial arts",
         "revenge"
       ],
-      "comprehensive_score": 77.571
+      "comprehensive_score": 77.5802
     },
     {
       "movieId": 7361,
@@ -4057,7 +4057,7 @@
       "genres_text": "Drama|Romance|Sci-Fi",
       "avg_rating": 4.1603,
       "rating_count": 131,
-      "tag_count": 34,
+      "tag_count": 31,
       "tags": [
         "Jim Carrey",
         "alternate reality",
@@ -4091,7 +4091,7 @@
         "surrealism",
         "thought-provoking"
       ],
-      "comprehensive_score": 82.7101
+      "comprehensive_score": 82.653
     },
     {
       "movieId": 1221,
@@ -4103,12 +4103,12 @@
       "genres_text": "Crime|Drama",
       "avg_rating": 4.2597,
       "rating_count": 129,
-      "tag_count": 3,
+      "tag_count": 2,
       "tags": [
         "Al Pacino",
         "Mafia"
       ],
-      "comprehensive_score": 81.9516
+      "comprehensive_score": 81.6844
     },
     {
       "movieId": 2329,
@@ -4128,7 +4128,7 @@
         "racism",
         "thought-provoking"
       ],
-      "comprehensive_score": 81.7443
+      "comprehensive_score": 81.7593
     },
     {
       "movieId": 34,
@@ -4146,7 +4146,7 @@
         "pigs",
         "villain nonexistent or not needed for good story"
       ],
-      "comprehensive_score": 73.4155
+      "comprehensive_score": 73.4271
     },
     {
       "movieId": 1200,
@@ -4160,7 +4160,7 @@
       "genres_text": "Action|Adventure|Horror|Sci-Fi",
       "avg_rating": 3.9643,
       "rating_count": 126,
-      "tag_count": 9,
+      "tag_count": 8,
       "tags": [
         "SPACE TRAVEL",
         "action",
@@ -4171,7 +4171,7 @@
         "space craft",
         "suspense"
       ],
-      "comprehensive_score": 78.5957
+      "comprehensive_score": 78.5129
     },
     {
       "movieId": 1213,
@@ -4187,7 +4187,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 81.0494
+      "comprehensive_score": 81.0552
     },
     {
       "movieId": 1682,
@@ -4204,7 +4204,7 @@
       "tags": [
         "TV"
       ],
-      "comprehensive_score": 74.8833
+      "comprehensive_score": 74.8891
     },
     {
       "movieId": 8961,
@@ -4226,7 +4226,7 @@
         "animation",
         "superhero"
       ],
-      "comprehensive_score": 76.0996
+      "comprehensive_score": 76.1131
     },
     {
       "movieId": 541,
@@ -4239,7 +4239,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 4.1008,
       "rating_count": 124,
-      "tag_count": 13,
+      "tag_count": 12,
       "tags": [
         "Philip K. Dick",
         "androids",
@@ -4254,7 +4254,7 @@
         "robots",
         "sci-fi"
       ],
-      "comprehensive_score": 80.7618
+      "comprehensive_score": 80.7121
     },
     {
       "movieId": 736,
@@ -4272,7 +4272,7 @@
       "tags": [
         "Disaster"
       ],
-      "comprehensive_score": 67.9422
+      "comprehensive_score": 67.948
     },
     {
       "movieId": 4995,
@@ -4288,7 +4288,7 @@
       "tags": [
         "mathematics"
       ],
-      "comprehensive_score": 77.4463
+      "comprehensive_score": 77.4521
     },
     {
       "movieId": 1097,
@@ -4305,7 +4305,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 74.1409
+      "comprehensive_score": 74.1467
     },
     {
       "movieId": 5349,
@@ -4323,7 +4323,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 70.9852
+      "comprehensive_score": 70.991
     },
     {
       "movieId": 733,
@@ -4342,7 +4342,7 @@
         "Michael Bay",
         "terrorism"
       ],
-      "comprehensive_score": 73.0091
+      "comprehensive_score": 73.0207
     },
     {
       "movieId": 2683,
@@ -4375,7 +4375,7 @@
       "tags": [
         "brainwashing"
       ],
-      "comprehensive_score": 77.2824
+      "comprehensive_score": 77.2882
     },
     {
       "movieId": 2716,
@@ -4392,7 +4392,7 @@
       "tags": [
         "ghosts"
       ],
-      "comprehensive_score": 74.1907
+      "comprehensive_score": 74.1965
     },
     {
       "movieId": 4973,
@@ -4408,7 +4408,7 @@
       "tags": [
         "whimsical"
       ],
-      "comprehensive_score": 79.9074
+      "comprehensive_score": 79.9132
     },
     {
       "movieId": 5445,
@@ -4427,7 +4427,7 @@
       "tags": [
         "future"
       ],
-      "comprehensive_score": 72.2657
+      "comprehensive_score": 72.2715
     },
     {
       "movieId": 1073,
@@ -4459,7 +4459,7 @@
       "tags": [
         "heist"
       ],
-      "comprehensive_score": 75.1285
+      "comprehensive_score": 75.1343
     },
     {
       "movieId": 586,
@@ -4475,7 +4475,7 @@
       "tags": [
         "christmas"
       ],
-      "comprehensive_score": 63.1355
+      "comprehensive_score": 63.1413
     },
     {
       "movieId": 1527,
@@ -4540,7 +4540,7 @@
       "tags": [
         "overrated"
       ],
-      "comprehensive_score": 69.2457
+      "comprehensive_score": 69.2516
     },
     {
       "movieId": 5989,
@@ -4563,7 +4563,7 @@
         "smart",
         "twists & turns"
       ],
-      "comprehensive_score": 77.5083
+      "comprehensive_score": 77.5267
     },
     {
       "movieId": 1968,
@@ -4594,7 +4594,7 @@
       "tags": [
         "computers"
       ],
-      "comprehensive_score": 63.6083
+      "comprehensive_score": 63.6141
     },
     {
       "movieId": 5418,
@@ -4625,7 +4625,7 @@
       "tags": [
         "Stephen King"
       ],
-      "comprehensive_score": 79.0886
+      "comprehensive_score": 79.0944
     },
     {
       "movieId": 2,
@@ -4645,7 +4645,7 @@
         "game",
         "magic board game"
       ],
-      "comprehensive_score": 69.8947
+      "comprehensive_score": 69.9081
     },
     {
       "movieId": 349,
@@ -4663,7 +4663,7 @@
       "tags": [
         "Tom Clancy"
       ],
-      "comprehensive_score": 71.4325
+      "comprehensive_score": 71.4383
     },
     {
       "movieId": 3996,
@@ -4681,7 +4681,7 @@
         "china",
         "martial arts"
       ],
-      "comprehensive_score": 75.0675
+      "comprehensive_score": 75.0767
     },
     {
       "movieId": 7438,
@@ -4698,7 +4698,7 @@
       "tags": [
         "revenge"
       ],
-      "comprehensive_score": 75.1234
+      "comprehensive_score": 75.1292
     },
     {
       "movieId": 253,
@@ -4725,7 +4725,7 @@
       "genres_text": "Adventure|Drama|Sci-Fi",
       "avg_rating": 3.8945,
       "rating_count": 109,
-      "tag_count": 41,
+      "tag_count": 40,
       "tags": [
         "Arthur C. Clarke",
         "Dull",
@@ -4768,7 +4768,7 @@
         "visual",
         "visually appealing"
       ],
-      "comprehensive_score": 78.3779
+      "comprehensive_score": 78.3859
     },
     {
       "movieId": 1258,
@@ -4791,7 +4791,7 @@
         "psychological",
         "suspense"
       ],
-      "comprehensive_score": 79.6321
+      "comprehensive_score": 79.6514
     },
     {
       "movieId": 2918,
@@ -4806,7 +4806,7 @@
       "tags": [
         "High School"
       ],
-      "comprehensive_score": 74.6821
+      "comprehensive_score": 74.6879
     },
     {
       "movieId": 4878,
@@ -4820,7 +4820,7 @@
       "genres_text": "Drama|Mystery|Sci-Fi|Thriller",
       "avg_rating": 3.9817,
       "rating_count": 109,
-      "tag_count": 29,
+      "tag_count": 19,
       "tags": [
         "atmospheric",
         "cerebral",
@@ -4842,7 +4842,7 @@
         "time travel",
         "weird"
       ],
-      "comprehensive_score": 79.2748
+      "comprehensive_score": 78.9104
     },
     {
       "movieId": 329,
@@ -4859,7 +4859,7 @@
       "tags": [
         "Enterprise"
       ],
-      "comprehensive_score": 68.3997
+      "comprehensive_score": 68.4055
     },
     {
       "movieId": 2115,
@@ -4876,7 +4876,7 @@
       "tags": [
         "archaeology"
       ],
-      "comprehensive_score": 71.8349
+      "comprehensive_score": 71.8407
     },
     {
       "movieId": 1208,
@@ -4893,7 +4893,7 @@
       "tags": [
         "Vietnam"
       ],
-      "comprehensive_score": 79.9255
+      "comprehensive_score": 79.9313
     },
     {
       "movieId": 4896,
@@ -4906,7 +4906,7 @@
       "genres_text": "Adventure|Children|Fantasy",
       "avg_rating": 3.7617,
       "rating_count": 107,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
         "Everything you want is here",
         "Magic",
@@ -4915,7 +4915,7 @@
         "harry potter",
         "humorous"
       ],
-      "comprehensive_score": 74.8462
+      "comprehensive_score": 74.7342
     },
     {
       "movieId": 48516,
@@ -4928,7 +4928,7 @@
       "genres_text": "Crime|Drama|Thriller",
       "avg_rating": 4.2523,
       "rating_count": 107,
-      "tag_count": 10,
+      "tag_count": 8,
       "tags": [
         "Jack Nicholson",
         "Leonardo DiCaprio",
@@ -4939,7 +4939,7 @@
         "undercover cop",
         "way too long"
       ],
-      "comprehensive_score": 82.0214
+      "comprehensive_score": 81.847
     },
     {
       "movieId": 539,
@@ -4956,7 +4956,7 @@
       "tags": [
         "Empire State Building"
       ],
-      "comprehensive_score": 69.4144
+      "comprehensive_score": 69.4202
     },
     {
       "movieId": 1732,
@@ -5003,7 +5003,7 @@
         "satirical",
         "violence"
       ],
-      "comprehensive_score": 78.4475
+      "comprehensive_score": 78.4768
     },
     {
       "movieId": 1923,
@@ -5015,13 +5015,13 @@
       "genres_text": "Comedy|Romance",
       "avg_rating": 3.6762,
       "rating_count": 105,
-      "tag_count": 4,
+      "tag_count": 3,
       "tags": [
         "Ben Stiller",
         "crude humor",
         "goofy"
       ],
-      "comprehensive_score": 73.1172
+      "comprehensive_score": 72.9144
     },
     {
       "movieId": 68954,
@@ -5051,7 +5051,7 @@
         "heartbreaking",
         "touching"
       ],
-      "comprehensive_score": 78.7064
+      "comprehensive_score": 78.7285
     },
     {
       "movieId": 39,
@@ -5073,7 +5073,7 @@
         "quotable",
         "seen more than once"
       ],
-      "comprehensive_score": 68.167
+      "comprehensive_score": 68.1844
     },
     {
       "movieId": 111,
@@ -5090,7 +5090,7 @@
       "tags": [
         "assassination"
       ],
-      "comprehensive_score": 78.2101
+      "comprehensive_score": 78.2159
     },
     {
       "movieId": 223,
@@ -5110,7 +5110,7 @@
         "quirky",
         "witty"
       ],
-      "comprehensive_score": 75.9137
+      "comprehensive_score": 75.93
     },
     {
       "movieId": 60069,
@@ -5132,7 +5132,7 @@
         "love story",
         "social commentary"
       ],
-      "comprehensive_score": 78.4173
+      "comprehensive_score": 78.4308
     },
     {
       "movieId": 161,
@@ -5149,7 +5149,7 @@
       "tags": [
         "submarine"
       ],
-      "comprehensive_score": 71.5909
+      "comprehensive_score": 71.5967
     },
     {
       "movieId": 357,
@@ -5165,7 +5165,7 @@
       "tags": [
         "wedding"
       ],
-      "comprehensive_score": 69.9599
+      "comprehensive_score": 69.9657
     },
     {
       "movieId": 2706,
@@ -5188,7 +5188,7 @@
         "pizza beer",
         "teen"
       ],
-      "comprehensive_score": 69.4341
+      "comprehensive_score": 69.4525
     },
     {
       "movieId": 6,
@@ -5223,7 +5223,7 @@
         "drug abuse",
         "narrated"
       ],
-      "comprehensive_score": 78.0758
+      "comprehensive_score": 78.0892
     },
     {
       "movieId": 1222,
@@ -5240,7 +5240,7 @@
         "Vietnam",
         "anti-war"
       ],
-      "comprehensive_score": 78.4085
+      "comprehensive_score": 78.4177
     },
     {
       "movieId": 5816,
@@ -5257,7 +5257,7 @@
         "Magic",
         "Wizards"
       ],
-      "comprehensive_score": 71.4085
+      "comprehensive_score": 71.4177
     },
     {
       "movieId": 292,
@@ -5304,7 +5304,7 @@
       "tags": [
         "John Grisham"
       ],
-      "comprehensive_score": 70.0895
+      "comprehensive_score": 70.0953
     },
     {
       "movieId": 912,
@@ -5320,7 +5320,7 @@
       "tags": [
         "start of a beautiful friendship"
       ],
-      "comprehensive_score": 79.9218
+      "comprehensive_score": 79.9277
     },
     {
       "movieId": 1517,
@@ -5381,7 +5381,7 @@
         "golf",
         "test tag"
       ],
-      "comprehensive_score": 69.3364
+      "comprehensive_score": 69.348
     },
     {
       "movieId": 2997,
@@ -5412,7 +5412,7 @@
       "tags": [
         "coma"
       ],
-      "comprehensive_score": 69.0471
+      "comprehensive_score": 69.0529
     },
     {
       "movieId": 750,
@@ -5424,7 +5424,7 @@
       "genres_text": "Comedy|War",
       "avg_rating": 4.268,
       "rating_count": 97,
-      "tag_count": 10,
+      "tag_count": 7,
       "tags": [
         "Atomic bomb",
         "Quirky",
@@ -5434,7 +5434,7 @@
         "purity of essence",
         "satire"
       ],
-      "comprehensive_score": 81.8224
+      "comprehensive_score": 81.5338
     },
     {
       "movieId": 1617,
@@ -5452,7 +5452,7 @@
       "tags": [
         "Police"
       ],
-      "comprehensive_score": 77.2978
+      "comprehensive_score": 77.3036
     },
     {
       "movieId": 2987,
@@ -5473,7 +5473,7 @@
       "tags": [
         "live action/animation"
       ],
-      "comprehensive_score": 70.4422
+      "comprehensive_score": 70.448
     },
     {
       "movieId": 3114,
@@ -5488,7 +5488,7 @@
       "genres_text": "Adventure|Animation|Children|Comedy|Fantasy",
       "avg_rating": 3.8608,
       "rating_count": 97,
-      "tag_count": 8,
+      "tag_count": 7,
       "tags": [
         "Disney",
         "Pixar",
@@ -5498,7 +5498,7 @@
         "original",
         "sequel"
       ],
-      "comprehensive_score": 75.9285
+      "comprehensive_score": 75.8328
     },
     {
       "movieId": 72998,
@@ -5512,7 +5512,7 @@
       "genres_text": "Action|Adventure|Sci-Fi|IMAX",
       "avg_rating": 3.6031,
       "rating_count": 97,
-      "tag_count": 18,
+      "tag_count": 17,
       "tags": [
         "James Cameron",
         "bad science",
@@ -5532,7 +5532,7 @@
         "visually stunning",
         "white guilt"
       ],
-      "comprehensive_score": 73.0382
+      "comprehensive_score": 73.0104
     },
     {
       "movieId": 1784,
@@ -5562,7 +5562,7 @@
       "tags": [
         "autism"
       ],
-      "comprehensive_score": 73.6897
+      "comprehensive_score": 73.6955
     },
     {
       "movieId": 3949,
@@ -5579,7 +5579,7 @@
         "drug abuse",
         "psychology"
       ],
-      "comprehensive_score": 75.9599
+      "comprehensive_score": 75.9715
     },
     {
       "movieId": 6365,
@@ -5613,7 +5613,7 @@
         "stapler",
         "workplace"
       ],
-      "comprehensive_score": 77.9534
+      "comprehensive_score": 77.9626
     },
     {
       "movieId": 4027,
@@ -5630,7 +5630,7 @@
       "tags": [
         "bluegrass"
       ],
-      "comprehensive_score": 73.617
+      "comprehensive_score": 73.6228
     },
     {
       "movieId": 59315,
@@ -5664,7 +5664,7 @@
         "Christmas",
         "Halloween"
       ],
-      "comprehensive_score": 70.3945
+      "comprehensive_score": 70.4037
     },
     {
       "movieId": 4011,
@@ -5697,7 +5697,7 @@
         "Magic",
         "Wizards"
       ],
-      "comprehensive_score": 75.4375
+      "comprehensive_score": 75.4467
     },
     {
       "movieId": 288,
@@ -5719,7 +5719,7 @@
         "satire",
         "stylized"
       ],
-      "comprehensive_score": 66.6815
+      "comprehensive_score": 66.6978
     },
     {
       "movieId": 919,
@@ -5738,7 +5738,7 @@
         "Dorothy",
         "Toto"
       ],
-      "comprehensive_score": 74.9218
+      "comprehensive_score": 74.931
     },
     {
       "movieId": 1917,
@@ -5756,7 +5756,7 @@
       "tags": [
         "space"
       ],
-      "comprehensive_score": 62.967
+      "comprehensive_score": 62.9728
     },
     {
       "movieId": 2355,
@@ -5774,7 +5774,7 @@
       "tags": [
         "Pixar"
       ],
-      "comprehensive_score": 69.4344
+      "comprehensive_score": 69.4402
     },
     {
       "movieId": 2396,
@@ -5791,7 +5791,7 @@
       "tags": [
         "England"
       ],
-      "comprehensive_score": 73.0865
+      "comprehensive_score": 73.0923
     },
     {
       "movieId": 5378,
@@ -5827,7 +5827,7 @@
       "tags": [
         "ogres"
       ],
-      "comprehensive_score": 70.2713
+      "comprehensive_score": 70.2771
     },
     {
       "movieId": 1259,
@@ -5843,7 +5843,7 @@
       "tags": [
         "Stephen King"
       ],
-      "comprehensive_score": 76.2364
+      "comprehensive_score": 76.2422
     },
     {
       "movieId": 1356,
@@ -5861,7 +5861,7 @@
       "tags": [
         "Borg"
       ],
-      "comprehensive_score": 74.4672
+      "comprehensive_score": 74.473
     },
     {
       "movieId": 1387,
@@ -5877,7 +5877,7 @@
       "tags": [
         "Shark"
       ],
-      "comprehensive_score": 76.2364
+      "comprehensive_score": 76.2422
     },
     {
       "movieId": 2174,
@@ -5909,7 +5909,7 @@
       "tags": [
         "children"
       ],
-      "comprehensive_score": 72.2364
+      "comprehensive_score": 72.2422
     },
     {
       "movieId": 3948,
@@ -5925,7 +5925,7 @@
         "Robert De Niro",
         "comedy"
       ],
-      "comprehensive_score": 68.3952
+      "comprehensive_score": 68.4044
     },
     {
       "movieId": 1610,
@@ -5942,7 +5942,7 @@
       "tags": [
         "Tom Clancy"
       ],
-      "comprehensive_score": 74.3235
+      "comprehensive_score": 74.3293
     },
     {
       "movieId": 48780,
@@ -5962,7 +5962,7 @@
         "enigmatic",
         "ummarti2006"
       ],
-      "comprehensive_score": 76.8561
+      "comprehensive_score": 76.8677
     },
     {
       "movieId": 21,
@@ -5979,7 +5979,7 @@
       "tags": [
         "Hollywood"
       ],
-      "comprehensive_score": 68.9861
+      "comprehensive_score": 68.9919
     },
     {
       "movieId": 1080,
@@ -5996,7 +5996,7 @@
         "parody",
         "religion"
       ],
-      "comprehensive_score": 75.7082
+      "comprehensive_score": 75.7198
     },
     {
       "movieId": 19,
@@ -6050,7 +6050,7 @@
         "tear jerker",
         "tearjerking"
       ],
-      "comprehensive_score": 79.5299
+      "comprehensive_score": 79.5483
     },
     {
       "movieId": 2916,
@@ -6087,7 +6087,7 @@
         "black comedy",
         "satire"
       ],
-      "comprehensive_score": 78.9812
+      "comprehensive_score": 78.9962
     },
     {
       "movieId": 2011,
@@ -6104,7 +6104,7 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 69.0483
+      "comprehensive_score": 69.0541
     },
     {
       "movieId": 2617,
@@ -6138,7 +6138,7 @@
         "aviation",
         "spoof"
       ],
-      "comprehensive_score": 74.3459
+      "comprehensive_score": 74.3551
     },
     {
       "movieId": 5618,
@@ -6155,7 +6155,7 @@
       "tags": [
         "anime"
       ],
-      "comprehensive_score": 78.1403
+      "comprehensive_score": 78.1461
     },
     {
       "movieId": 141,
@@ -6184,7 +6184,7 @@
         "High School",
         "highschool"
       ],
-      "comprehensive_score": 75.7384
+      "comprehensive_score": 75.7476
     },
     {
       "movieId": 1391,
@@ -6218,7 +6218,7 @@
         "intelligent",
         "thought-provoking"
       ],
-      "comprehensive_score": 75.9334
+      "comprehensive_score": 75.945
     },
     {
       "movieId": 1307,
@@ -6234,7 +6234,7 @@
       "tags": [
         "New York"
       ],
-      "comprehensive_score": 73.8923
+      "comprehensive_score": 73.8981
     },
     {
       "movieId": 1393,
@@ -6250,7 +6250,7 @@
       "tags": [
         "sports"
       ],
-      "comprehensive_score": 70.1864
+      "comprehensive_score": 70.1922
     },
     {
       "movieId": 5218,
@@ -6303,7 +6303,7 @@
         "family",
         "gothic"
       ],
-      "comprehensive_score": 64.4386
+      "comprehensive_score": 64.4549
     },
     {
       "movieId": 904,
@@ -6324,7 +6324,7 @@
         "photography",
         "voyeurism"
       ],
-      "comprehensive_score": 80.6886
+      "comprehensive_score": 80.7049
     },
     {
       "movieId": 1220,
@@ -6341,7 +6341,7 @@
       "tags": [
         "Saturday Night Live"
       ],
-      "comprehensive_score": 73.1517
+      "comprehensive_score": 73.1575
     },
     {
       "movieId": 32587,
@@ -6360,7 +6360,7 @@
       "tags": [
         "cult"
       ],
-      "comprehensive_score": 73.8183
+      "comprehensive_score": 73.8241
     },
     {
       "movieId": 1101,
@@ -6377,7 +6377,7 @@
         "Navy",
         "predictable"
       ],
-      "comprehensive_score": 66.3737
+      "comprehensive_score": 66.3829
     },
     {
       "movieId": 1219,
@@ -6389,7 +6389,7 @@
       "genres_text": "Crime|Horror",
       "avg_rating": 4.0361,
       "rating_count": 83,
-      "tag_count": 9,
+      "tag_count": 8,
       "tags": [
         "Alfred Hitchcock",
         "Norman Bates",
@@ -6400,7 +6400,7 @@
         "suspenseful",
         "tense"
       ],
-      "comprehensive_score": 77.8197
+      "comprehensive_score": 77.7368
     },
     {
       "movieId": 3897,
@@ -6411,13 +6411,13 @@
       "genres_text": "Drama",
       "avg_rating": 3.8675,
       "rating_count": 83,
-      "tag_count": 4,
+      "tag_count": 3,
       "tags": [
         "Rolling Stone",
         "journalism",
         "music"
       ],
-      "comprehensive_score": 74.7923
+      "comprehensive_score": 74.5895
     },
     {
       "movieId": 16,
@@ -6433,7 +6433,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 74.6913
+      "comprehensive_score": 74.6971
     },
     {
       "movieId": 788,
@@ -6478,7 +6478,7 @@
       "tags": [
         "TV"
       ],
-      "comprehensive_score": 68.9227
+      "comprehensive_score": 68.9285
     },
     {
       "movieId": 317,
@@ -6495,7 +6495,7 @@
       "tags": [
         "Christmas"
       ],
-      "comprehensive_score": 64.5153
+      "comprehensive_score": 64.5211
     },
     {
       "movieId": 442,
@@ -6529,7 +6529,7 @@
         "bittersweet",
         "visually appealing"
       ],
-      "comprehensive_score": 73.7368
+      "comprehensive_score": 73.7484
     },
     {
       "movieId": 49272,
@@ -6564,7 +6564,7 @@
         "assassin-in-training (scene)",
         "espionage"
       ],
-      "comprehensive_score": 72.3092
+      "comprehensive_score": 72.3227
     },
     {
       "movieId": 62,
@@ -6579,7 +6579,7 @@
       "tags": [
         "music"
       ],
-      "comprehensive_score": 71.498
+      "comprehensive_score": 71.5038
     },
     {
       "movieId": 1676,
@@ -6610,7 +6610,7 @@
       "tags": [
         "freaks"
       ],
-      "comprehensive_score": 71.4105
+      "comprehensive_score": 71.4163
     },
     {
       "movieId": 51662,
@@ -6643,7 +6643,7 @@
       "tags": [
         "Simon and Garfunkel"
       ],
-      "comprehensive_score": 76.4431
+      "comprehensive_score": 76.4489
     },
     {
       "movieId": 3052,
@@ -6664,7 +6664,7 @@
         "religion",
         "satire"
       ],
-      "comprehensive_score": 71.6505
+      "comprehensive_score": 71.6655
     },
     {
       "movieId": 6934,
@@ -6699,7 +6699,7 @@
       "tags": [
         "Doc Ock"
       ],
-      "comprehensive_score": 72.8101
+      "comprehensive_score": 72.8159
     },
     {
       "movieId": 3751,
@@ -6732,7 +6732,7 @@
         "space",
         "space opera"
       ],
-      "comprehensive_score": 67.9051
+      "comprehensive_score": 67.9143
     },
     {
       "movieId": 337,
@@ -6747,7 +6747,7 @@
       "tags": [
         "mental illness"
       ],
-      "comprehensive_score": 72.1751
+      "comprehensive_score": 72.1809
     },
     {
       "movieId": 594,
@@ -6766,7 +6766,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 70.0842
+      "comprehensive_score": 70.09
     },
     {
       "movieId": 1573,
@@ -6784,7 +6784,7 @@
       "tags": [
         "transplants"
       ],
-      "comprehensive_score": 66.6296
+      "comprehensive_score": 66.6355
     },
     {
       "movieId": 1625,
@@ -6797,7 +6797,7 @@
       "genres_text": "Drama|Mystery|Thriller",
       "avg_rating": 3.7013,
       "rating_count": 77,
-      "tag_count": 8,
+      "tag_count": 6,
       "tags": [
         "Mystery",
         "mindfuck",
@@ -6806,7 +6806,7 @@
         "suspense",
         "twist ending"
       ],
-      "comprehensive_score": 72.7111
+      "comprehensive_score": 72.486
     },
     {
       "movieId": 3623,
@@ -6837,7 +6837,7 @@
       "tags": [
         "zombies"
       ],
-      "comprehensive_score": 75.5387
+      "comprehensive_score": 75.5445
     },
     {
       "movieId": 46578,
@@ -6868,7 +6868,7 @@
       "tags": [
         "alcoholism"
       ],
-      "comprehensive_score": 70.1422
+      "comprehensive_score": 70.148
     },
     {
       "movieId": 440,
@@ -6884,7 +6884,7 @@
       "tags": [
         "President"
       ],
-      "comprehensive_score": 69.0369
+      "comprehensive_score": 69.0427
     },
     {
       "movieId": 1225,
@@ -6900,7 +6900,7 @@
         "Mozart",
         "Salieri"
       ],
-      "comprehensive_score": 78.3607
+      "comprehensive_score": 78.3699
     },
     {
       "movieId": 2700,
@@ -6924,7 +6924,7 @@
         "satire",
         "south park"
       ],
-      "comprehensive_score": 74.9031
+      "comprehensive_score": 74.9215
     },
     {
       "movieId": 6333,
@@ -6946,7 +6946,7 @@
         "Wolverine",
         "superhero"
       ],
-      "comprehensive_score": 72.5793
+      "comprehensive_score": 72.5943
     },
     {
       "movieId": 69122,
@@ -6966,7 +6966,7 @@
         "funny",
         "hotel"
       ],
-      "comprehensive_score": 71.2899
+      "comprehensive_score": 71.3049
     },
     {
       "movieId": 91529,
@@ -6991,7 +6991,7 @@
         "political commentary",
         "superhero"
       ],
-      "comprehensive_score": 76.7452
+      "comprehensive_score": 76.7636
     },
     {
       "movieId": 2000,
@@ -7023,7 +7023,7 @@
       "tags": [
         "alternate endings"
       ],
-      "comprehensive_score": 75.3358
+      "comprehensive_score": 75.3417
     },
     {
       "movieId": 3175,
@@ -7040,7 +7040,7 @@
       "tags": [
         "spoof"
       ],
-      "comprehensive_score": 69.4558
+      "comprehensive_score": 69.4617
     },
     {
       "movieId": 3481,
@@ -7058,7 +7058,7 @@
         "Nick Hornby",
         "music"
       ],
-      "comprehensive_score": 71.0588
+      "comprehensive_score": 71.0679
     },
     {
       "movieId": 6016,
@@ -7082,7 +7082,7 @@
         "true story",
         "violence"
       ],
-      "comprehensive_score": 78.5928
+      "comprehensive_score": 78.6091
     },
     {
       "movieId": 8665,
@@ -7127,7 +7127,7 @@
       "tags": [
         "lawyer"
       ],
-      "comprehensive_score": 61.7517
+      "comprehensive_score": 61.7575
     },
     {
       "movieId": 6711,
@@ -7145,7 +7145,7 @@
         "Japan",
         "atmospheric"
       ],
-      "comprehensive_score": 76.1413
+      "comprehensive_score": 76.1505
     },
     {
       "movieId": 35836,
@@ -7164,7 +7164,7 @@
         "hilarious",
         "steve carell"
       ],
-      "comprehensive_score": 69.8213
+      "comprehensive_score": 69.8348
     },
     {
       "movieId": 3994,
@@ -7176,7 +7176,7 @@
       "genres_text": "Drama|Sci-Fi",
       "avg_rating": 3.4795,
       "rating_count": 73,
-      "tag_count": 8,
+      "tag_count": 7,
       "tags": [
         "atmospheric",
         "comics",
@@ -7186,7 +7186,7 @@
         "superhero",
         "unique"
       ],
-      "comprehensive_score": 69.3783
+      "comprehensive_score": 69.2826
     },
     {
       "movieId": 109487,
@@ -7198,7 +7198,7 @@
       "genres_text": "Sci-Fi|IMAX",
       "avg_rating": 3.9932,
       "rating_count": 73,
-      "tag_count": 10,
+      "tag_count": 8,
       "tags": [
         "Christopher Nolan",
         "bad dialogue",
@@ -7209,7 +7209,7 @@
         "time-travel",
         "visually appealing"
       ],
-      "comprehensive_score": 76.7629
+      "comprehensive_score": 76.5885
     },
     {
       "movieId": 1201,
@@ -7226,7 +7226,7 @@
       "tags": [
         "spaghetti western"
       ],
-      "comprehensive_score": 77.2039
+      "comprehensive_score": 77.2097
     },
     {
       "movieId": 3977,
@@ -7268,13 +7268,13 @@
       "genres_text": "Animation|Children|Drama",
       "avg_rating": 3.8681,
       "rating_count": 72,
-      "tag_count": 4,
+      "tag_count": 3,
       "tags": [
         "a clever chef rat",
         "clever",
         "inspirational"
       ],
-      "comprehensive_score": 74.1954
+      "comprehensive_score": 73.9926
     },
     {
       "movieId": 1028,
@@ -7293,7 +7293,7 @@
         "Disney",
         "nanny"
       ],
-      "comprehensive_score": 73.9149
+      "comprehensive_score": 73.9241
     },
     {
       "movieId": 1079,
@@ -7309,7 +7309,7 @@
       "tags": [
         "fish"
       ],
-      "comprehensive_score": 74.0183
+      "comprehensive_score": 74.0241
     },
     {
       "movieId": 6373,
@@ -7328,7 +7328,7 @@
         "classic",
         "religion"
       ],
-      "comprehensive_score": 65.929
+      "comprehensive_score": 65.9382
     },
     {
       "movieId": 40815,
@@ -7347,7 +7347,7 @@
         "Magic",
         "Wizards"
       ],
-      "comprehensive_score": 72.929
+      "comprehensive_score": 72.9382
     },
     {
       "movieId": 63082,
@@ -7375,7 +7375,7 @@
       "genres_text": "Action|Drama|Western",
       "avg_rating": 3.9437,
       "rating_count": 71,
-      "tag_count": 12,
+      "tag_count": 11,
       "tags": [
         "Christoph Waltz",
         "Great performances",
@@ -7389,7 +7389,7 @@
         "good soundtrack",
         "western"
       ],
-      "comprehensive_score": 76.1125
+      "comprehensive_score": 76.0564
     },
     {
       "movieId": 11,
@@ -7407,7 +7407,7 @@
         "politics",
         "president"
       ],
-      "comprehensive_score": 70.832
+      "comprehensive_score": 70.8412
     },
     {
       "movieId": 235,
@@ -7423,7 +7423,7 @@
       "tags": [
         "movie business"
       ],
-      "comprehensive_score": 70.5425
+      "comprehensive_score": 70.5483
     },
     {
       "movieId": 474,
@@ -7439,7 +7439,7 @@
       "tags": [
         "assassination"
       ],
-      "comprehensive_score": 70.7425
+      "comprehensive_score": 70.7483
     },
     {
       "movieId": 1407,
@@ -7458,7 +7458,7 @@
         "slasher",
         "spoof"
       ],
-      "comprehensive_score": 64.232
+      "comprehensive_score": 64.2412
     },
     {
       "movieId": 2985,
@@ -7491,7 +7491,7 @@
         "scandal",
         "true story"
       ],
-      "comprehensive_score": 68.832
+      "comprehensive_score": 68.8412
     },
     {
       "movieId": 4034,
@@ -7509,7 +7509,7 @@
         "based on a TV show",
         "drugs"
       ],
-      "comprehensive_score": 74.032
+      "comprehensive_score": 74.0412
     },
     {
       "movieId": 520,
@@ -7538,7 +7538,7 @@
       "tags": [
         "Rosebud"
       ],
-      "comprehensive_score": 75.59
+      "comprehensive_score": 75.5958
     },
     {
       "movieId": 1278,
@@ -7554,7 +7554,7 @@
       "tags": [
         "spoof"
       ],
-      "comprehensive_score": 74.8799
+      "comprehensive_score": 74.8857
     },
     {
       "movieId": 7147,
@@ -7574,7 +7574,7 @@
         "sentimental",
         "surreal"
       ],
-      "comprehensive_score": 73.5284
+      "comprehensive_score": 73.5418
     },
     {
       "movieId": 89745,
@@ -7598,7 +7598,7 @@
         "superhero team",
         "visually appealing"
       ],
-      "comprehensive_score": 74.4872
+      "comprehensive_score": 74.5046
     },
     {
       "movieId": 48,
@@ -7663,7 +7663,7 @@
       "tags": [
         "high school"
       ],
-      "comprehensive_score": 62.8752
+      "comprehensive_score": 62.881
     },
     {
       "movieId": 2054,
@@ -7682,7 +7682,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 57.5222
+      "comprehensive_score": 57.528
     },
     {
       "movieId": 3753,
@@ -7713,7 +7713,7 @@
       "tags": [
         "new york"
       ],
-      "comprehensive_score": 70.4928
+      "comprehensive_score": 70.4986
     },
     {
       "movieId": 17,
@@ -7729,7 +7729,7 @@
       "tags": [
         "Jane Austen"
       ],
-      "comprehensive_score": 71.722
+      "comprehensive_score": 71.7278
     },
     {
       "movieId": 36,
@@ -7746,7 +7746,7 @@
         "Nun",
         "death penalty"
       ],
-      "comprehensive_score": 72.9474
+      "comprehensive_score": 72.9566
     },
     {
       "movieId": 1544,
@@ -7764,7 +7764,7 @@
       "tags": [
         "dinosaurs"
       ],
-      "comprehensive_score": 57.4086
+      "comprehensive_score": 57.4144
     },
     {
       "movieId": 2081,
@@ -7827,7 +7827,7 @@
       "tags": [
         "Al Pacino"
       ],
-      "comprehensive_score": 73.9161
+      "comprehensive_score": 73.9219
     },
     {
       "movieId": 74458,
@@ -7850,7 +7850,7 @@
         "psychological",
         "thought-provoking"
       ],
-      "comprehensive_score": 76.5017
+      "comprehensive_score": 76.5191
     },
     {
       "movieId": 163,
@@ -7880,7 +7880,7 @@
       "tags": [
         "AIDs"
       ],
-      "comprehensive_score": 69.3834
+      "comprehensive_score": 69.3892
     },
     {
       "movieId": 1288,
@@ -7891,13 +7891,13 @@
       "genres_text": "Comedy",
       "avg_rating": 4.0152,
       "rating_count": 66,
-      "tag_count": 4,
+      "tag_count": 3,
       "tags": [
         "heavy metal",
         "mockumentary",
         "music"
       ],
-      "comprehensive_score": 75.885
+      "comprehensive_score": 75.6822
     },
     {
       "movieId": 6863,
@@ -7913,7 +7913,7 @@
       "tags": [
         "school"
       ],
-      "comprehensive_score": 66.4137
+      "comprehensive_score": 66.4195
     },
     {
       "movieId": 553,
@@ -7975,7 +7975,7 @@
         "Capone",
         "gangsters"
       ],
-      "comprehensive_score": 74.2557
+      "comprehensive_score": 74.2649
     },
     {
       "movieId": 4246,
@@ -7992,7 +7992,7 @@
       "tags": [
         "singletons"
       ],
-      "comprehensive_score": 69.4507
+      "comprehensive_score": 69.4565
     },
     {
       "movieId": 5481,
@@ -8039,7 +8039,7 @@
         "teenage pregnancy",
         "witty"
       ],
-      "comprehensive_score": 72.5524
+      "comprehensive_score": 72.5674
     },
     {
       "movieId": 70286,
@@ -8056,7 +8056,7 @@
       "tags": [
         "intelligent sci-fi"
       ],
-      "comprehensive_score": 71.6046
+      "comprehensive_score": 71.6104
     },
     {
       "movieId": 353,
@@ -8103,7 +8103,7 @@
       "tags": [
         "Rogers and Hammerstein"
       ],
-      "comprehensive_score": 73.7868
+      "comprehensive_score": 73.7926
     },
     {
       "movieId": 1234,
@@ -8119,7 +8119,7 @@
       "tags": [
         "The Entertainer"
       ],
-      "comprehensive_score": 74.3337
+      "comprehensive_score": 74.3395
     },
     {
       "movieId": 1954,
@@ -8135,7 +8135,7 @@
         "boxing",
         "sports"
       ],
-      "comprehensive_score": 72.6452
+      "comprehensive_score": 72.6544
     },
     {
       "movieId": 2710,
@@ -8153,7 +8153,7 @@
         "claims to be true",
         "video"
       ],
-      "comprehensive_score": 58.2077
+      "comprehensive_score": 58.2169
     },
     {
       "movieId": 4025,
@@ -8169,7 +8169,7 @@
       "tags": [
         "pageant"
       ],
-      "comprehensive_score": 61.4275
+      "comprehensive_score": 61.4333
     },
     {
       "movieId": 4447,
@@ -8185,7 +8185,7 @@
       "tags": [
         "lawyers"
       ],
-      "comprehensive_score": 62.8493
+      "comprehensive_score": 62.8551
     },
     {
       "movieId": 48774,
@@ -8246,7 +8246,7 @@
       "tags": [
         "Vietnam"
       ],
-      "comprehensive_score": 74.3728
+      "comprehensive_score": 74.3786
     },
     {
       "movieId": 2657,
@@ -8279,7 +8279,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 62.9283
+      "comprehensive_score": 62.9341
     },
     {
       "movieId": 158,
@@ -8340,7 +8340,7 @@
       "tags": [
         "crime"
       ],
-      "comprehensive_score": 73.7368
+      "comprehensive_score": 73.7426
     },
     {
       "movieId": 1374,
@@ -8358,7 +8358,7 @@
       "tags": [
         "Captain Kirk"
       ],
-      "comprehensive_score": 71.2529
+      "comprehensive_score": 71.2587
     },
     {
       "movieId": 3081,
@@ -8376,7 +8376,7 @@
       "tags": [
         "Ichabod Crane"
       ],
-      "comprehensive_score": 67.1884
+      "comprehensive_score": 67.1942
     },
     {
       "movieId": 3421,
@@ -8392,7 +8392,7 @@
         "TOGA",
         "college"
       ],
-      "comprehensive_score": 70.6264
+      "comprehensive_score": 70.6356
     },
     {
       "movieId": 3671,
@@ -8410,7 +8410,7 @@
         "easygoing",
         "silly"
       ],
-      "comprehensive_score": 74.2899
+      "comprehensive_score": 74.3015
     },
     {
       "movieId": 7143,
@@ -8443,7 +8443,7 @@
       "tags": [
         "C.S. Lewis"
       ],
-      "comprehensive_score": 66.7368
+      "comprehensive_score": 66.7426
     },
     {
       "movieId": 56174,
@@ -8470,7 +8470,7 @@
         "religion",
         "vampire"
       ],
-      "comprehensive_score": 68.8476
+      "comprehensive_score": 68.8669
     },
     {
       "movieId": 509,
@@ -8502,7 +8502,7 @@
       "tags": [
         "knights"
       ],
-      "comprehensive_score": 64.1303
+      "comprehensive_score": 64.1361
     },
     {
       "movieId": 2321,
@@ -8534,7 +8534,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 68.9499
+      "comprehensive_score": 68.9557
     },
     {
       "movieId": 3253,
@@ -8560,7 +8560,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 3.582,
       "rating_count": 61,
-      "tag_count": 11,
+      "tag_count": 8,
       "tags": [
         "Arnold Schwarzenegger",
         "Jesse Ventura",
@@ -8571,7 +8571,7 @@
         "sci-fi",
         "scifi cult"
       ],
-      "comprehensive_score": 70.3272
+      "comprehensive_score": 70.0692
     },
     {
       "movieId": 3717,
@@ -8604,7 +8604,7 @@
         "first was much better",
         "sequel"
       ],
-      "comprehensive_score": 60.5503
+      "comprehensive_score": 60.5619
     },
     {
       "movieId": 8644,
@@ -8639,7 +8639,7 @@
       "tags": [
         "roald dahl"
       ],
-      "comprehensive_score": 60.4581
+      "comprehensive_score": 60.4639
     },
     {
       "movieId": 51255,
@@ -8657,7 +8657,7 @@
       "tags": [
         "british comedy"
       ],
-      "comprehensive_score": 74.4581
+      "comprehensive_score": 74.4639
     },
     {
       "movieId": 466,
@@ -8690,7 +8690,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 66.688
+      "comprehensive_score": 66.6938
     },
     {
       "movieId": 903,
@@ -8712,7 +8712,7 @@
         "falling",
         "imdb top 250"
       ],
-      "comprehensive_score": 75.7936
+      "comprehensive_score": 75.8086
     },
     {
       "movieId": 1377,
@@ -8728,7 +8728,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 60.738
+      "comprehensive_score": 60.7438
     },
     {
       "movieId": 2006,
@@ -8746,7 +8746,7 @@
         "California",
         "Mexico"
       ],
-      "comprehensive_score": 62.1776
+      "comprehensive_score": 62.1868
     },
     {
       "movieId": 3471,
@@ -8823,7 +8823,7 @@
       "tags": [
         "incest"
       ],
-      "comprehensive_score": 77.2829
+      "comprehensive_score": 77.2887
     },
     {
       "movieId": 1500,
@@ -8841,7 +8841,7 @@
         "hit men",
         "reunion"
       ],
-      "comprehensive_score": 69.2487
+      "comprehensive_score": 69.2579
     },
     {
       "movieId": 1552,
@@ -8871,7 +8871,7 @@
       "tags": [
         "court"
       ],
-      "comprehensive_score": 63.9947
+      "comprehensive_score": 64.0005
     },
     {
       "movieId": 3033,
@@ -8917,7 +8917,7 @@
       "tags": [
         "heist"
       ],
-      "comprehensive_score": 68.9778
+      "comprehensive_score": 68.9836
     },
     {
       "movieId": 6942,
@@ -8974,7 +8974,7 @@
         "space travel",
         "time travel"
       ],
-      "comprehensive_score": 73.9648
+      "comprehensive_score": 73.9841
     },
     {
       "movieId": 112852,
@@ -8994,7 +8994,7 @@
         "humorous",
         "unlikely hero"
       ],
-      "comprehensive_score": 75.909
+      "comprehensive_score": 75.9225
     },
     {
       "movieId": 370,
@@ -9024,7 +9024,7 @@
       "tags": [
         "Veterinarian"
       ],
-      "comprehensive_score": 65.6754
+      "comprehensive_score": 65.6812
     },
     {
       "movieId": 953,
@@ -9042,7 +9042,7 @@
       "tags": [
         "Christmas"
       ],
-      "comprehensive_score": 74.7271
+      "comprehensive_score": 74.7329
     },
     {
       "movieId": 1207,
@@ -9058,7 +9058,7 @@
         "Harper Lee",
         "racism"
       ],
-      "comprehensive_score": 76.3235
+      "comprehensive_score": 76.3327
     },
     {
       "movieId": 1230,
@@ -9074,7 +9074,7 @@
       "tags": [
         "New York"
       ],
-      "comprehensive_score": 72.434
+      "comprehensive_score": 72.4398
     },
     {
       "movieId": 1394,
@@ -9089,7 +9089,7 @@
       "tags": [
         "Coen Brothers"
       ],
-      "comprehensive_score": 74.1236
+      "comprehensive_score": 74.1294
     },
     {
       "movieId": 1608,
@@ -9105,7 +9105,7 @@
       "tags": [
         "president"
       ],
-      "comprehensive_score": 65.0719
+      "comprehensive_score": 65.0777
     },
     {
       "movieId": 2167,
@@ -9122,7 +9122,7 @@
       "tags": [
         "vampires"
       ],
-      "comprehensive_score": 65.3133
+      "comprehensive_score": 65.3191
     },
     {
       "movieId": 5669,
@@ -9137,7 +9137,7 @@
       "tags": [
         "violence in america"
       ],
-      "comprehensive_score": 71.1064
+      "comprehensive_score": 71.1122
     },
     {
       "movieId": 6502,
@@ -9150,11 +9150,11 @@
       "genres_text": "Action|Horror|Sci-Fi",
       "avg_rating": 3.9741,
       "rating_count": 58,
-      "tag_count": 2,
+      "tag_count": 1,
       "tags": [
         "zombies"
       ],
-      "comprehensive_score": 74.2718
+      "comprehensive_score": 73.8881
     },
     {
       "movieId": 34162,
@@ -9170,7 +9170,7 @@
       "tags": [
         "stiller"
       ],
-      "comprehensive_score": 67.365
+      "comprehensive_score": 67.3708
     },
     {
       "movieId": 54001,
@@ -9250,7 +9250,7 @@
       "tags": [
         "Michael Crichton"
       ],
-      "comprehensive_score": 58.4513
+      "comprehensive_score": 58.4571
     },
     {
       "movieId": 350,
@@ -9267,7 +9267,7 @@
       "tags": [
         "John Grisham"
       ],
-      "comprehensive_score": 65.5741
+      "comprehensive_score": 65.5799
     },
     {
       "movieId": 908,
@@ -9288,7 +9288,7 @@
         "Mount Rushmore",
         "imdb top 250"
       ],
-      "comprehensive_score": 77.4155
+      "comprehensive_score": 77.4271
     },
     {
       "movieId": 1203,
@@ -9311,7 +9311,7 @@
         "gritty",
         "thought-provoking"
       ],
-      "comprehensive_score": 77.8047
+      "comprehensive_score": 77.824
     },
     {
       "movieId": 1276,
@@ -9326,7 +9326,7 @@
       "tags": [
         "prison"
       ],
-      "comprehensive_score": 77.9776
+      "comprehensive_score": 77.9834
     },
     {
       "movieId": 2005,
@@ -9361,7 +9361,7 @@
         "court",
         "military"
       ],
-      "comprehensive_score": 71.6128
+      "comprehensive_score": 71.622
     },
     {
       "movieId": 2470,
@@ -9377,7 +9377,7 @@
       "tags": [
         "Australia"
       ],
-      "comprehensive_score": 62.6268
+      "comprehensive_score": 62.6326
     },
     {
       "movieId": 8641,
@@ -9388,7 +9388,7 @@
       "genres_text": "Comedy",
       "avg_rating": 3.7719,
       "rating_count": 57,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
         "Steve Carell",
         "Will Ferrell",
@@ -9397,7 +9397,7 @@
         "hilarious",
         "stupid"
       ],
-      "comprehensive_score": 72.3096
+      "comprehensive_score": 72.1976
     },
     {
       "movieId": 80463,
@@ -9414,7 +9414,7 @@
         "loneliness",
         "witty"
       ],
-      "comprehensive_score": 73.2401
+      "comprehensive_score": 73.2517
     },
     {
       "movieId": 1148,
@@ -9432,7 +9432,7 @@
       "tags": [
         "Aardman"
       ],
-      "comprehensive_score": 74.5956
+      "comprehensive_score": 74.6014
     },
     {
       "movieId": 1302,
@@ -9449,7 +9449,7 @@
       "tags": [
         "baseball"
       ],
-      "comprehensive_score": 67.3456
+      "comprehensive_score": 67.3514
     },
     {
       "movieId": 1641,
@@ -9479,7 +9479,7 @@
       "tags": [
         "1980s"
       ],
-      "comprehensive_score": 65.9706
+      "comprehensive_score": 65.9764
     },
     {
       "movieId": 2395,
@@ -9510,7 +9510,7 @@
       "tags": [
         "twist ending"
       ],
-      "comprehensive_score": 71.3456
+      "comprehensive_score": 71.3514
     },
     {
       "movieId": 2599,
@@ -9558,7 +9558,7 @@
         "artificial intelligence",
         "robots"
       ],
-      "comprehensive_score": 65.9012
+      "comprehensive_score": 65.9162
     },
     {
       "movieId": 53125,
@@ -9623,7 +9623,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 65.6193
+      "comprehensive_score": 65.6251
     },
     {
       "movieId": 2804,
@@ -9639,7 +9639,7 @@
       "tags": [
         "Christmas"
       ],
-      "comprehensive_score": 73.6375
+      "comprehensive_score": 73.6433
     },
     {
       "movieId": 4308,
@@ -9705,7 +9705,7 @@
         "shenanigans",
         "virginity"
       ],
-      "comprehensive_score": 73.4422
+      "comprehensive_score": 73.4596
     },
     {
       "movieId": 78499,
@@ -9739,7 +9739,7 @@
       "tags": [
         "remake"
       ],
-      "comprehensive_score": 62.5343
+      "comprehensive_score": 62.5401
     },
     {
       "movieId": 168,
@@ -9800,7 +9800,7 @@
       "tags": [
         "Shakespeare sort of"
       ],
-      "comprehensive_score": 67.3306
+      "comprehensive_score": 67.3364
     },
     {
       "movieId": 4018,
@@ -9834,7 +9834,7 @@
         "goofy",
         "mindless one liners"
       ],
-      "comprehensive_score": 68.2749
+      "comprehensive_score": 68.2912
     },
     {
       "movieId": 59784,
@@ -9870,7 +9870,7 @@
       "tags": [
         "ending"
       ],
-      "comprehensive_score": 66.0343
+      "comprehensive_score": 66.0401
     },
     {
       "movieId": 106782,
@@ -9891,7 +9891,7 @@
         "Wall Street",
         "drugs"
       ],
-      "comprehensive_score": 73.8305
+      "comprehensive_score": 73.8455
     },
     {
       "movieId": 122904,
@@ -9958,7 +9958,7 @@
       "tags": [
         "Bugs Bunny"
       ],
-      "comprehensive_score": 55.7682
+      "comprehensive_score": 55.774
     },
     {
       "movieId": 1282,
@@ -9976,7 +9976,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 70.8248
+      "comprehensive_score": 70.8306
     },
     {
       "movieId": 1997,
@@ -9992,7 +9992,7 @@
       "tags": [
         "demons"
       ],
-      "comprehensive_score": 71.089
+      "comprehensive_score": 71.0948
     },
     {
       "movieId": 2078,
@@ -10010,7 +10010,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 71.4852
+      "comprehensive_score": 71.491
     },
     {
       "movieId": 2699,
@@ -10026,7 +10026,7 @@
       "tags": [
         "spiders"
       ],
-      "comprehensive_score": 57.2211
+      "comprehensive_score": 57.2269
     },
     {
       "movieId": 2701,
@@ -10059,7 +10059,7 @@
       "tags": [
         "sexuality"
       ],
-      "comprehensive_score": 66.3343
+      "comprehensive_score": 66.3401
     },
     {
       "movieId": 2947,
@@ -10091,7 +10091,7 @@
       "tags": [
         "Peter Pan"
       ],
-      "comprehensive_score": 64.8814
+      "comprehensive_score": 64.8872
     },
     {
       "movieId": 3911,
@@ -10107,7 +10107,7 @@
         "Dogs",
         "satire"
       ],
-      "comprehensive_score": 69.8936
+      "comprehensive_score": 69.9028
     },
     {
       "movieId": 49530,
@@ -10131,7 +10131,7 @@
         "corruption",
         "justice"
       ],
-      "comprehensive_score": 71.6162
+      "comprehensive_score": 71.6312
     },
     {
       "movieId": 71535,
@@ -10153,7 +10153,7 @@
         "dark comedy",
         "funny"
       ],
-      "comprehensive_score": 73.3492
+      "comprehensive_score": 73.3655
     },
     {
       "movieId": 76093,
@@ -10187,7 +10187,7 @@
         "moldy",
         "old"
       ],
-      "comprehensive_score": 63.8062
+      "comprehensive_score": 63.8154
     },
     {
       "movieId": 225,
@@ -10217,7 +10217,7 @@
       "tags": [
         "Mafia"
       ],
-      "comprehensive_score": 70.1474
+      "comprehensive_score": 70.1532
     },
     {
       "movieId": 1639,
@@ -10247,7 +10247,7 @@
       "tags": [
         "L.A."
       ],
-      "comprehensive_score": 69.7435
+      "comprehensive_score": 69.7493
     },
     {
       "movieId": 3552,
@@ -10262,7 +10262,7 @@
       "tags": [
         "golf"
       ],
-      "comprehensive_score": 71.3589
+      "comprehensive_score": 71.3647
     },
     {
       "movieId": 6870,
@@ -10280,7 +10280,7 @@
         "child abuse",
         "kidnapping"
       ],
-      "comprehensive_score": 70.1331
+      "comprehensive_score": 70.1423
     },
     {
       "movieId": 30707,
@@ -10295,7 +10295,7 @@
       "tags": [
         "boxing"
       ],
-      "comprehensive_score": 71.6281
+      "comprehensive_score": 71.6339
     },
     {
       "movieId": 45499,
@@ -10313,7 +10313,7 @@
         "Halle Berry",
         "Hugh Jackman"
       ],
-      "comprehensive_score": 65.1523
+      "comprehensive_score": 65.1615
     },
     {
       "movieId": 52973,
@@ -10393,7 +10393,7 @@
       "tags": [
         "lawyers"
       ],
-      "comprehensive_score": 65.4646
+      "comprehensive_score": 65.4704
     },
     {
       "movieId": 2100,
@@ -10410,7 +10410,7 @@
       "tags": [
         "mermaid"
       ],
-      "comprehensive_score": 61.3469
+      "comprehensive_score": 61.3527
     },
     {
       "movieId": 4239,
@@ -10485,7 +10485,7 @@
       "tags": [
         "men in drag"
       ],
-      "comprehensive_score": 73.7562
+      "comprehensive_score": 73.762
     },
     {
       "movieId": 2105,
@@ -10517,7 +10517,7 @@
         "e-mail",
         "remake"
       ],
-      "comprehensive_score": 61.6857
+      "comprehensive_score": 61.6949
     },
     {
       "movieId": 3785,
@@ -10581,7 +10581,7 @@
         "McDonalds",
         "food"
       ],
-      "comprehensive_score": 67.1457
+      "comprehensive_score": 67.1549
     },
     {
       "movieId": 33166,
@@ -10597,7 +10597,7 @@
       "tags": [
         "racism"
       ],
-      "comprehensive_score": 72.0762
+      "comprehensive_score": 72.082
     },
     {
       "movieId": 34048,
@@ -10631,7 +10631,7 @@
         "Firefly",
         "predictable"
       ],
-      "comprehensive_score": 73.1657
+      "comprehensive_score": 73.1749
     },
     {
       "movieId": 88125,
@@ -10669,7 +10669,7 @@
         "beautifully filmed",
         "cinematography"
       ],
-      "comprehensive_score": 71.6221
+      "comprehensive_score": 71.6337
     },
     {
       "movieId": 116797,
@@ -10687,7 +10687,7 @@
         "inspirational",
         "intelligent"
       ],
-      "comprehensive_score": 74.2857
+      "comprehensive_score": 74.2949
     },
     {
       "movieId": 5,
@@ -10703,7 +10703,7 @@
         "pregnancy",
         "remake"
       ],
-      "comprehensive_score": 60.9204
+      "comprehensive_score": 60.9295
     },
     {
       "movieId": 216,
@@ -10720,7 +10720,7 @@
         "school",
         "stop looking at me swan"
       ],
-      "comprehensive_score": 64.7682
+      "comprehensive_score": 64.7798
     },
     {
       "movieId": 661,
@@ -10767,7 +10767,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 59.8165
+      "comprehensive_score": 59.8223
     },
     {
       "movieId": 3176,
@@ -10780,7 +10780,7 @@
       "genres_text": "Drama|Mystery|Thriller",
       "avg_rating": 3.3367,
       "rating_count": 49,
-      "tag_count": 12,
+      "tag_count": 11,
       "tags": [
         "Europe",
         "Jude Law",
@@ -10794,7 +10794,7 @@
         "serial killer",
         "suspense"
       ],
-      "comprehensive_score": 66.0435
+      "comprehensive_score": 65.9874
     },
     {
       "movieId": 4643,
@@ -10827,7 +10827,7 @@
         "Tom Hanks",
         "cinematography"
       ],
-      "comprehensive_score": 67.2061
+      "comprehensive_score": 67.2153
     },
     {
       "movieId": 5991,
@@ -10847,7 +10847,7 @@
         "jazz",
         "murder"
       ],
-      "comprehensive_score": 70.3396
+      "comprehensive_score": 70.3512
     },
     {
       "movieId": 45447,
@@ -10870,7 +10870,7 @@
         "conspiracy theory",
         "treasure hunt"
       ],
-      "comprehensive_score": 62.577
+      "comprehensive_score": 62.5944
     },
     {
       "movieId": 186,
@@ -10901,7 +10901,7 @@
       "tags": [
         "Aardman"
       ],
-      "comprehensive_score": 71.9854
+      "comprehensive_score": 71.9912
     },
     {
       "movieId": 1275,
@@ -10949,7 +10949,7 @@
       "tags": [
         "amnesia"
       ],
-      "comprehensive_score": 70.9645
+      "comprehensive_score": 70.9703
     },
     {
       "movieId": 2019,
@@ -10966,7 +10966,7 @@
       "tags": [
         "samurai"
       ],
-      "comprehensive_score": 76.0687
+      "comprehensive_score": 76.0745
     },
     {
       "movieId": 2694,
@@ -10981,7 +10981,7 @@
       "tags": [
         "Adam Sandler"
       ],
-      "comprehensive_score": 62.2145
+      "comprehensive_score": 62.2203
     },
     {
       "movieId": 2763,
@@ -11019,7 +11019,7 @@
         "fantasy world",
         "surreal"
       ],
-      "comprehensive_score": 74.064
+      "comprehensive_score": 74.0803
     },
     {
       "movieId": 7458,
@@ -11052,7 +11052,7 @@
       "tags": [
         "psychology"
       ],
-      "comprehensive_score": 69.3604
+      "comprehensive_score": 69.3662
     },
     {
       "movieId": 30749,
@@ -11068,7 +11068,7 @@
       "tags": [
         "genocide"
       ],
-      "comprehensive_score": 70.527
+      "comprehensive_score": 70.5328
     },
     {
       "movieId": 134130,
@@ -11085,7 +11085,7 @@
       "tags": [
         "smart"
       ],
-      "comprehensive_score": 73.4437
+      "comprehensive_score": 73.4495
     },
     {
       "movieId": 783,
@@ -11119,7 +11119,7 @@
       "tags": [
         "movie business"
       ],
-      "comprehensive_score": 74.3973
+      "comprehensive_score": 74.4032
     },
     {
       "movieId": 1092,
@@ -11165,7 +11165,7 @@
       "tags": [
         "ex-con"
       ],
-      "comprehensive_score": 71.1208
+      "comprehensive_score": 71.1266
     },
     {
       "movieId": 1367,
@@ -11183,7 +11183,7 @@
         "dogs",
         "remake"
       ],
-      "comprehensive_score": 60.7869
+      "comprehensive_score": 60.7961
     },
     {
       "movieId": 1921,
@@ -11196,7 +11196,7 @@
       "genres_text": "Drama|Sci-Fi|Thriller",
       "avg_rating": 3.8511,
       "rating_count": 47,
-      "tag_count": 17,
+      "tag_count": 15,
       "tags": [
         "artsy",
         "atmospheric",
@@ -11214,7 +11214,7 @@
         "tense",
         "visually appealing"
       ],
-      "comprehensive_score": 73.3808
+      "comprehensive_score": 73.2908
     },
     {
       "movieId": 1994,
@@ -11230,7 +11230,7 @@
       "tags": [
         "ghosts"
       ],
-      "comprehensive_score": 65.3122
+      "comprehensive_score": 65.318
     },
     {
       "movieId": 2001,
@@ -11276,7 +11276,7 @@
       "tags": [
         "Ghosts"
       ],
-      "comprehensive_score": 59.3548
+      "comprehensive_score": 59.3606
     },
     {
       "movieId": 4014,
@@ -11387,7 +11387,7 @@
         "cinematography",
         "visually appealing"
       ],
-      "comprehensive_score": 71.4889
+      "comprehensive_score": 71.5005
     },
     {
       "movieId": 44,
@@ -11451,7 +11451,7 @@
       "tags": [
         "spying"
       ],
-      "comprehensive_score": 65.9597
+      "comprehensive_score": 65.9655
     },
     {
       "movieId": 1884,
@@ -11500,7 +11500,7 @@
         "sexuality",
         "suburbia"
       ],
-      "comprehensive_score": 72.8927
+      "comprehensive_score": 72.9019
     },
     {
       "movieId": 3752,
@@ -11578,7 +11578,7 @@
         "holocaust",
         "true story"
       ],
-      "comprehensive_score": 75.4517
+      "comprehensive_score": 75.4634
     },
     {
       "movieId": 7254,
@@ -11598,7 +11598,7 @@
         "science fiction",
         "time travel"
       ],
-      "comprehensive_score": 68.9705
+      "comprehensive_score": 68.984
     },
     {
       "movieId": 47099,
@@ -11684,7 +11684,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 64.9269
+      "comprehensive_score": 64.9327
     },
     {
       "movieId": 920,
@@ -11701,7 +11701,7 @@
       "tags": [
         "Civil War"
       ],
-      "comprehensive_score": 68.1935
+      "comprehensive_score": 68.1993
     },
     {
       "movieId": 1183,
@@ -11718,7 +11718,7 @@
       "tags": [
         "adultery"
       ],
-      "comprehensive_score": 69.1269
+      "comprehensive_score": 69.1327
     },
     {
       "movieId": 1204,
@@ -11735,7 +11735,7 @@
       "tags": [
         "Middle East"
       ],
-      "comprehensive_score": 77.3713
+      "comprehensive_score": 77.3771
     },
     {
       "movieId": 1250,
@@ -11752,7 +11752,7 @@
       "tags": [
         "POW"
       ],
-      "comprehensive_score": 74.8824
+      "comprehensive_score": 74.8882
     },
     {
       "movieId": 1266,
@@ -11768,7 +11768,7 @@
       "tags": [
         "revenge"
       ],
-      "comprehensive_score": 74.7269
+      "comprehensive_score": 74.7327
     },
     {
       "movieId": 1371,
@@ -11853,7 +11853,7 @@
         "Francis Ford Coppola",
         "mafia"
       ],
-      "comprehensive_score": 65.2046
+      "comprehensive_score": 65.2196
     },
     {
       "movieId": 2288,
@@ -11994,7 +11994,7 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 68.9713
+      "comprehensive_score": 68.9771
     },
     {
       "movieId": 4718,
@@ -12084,7 +12084,7 @@
       "tags": [
         "statue"
       ],
-      "comprehensive_score": 75.4629
+      "comprehensive_score": 75.4687
     },
     {
       "movieId": 1333,
@@ -12100,7 +12100,7 @@
       "tags": [
         "birds"
       ],
-      "comprehensive_score": 67.5084
+      "comprehensive_score": 67.5142
     },
     {
       "movieId": 2085,
@@ -12117,7 +12117,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 65.122
+      "comprehensive_score": 65.1278
     },
     {
       "movieId": 3499,
@@ -12140,7 +12140,7 @@
         "tense",
         "thriller"
       ],
-      "comprehensive_score": 72.1812
+      "comprehensive_score": 72.1987
     },
     {
       "movieId": 3755,
@@ -12187,7 +12187,7 @@
       "tags": [
         "Nick Hornby"
       ],
-      "comprehensive_score": 69.0993
+      "comprehensive_score": 69.1051
     },
     {
       "movieId": 5903,
@@ -12258,7 +12258,7 @@
         "helena bonham carter",
         "visually appealing"
       ],
-      "comprehensive_score": 67.8858
+      "comprehensive_score": 67.9032
     },
     {
       "movieId": 46976,
@@ -12281,7 +12281,7 @@
         "romance",
         "surreal"
       ],
-      "comprehensive_score": 69.9848
+      "comprehensive_score": 70.0011
     },
     {
       "movieId": 52722,
@@ -12320,7 +12320,7 @@
         "stylized",
         "video games"
       ],
-      "comprehensive_score": 69.8206
+      "comprehensive_score": 69.8341
     },
     {
       "movieId": 111759,
@@ -12351,7 +12351,7 @@
       "tags": [
         "Einstein"
       ],
-      "comprehensive_score": 65.3285
+      "comprehensive_score": 65.3343
     },
     {
       "movieId": 497,
@@ -12367,7 +12367,7 @@
       "tags": [
         "Shakespeare"
       ],
-      "comprehensive_score": 70.375
+      "comprehensive_score": 70.3808
     },
     {
       "movieId": 852,
@@ -12384,7 +12384,7 @@
       "tags": [
         "golf"
       ],
-      "comprehensive_score": 61.4215
+      "comprehensive_score": 61.4274
     },
     {
       "movieId": 1262,
@@ -12402,7 +12402,7 @@
       "tags": [
         "POW"
       ],
-      "comprehensive_score": 74.7704
+      "comprehensive_score": 74.7762
     },
     {
       "movieId": 1263,
@@ -12418,7 +12418,7 @@
       "tags": [
         "Vietnam"
       ],
-      "comprehensive_score": 70.5378
+      "comprehensive_score": 70.5436
     },
     {
       "movieId": 1376,
@@ -12435,7 +12435,7 @@
       "tags": [
         "whales"
       ],
-      "comprehensive_score": 65.6541
+      "comprehensive_score": 65.6599
     },
     {
       "movieId": 1597,
@@ -12654,7 +12654,7 @@
         "costume drama",
         "magic"
       ],
-      "comprehensive_score": 70.767
+      "comprehensive_score": 70.7805
     },
     {
       "movieId": 60684,
@@ -12736,7 +12736,7 @@
       "tags": [
         "Louisa May Alcott"
       ],
-      "comprehensive_score": 71.2139
+      "comprehensive_score": 71.2197
     },
     {
       "movieId": 355,
@@ -12769,7 +12769,7 @@
         "gangster",
         "mafia"
       ],
-      "comprehensive_score": 69.8799
+      "comprehensive_score": 69.8915
     },
     {
       "movieId": 441,
@@ -12814,7 +12814,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 65.7139
+      "comprehensive_score": 65.7197
     },
     {
       "movieId": 1042,
@@ -12830,7 +12830,7 @@
       "tags": [
         "Music"
       ],
-      "comprehensive_score": 62.7139
+      "comprehensive_score": 62.7197
     },
     {
       "movieId": 1088,
@@ -12848,7 +12848,7 @@
         "dance",
         "music"
       ],
-      "comprehensive_score": 64.4368
+      "comprehensive_score": 64.446
     },
     {
       "movieId": 1094,
@@ -12880,7 +12880,7 @@
       "tags": [
         "Klingons"
       ],
-      "comprehensive_score": 63.7139
+      "comprehensive_score": 63.7197
     },
     {
       "movieId": 1375,
@@ -12930,7 +12930,7 @@
       "tags": [
         "conspiracy"
       ],
-      "comprehensive_score": 65.0472
+      "comprehensive_score": 65.053
     },
     {
       "movieId": 1967,
@@ -12990,7 +12990,7 @@
       "tags": [
         "prostitution"
       ],
-      "comprehensive_score": 65.0472
+      "comprehensive_score": 65.053
     },
     {
       "movieId": 3210,
@@ -13007,7 +13007,7 @@
       "tags": [
         "high school"
       ],
-      "comprehensive_score": 65.5472
+      "comprehensive_score": 65.553
     },
     {
       "movieId": 3301,
@@ -13077,7 +13077,7 @@
         "quirky",
         "romance"
       ],
-      "comprehensive_score": 69.659
+      "comprehensive_score": 69.6774
     },
     {
       "movieId": 81591,
@@ -13098,7 +13098,7 @@
         "obsession",
         "surreal"
       ],
-      "comprehensive_score": 68.9176
+      "comprehensive_score": 68.9339
     },
     {
       "movieId": 91658,
@@ -13144,7 +13144,7 @@
       "tags": [
         "beat poetry"
       ],
-      "comprehensive_score": 63.2182
+      "comprehensive_score": 63.224
     },
     {
       "movieId": 762,
@@ -13174,7 +13174,7 @@
       "tags": [
         "Civil War"
       ],
-      "comprehensive_score": 75.1694
+      "comprehensive_score": 75.1752
     },
     {
       "movieId": 1285,
@@ -13189,7 +13189,7 @@
       "tags": [
         "high school"
       ],
-      "comprehensive_score": 69.023
+      "comprehensive_score": 69.0288
     },
     {
       "movieId": 2003,
@@ -13237,7 +13237,7 @@
       "tags": [
         "time travel"
       ],
-      "comprehensive_score": 69.023
+      "comprehensive_score": 69.0288
     },
     {
       "movieId": 3418,
@@ -13377,7 +13377,7 @@
         "irreverent",
         "stylized"
       ],
-      "comprehensive_score": 76.4438
+      "comprehensive_score": 76.4622
     },
     {
       "movieId": 115617,
@@ -13399,7 +13399,7 @@
         "robots",
         "very funny"
       ],
-      "comprehensive_score": 71.934
+      "comprehensive_score": 71.9503
     },
     {
       "movieId": 122886,
@@ -13434,7 +13434,7 @@
         "mental illness",
         "psychology"
       ],
-      "comprehensive_score": 67.6398
+      "comprehensive_score": 67.649
     },
     {
       "movieId": 282,
@@ -13450,7 +13450,7 @@
         "disability",
         "twins"
       ],
-      "comprehensive_score": 63.7898
+      "comprehensive_score": 63.799
     },
     {
       "movieId": 376,
@@ -13479,7 +13479,7 @@
       "tags": [
         "hula hoop"
       ],
-      "comprehensive_score": 66.3753
+      "comprehensive_score": 66.3811
     },
     {
       "movieId": 529,
@@ -13494,7 +13494,7 @@
       "tags": [
         "chess"
       ],
-      "comprehensive_score": 70.9253
+      "comprehensive_score": 70.9311
     },
     {
       "movieId": 1032,
@@ -13513,7 +13513,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 63.9253
+      "comprehensive_score": 63.9311
     },
     {
       "movieId": 1228,
@@ -13528,7 +13528,7 @@
       "tags": [
         "boxing"
       ],
-      "comprehensive_score": 75.3003
+      "comprehensive_score": 75.3061
     },
     {
       "movieId": 1233,
@@ -13545,7 +13545,7 @@
       "tags": [
         "submarine"
       ],
-      "comprehensive_score": 75.6503
+      "comprehensive_score": 75.6561
     },
     {
       "movieId": 1569,
@@ -13563,7 +13563,7 @@
         "wedding",
         "weddings"
       ],
-      "comprehensive_score": 66.3412
+      "comprehensive_score": 66.3528
     },
     {
       "movieId": 1674,
@@ -13580,7 +13580,7 @@
       "tags": [
         "Amish"
       ],
-      "comprehensive_score": 67.7753
+      "comprehensive_score": 67.7811
     },
     {
       "movieId": 2193,
@@ -13644,7 +13644,7 @@
         "World War II",
         "sniper"
       ],
-      "comprehensive_score": 66.9058
+      "comprehensive_score": 66.9208
     },
     {
       "movieId": 4367,
@@ -13675,7 +13675,7 @@
       "tags": [
         "soccer"
       ],
-      "comprehensive_score": 62.8753
+      "comprehensive_score": 62.8811
     },
     {
       "movieId": 6807,
@@ -13690,7 +13690,7 @@
       "tags": [
         "british comedy"
       ],
-      "comprehensive_score": 71.9753
+      "comprehensive_score": 71.9811
     },
     {
       "movieId": 31658,
@@ -13704,16 +13704,15 @@
       "genres_text": "Adventure|Animation|Fantasy|Romance",
       "avg_rating": 4.075,
       "rating_count": 40,
-      "tag_count": 6,
+      "tag_count": 5,
       "tags": [
         "06 Oscar Nominated Best Movie - Animation",
         "Hayao Miyazaki",
-        "In Netflix queue",
         "Studio Ghibli",
         "anime",
         "fantasy world"
       ],
-      "comprehensive_score": 74.9289
+      "comprehensive_score": 74.7958
     },
     {
       "movieId": 33615,
@@ -13748,7 +13747,7 @@
       "tags": [
         "big budget"
       ],
-      "comprehensive_score": 64.2753
+      "comprehensive_score": 64.2811
     },
     {
       "movieId": 44199,
@@ -13781,7 +13780,7 @@
         "Action",
         "Myth"
       ],
-      "comprehensive_score": 70.4398
+      "comprehensive_score": 70.449
     },
     {
       "movieId": 1129,
@@ -13817,7 +13816,7 @@
         "anime",
         "visually stunning"
       ],
-      "comprehensive_score": 69.645
+      "comprehensive_score": 69.6566
     },
     {
       "movieId": 1408,
@@ -13836,7 +13835,7 @@
         "Hawkeye",
         "James Fennimore Cooper"
       ],
-      "comprehensive_score": 70.625
+      "comprehensive_score": 70.6342
     },
     {
       "movieId": 1673,
@@ -13867,7 +13866,7 @@
         "drugs",
         "police"
       ],
-      "comprehensive_score": 71.1635
+      "comprehensive_score": 71.1727
     },
     {
       "movieId": 2094,
@@ -13900,7 +13899,7 @@
         "In Your Eyes",
         "Lloyd Dobbler"
       ],
-      "comprehensive_score": 71.8815
+      "comprehensive_score": 71.8906
     },
     {
       "movieId": 2580,
@@ -13931,7 +13930,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 59.8252
+      "comprehensive_score": 59.831
     },
     {
       "movieId": 2746,
@@ -13966,7 +13965,7 @@
         "animation",
         "robots"
       ],
-      "comprehensive_score": 73.6763
+      "comprehensive_score": 73.6855
     },
     {
       "movieId": 2908,
@@ -13995,7 +13994,7 @@
       "tags": [
         "bad"
       ],
-      "comprehensive_score": 71.6714
+      "comprehensive_score": 71.6772
     },
     {
       "movieId": 3039,
@@ -14011,7 +14010,7 @@
         "Dan Aykroyd",
         "class"
       ],
-      "comprehensive_score": 69.1891
+      "comprehensive_score": 69.1983
     },
     {
       "movieId": 3082,
@@ -14042,7 +14041,7 @@
       "tags": [
         "Andy Kaufman"
       ],
-      "comprehensive_score": 65.3893
+      "comprehensive_score": 65.3951
     },
     {
       "movieId": 3300,
@@ -14102,7 +14101,7 @@
         "Will Ferrell",
         "comedy"
       ],
-      "comprehensive_score": 66.1379
+      "comprehensive_score": 66.1471
     },
     {
       "movieId": 6936,
@@ -14119,7 +14118,7 @@
       "tags": [
         "christmas"
       ],
-      "comprehensive_score": 68.2611
+      "comprehensive_score": 68.2669
     },
     {
       "movieId": 7451,
@@ -14130,13 +14129,13 @@
       "genres_text": "Comedy",
       "avg_rating": 3.7564,
       "rating_count": 39,
-      "tag_count": 4,
+      "tag_count": 3,
       "tags": [
         "High School",
         "clever",
         "lesbian subtext"
       ],
-      "comprehensive_score": 70.0389
+      "comprehensive_score": 69.8361
     },
     {
       "movieId": 8528,
@@ -14166,7 +14165,7 @@
       "tags": [
         "wine"
       ],
-      "comprehensive_score": 68.9791
+      "comprehensive_score": 68.9849
     },
     {
       "movieId": 27773,
@@ -14189,7 +14188,7 @@
         "surreal",
         "twisted"
       ],
-      "comprehensive_score": 75.2703
+      "comprehensive_score": 75.2887
     },
     {
       "movieId": 40819,
@@ -14206,7 +14205,7 @@
       "tags": [
         "Johnny Cash"
       ],
-      "comprehensive_score": 69.1585
+      "comprehensive_score": 69.1644
     },
     {
       "movieId": 53996,
@@ -14265,7 +14264,7 @@
       "genres_text": "Comedy|Crime|Drama",
       "avg_rating": 3.4872,
       "rating_count": 39,
-      "tag_count": 11,
+      "tag_count": 10,
       "tags": [
         "Brad Pitt",
         "Coen Bros",
@@ -14278,7 +14277,7 @@
         "twists & turns",
         "weird"
       ],
-      "comprehensive_score": 67.1108
+      "comprehensive_score": 67.0473
     },
     {
       "movieId": 29,
@@ -14297,7 +14296,7 @@
       "tags": [
         "kidnapping"
       ],
-      "comprehensive_score": 72.6439
+      "comprehensive_score": 72.6497
     },
     {
       "movieId": 31,
@@ -14313,7 +14312,7 @@
         "high school",
         "teacher"
       ],
-      "comprehensive_score": 61.4282
+      "comprehensive_score": 61.4374
     },
     {
       "movieId": 277,
@@ -14328,7 +14327,7 @@
       "tags": [
         "Christmas"
       ],
-      "comprehensive_score": 61.5912
+      "comprehensive_score": 61.597
     },
     {
       "movieId": 315,
@@ -14380,7 +14379,7 @@
         "gothic",
         "quirky"
       ],
-      "comprehensive_score": 63.7159
+      "comprehensive_score": 63.7322
     },
     {
       "movieId": 2289,
@@ -14410,7 +14409,7 @@
       "tags": [
         "martial arts"
       ],
-      "comprehensive_score": 66.3807
+      "comprehensive_score": 66.3865
     },
     {
       "movieId": 2770,
@@ -14469,7 +14468,7 @@
       "tags": [
         "martial arts"
       ],
-      "comprehensive_score": 71.3544
+      "comprehensive_score": 71.3602
     },
     {
       "movieId": 8533,
@@ -14487,7 +14486,7 @@
         "romance",
         "sad"
       ],
-      "comprehensive_score": 67.0467
+      "comprehensive_score": 67.0583
     },
     {
       "movieId": 8950,
@@ -14500,7 +14499,7 @@
       "genres_text": "Drama|Mystery|Thriller",
       "avg_rating": 3.9868,
       "rating_count": 38,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
         "Christian Bale",
         "creepy",
@@ -14509,7 +14508,7 @@
         "schizophrenia",
         "twist ending"
       ],
-      "comprehensive_score": 73.6074
+      "comprehensive_score": 73.4954
     },
     {
       "movieId": 8972,
@@ -14543,7 +14542,7 @@
       "tags": [
         "twist ending"
       ],
-      "comprehensive_score": 70.4333
+      "comprehensive_score": 70.4391
     },
     {
       "movieId": 51540,
@@ -14615,7 +14614,7 @@
         "suspense",
         "tense"
       ],
-      "comprehensive_score": 74.5586
+      "comprehensive_score": 74.5779
     },
     {
       "movieId": 58,
@@ -14632,7 +14631,7 @@
       "tags": [
         "writing"
       ],
-      "comprehensive_score": 72.7261
+      "comprehensive_score": 72.7319
     },
     {
       "movieId": 455,
@@ -14666,7 +14665,7 @@
         "Mel Gibson",
         "kidnapping"
       ],
-      "comprehensive_score": 63.9578
+      "comprehensive_score": 63.9713
     },
     {
       "movieId": 1020,
@@ -14696,7 +14695,7 @@
         "Jim Morrison",
         "music"
       ],
-      "comprehensive_score": 64.6893
+      "comprehensive_score": 64.7009
     },
     {
       "movieId": 2021,
@@ -14725,7 +14724,7 @@
       "tags": [
         "ballet"
       ],
-      "comprehensive_score": 70.2666
+      "comprehensive_score": 70.2724
     },
     {
       "movieId": 4016,
@@ -14757,7 +14756,7 @@
       "tags": [
         "crime"
       ],
-      "comprehensive_score": 58.3477
+      "comprehensive_score": 58.3535
     },
     {
       "movieId": 5971,
@@ -14775,7 +14774,7 @@
       "tags": [
         "anime"
       ],
-      "comprehensive_score": 71.7801
+      "comprehensive_score": 71.7859
     },
     {
       "movieId": 8376,
@@ -14790,7 +14789,7 @@
       "tags": [
         "high school"
       ],
-      "comprehensive_score": 62.8882
+      "comprehensive_score": 62.894
     },
     {
       "movieId": 8622,
@@ -14806,7 +14805,7 @@
         "politics",
         "terrorism"
       ],
-      "comprehensive_score": 65.5481
+      "comprehensive_score": 65.5573
     },
     {
       "movieId": 30810,
@@ -14828,7 +14827,7 @@
         "visually appealing",
         "whimsical"
       ],
-      "comprehensive_score": 66.3621
+      "comprehensive_score": 66.3784
     },
     {
       "movieId": 55765,
@@ -14848,7 +14847,7 @@
         "mafia",
         "organized crime"
       ],
-      "comprehensive_score": 71.9037
+      "comprehensive_score": 71.9172
     },
     {
       "movieId": 64957,
@@ -14881,7 +14880,7 @@
         "emotional",
         "sexuality"
       ],
-      "comprehensive_score": 74.2508
+      "comprehensive_score": 74.26
     },
     {
       "movieId": 112556,
@@ -14898,7 +14897,7 @@
         "Stupid ending",
         "annoying"
       ],
-      "comprehensive_score": 68.7643
+      "comprehensive_score": 68.7735
     },
     {
       "movieId": 22,
@@ -14917,7 +14916,7 @@
       "tags": [
         "serial killer"
       ],
-      "comprehensive_score": 61.3438
+      "comprehensive_score": 61.3496
     },
     {
       "movieId": 180,
@@ -14949,7 +14948,7 @@
         "men in drag",
         "remade"
       ],
-      "comprehensive_score": 67.2598
+      "comprehensive_score": 67.2714
     },
     {
       "movieId": 585,
@@ -14978,7 +14977,7 @@
       "tags": [
         "spoof"
       ],
-      "comprehensive_score": 65.0383
+      "comprehensive_score": 65.0441
     },
     {
       "movieId": 902,
@@ -14994,7 +14993,7 @@
       "tags": [
         "Capote"
       ],
-      "comprehensive_score": 70.0938
+      "comprehensive_score": 70.0996
     },
     {
       "movieId": 1059,
@@ -15014,7 +15013,7 @@
         "shakespeare",
         "updated classics"
       ],
-      "comprehensive_score": 69.3994
+      "comprehensive_score": 69.4144
     },
     {
       "movieId": 1060,
@@ -15048,7 +15047,7 @@
         "high school",
         "prom"
       ],
-      "comprehensive_score": 63.7598
+      "comprehensive_score": 63.7714
     },
     {
       "movieId": 2231,
@@ -15077,7 +15076,7 @@
       "tags": [
         "high school"
       ],
-      "comprehensive_score": 57.6494
+      "comprehensive_score": 57.6552
     },
     {
       "movieId": 2948,
@@ -15125,7 +15124,7 @@
       "tags": [
         "adultery"
       ],
-      "comprehensive_score": 59.5938
+      "comprehensive_score": 59.5996
     },
     {
       "movieId": 3108,
@@ -15143,7 +15142,7 @@
       "tags": [
         "homeless"
       ],
-      "comprehensive_score": 69.5105
+      "comprehensive_score": 69.5163
     },
     {
       "movieId": 3247,
@@ -15159,7 +15158,7 @@
       "tags": [
         "nuns"
       ],
-      "comprehensive_score": 58.6216
+      "comprehensive_score": 58.6274
     },
     {
       "movieId": 3510,
@@ -15191,7 +15190,7 @@
       "tags": [
         "dinosaurs"
       ],
-      "comprehensive_score": 56.0938
+      "comprehensive_score": 56.0996
     },
     {
       "movieId": 6947,
@@ -15228,7 +15227,7 @@
         "sexy female scientist",
         "superhero"
       ],
-      "comprehensive_score": 56.1308
+      "comprehensive_score": 56.1471
     },
     {
       "movieId": 44195,
@@ -15260,7 +15259,7 @@
       "tags": [
         "slick"
       ],
-      "comprehensive_score": 72.0383
+      "comprehensive_score": 72.0441
     },
     {
       "movieId": 170,
@@ -15326,7 +15325,7 @@
         "thought-provoking",
         "twist ending"
       ],
-      "comprehensive_score": 68.3182
+      "comprehensive_score": 68.3345
     },
     {
       "movieId": 719,
@@ -15355,7 +15354,7 @@
       "tags": [
         "John Grisham"
       ],
-      "comprehensive_score": 67.3146
+      "comprehensive_score": 67.3204
     },
     {
       "movieId": 914,
@@ -15373,7 +15372,7 @@
       "tags": [
         "George Bernard Shaw"
       ],
-      "comprehensive_score": 72.7146
+      "comprehensive_score": 72.7204
     },
     {
       "movieId": 1029,
@@ -15391,7 +15390,7 @@
       "tags": [
         "Disney"
       ],
-      "comprehensive_score": 63.5146
+      "comprehensive_score": 63.5204
     },
     {
       "movieId": 1084,
@@ -15408,7 +15407,7 @@
         "1920s",
         "gangsters"
       ],
-      "comprehensive_score": 73.5042
+      "comprehensive_score": 73.5134
     },
     {
       "movieId": 1249,
@@ -15426,7 +15425,7 @@
       "tags": [
         "hit men"
       ],
-      "comprehensive_score": 73.1146
+      "comprehensive_score": 73.1204
     },
     {
       "movieId": 2427,
@@ -15517,7 +15516,7 @@
         "biopic",
         "movie business"
       ],
-      "comprehensive_score": 66.1806
+      "comprehensive_score": 66.1922
     },
     {
       "movieId": 31696,
@@ -15552,7 +15551,7 @@
       "tags": [
         "wapendrama"
       ],
-      "comprehensive_score": 68.1146
+      "comprehensive_score": 68.1204
     },
     {
       "movieId": 38061,
@@ -15566,9 +15565,8 @@
       "genres_text": "Comedy|Crime|Mystery|Thriller",
       "avg_rating": 4.0714,
       "rating_count": 35,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
-        "In Netflix queue",
         "Robert Downey Jr.",
         "black comedy",
         "clever",
@@ -15576,7 +15574,7 @@
         "good dialogue",
         "witty"
       ],
-      "comprehensive_score": 74.4465
+      "comprehensive_score": 74.3345
     },
     {
       "movieId": 60040,
@@ -15627,7 +15625,7 @@
         "dark",
         "dark fairy tale"
       ],
-      "comprehensive_score": 69.1182
+      "comprehensive_score": 69.1345
     },
     {
       "movieId": 60,
@@ -15687,7 +15685,7 @@
       "tags": [
         "football"
       ],
-      "comprehensive_score": 64.7873
+      "comprehensive_score": 64.7931
     },
     {
       "movieId": 969,
@@ -15705,7 +15703,7 @@
       "tags": [
         "missionary"
       ],
-      "comprehensive_score": 71.5814
+      "comprehensive_score": 71.5872
     },
     {
       "movieId": 1172,
@@ -15765,7 +15763,7 @@
       "tags": [
         "military"
       ],
-      "comprehensive_score": 69.1108
+      "comprehensive_score": 69.1166
     },
     {
       "movieId": 1947,
@@ -15782,7 +15780,7 @@
       "tags": [
         "Gangs"
       ],
-      "comprehensive_score": 66.4343
+      "comprehensive_score": 66.4401
     },
     {
       "movieId": 2140,
@@ -15854,7 +15852,7 @@
       "tags": [
         "adolescence"
       ],
-      "comprehensive_score": 64.9931
+      "comprehensive_score": 64.999
     },
     {
       "movieId": 4734,
@@ -15886,7 +15884,7 @@
         "Great movie",
         "Wesley Snipes"
       ],
-      "comprehensive_score": 61.2651
+      "comprehensive_score": 61.2743
     },
     {
       "movieId": 6287,
@@ -15917,7 +15915,7 @@
         "con men",
         "fatherhood"
       ],
-      "comprehensive_score": 68.471
+      "comprehensive_score": 68.4802
     },
     {
       "movieId": 8807,
@@ -16034,7 +16032,7 @@
       "tags": [
         "war"
       ],
-      "comprehensive_score": 72.8167
+      "comprehensive_score": 72.8225
     },
     {
       "movieId": 85414,
@@ -16099,7 +16097,7 @@
         "Australia",
         "weddings"
       ],
-      "comprehensive_score": 62.0759
+      "comprehensive_score": 62.0851
     },
     {
       "movieId": 610,
@@ -16176,7 +16174,7 @@
       "tags": [
         "black and white"
       ],
-      "comprehensive_score": 73.353
+      "comprehensive_score": 73.3588
     },
     {
       "movieId": 1272,
@@ -16192,7 +16190,7 @@
       "tags": [
         "World War II"
       ],
-      "comprehensive_score": 73.5652
+      "comprehensive_score": 73.571
     },
     {
       "movieId": 1882,
@@ -16241,7 +16239,7 @@
         "1980s",
         "high school"
       ],
-      "comprehensive_score": 61.6517
+      "comprehensive_score": 61.6609
     },
     {
       "movieId": 2300,
@@ -16256,7 +16254,7 @@
       "tags": [
         "Broadway"
       ],
-      "comprehensive_score": 71.4439
+      "comprehensive_score": 71.4497
     },
     {
       "movieId": 2393,
@@ -16276,7 +16274,7 @@
         "cameo:Whoopi Goldberg",
         "space opera"
       ],
-      "comprehensive_score": 60.6554
+      "comprehensive_score": 60.667
     },
     {
       "movieId": 2949,
@@ -16355,7 +16353,7 @@
       "tags": [
         "Dr. Seuss"
       ],
-      "comprehensive_score": 58.5045
+      "comprehensive_score": 58.5103
     },
     {
       "movieId": 4015,
@@ -16371,7 +16369,7 @@
       "tags": [
         "bad"
       ],
-      "comprehensive_score": 54.05
+      "comprehensive_score": 54.0558
     },
     {
       "movieId": 4874,
@@ -16390,7 +16388,7 @@
         "aliens",
         "psychiatrist"
       ],
-      "comprehensive_score": 65.0456
+      "comprehensive_score": 65.0548
     },
     {
       "movieId": 5388,
@@ -16405,7 +16403,7 @@
       "genres_text": "Action|Crime|Drama|Mystery|Thriller",
       "avg_rating": 3.303,
       "rating_count": 33,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
         "Al Pacino",
         "Hilary Swank",
@@ -16414,7 +16412,7 @@
         "insomnia",
         "thought-provoking"
       ],
-      "comprehensive_score": 63.4426
+      "comprehensive_score": 63.3305
     },
     {
       "movieId": 5673,
@@ -16443,7 +16441,7 @@
         "unique",
         "wistful"
       ],
-      "comprehensive_score": 68.4348
+      "comprehensive_score": 68.4569
     },
     {
       "movieId": 6534,
@@ -16463,7 +16461,7 @@
         "mad scientist",
         "marvel"
       ],
-      "comprehensive_score": 52.597
+      "comprehensive_score": 52.6105
     },
     {
       "movieId": 6754,
@@ -16501,7 +16499,7 @@
         "surprise ending",
         "suspense"
       ],
-      "comprehensive_score": 61.7456
+      "comprehensive_score": 61.763
     },
     {
       "movieId": 30825,
@@ -16517,7 +16515,7 @@
         "Ben Stiller",
         "Robert De Niro"
       ],
-      "comprehensive_score": 59.7426
+      "comprehensive_score": 59.7518
     },
     {
       "movieId": 53322,
@@ -16564,7 +16562,7 @@
       "tags": [
         "Journalism"
       ],
-      "comprehensive_score": 62.1145
+      "comprehensive_score": 62.1203
     },
     {
       "movieId": 303,
@@ -16626,7 +16624,7 @@
       "tags": [
         "heist"
       ],
-      "comprehensive_score": 69.7707
+      "comprehensive_score": 69.7765
     },
     {
       "movieId": 2160,
@@ -16648,7 +16646,7 @@
         "scary",
         "suspense"
       ],
-      "comprehensive_score": 75.3494
+      "comprehensive_score": 75.3657
     },
     {
       "movieId": 2944,
@@ -16708,7 +16706,7 @@
       "tags": [
         "men in drag"
       ],
-      "comprehensive_score": 63.6457
+      "comprehensive_score": 63.6515
     },
     {
       "movieId": 5064,
@@ -16728,7 +16726,7 @@
         "remake",
         "revenge"
       ],
-      "comprehensive_score": 69.9992
+      "comprehensive_score": 70.0108
     },
     {
       "movieId": 6157,
@@ -16745,7 +16743,7 @@
         "Ben Affleck",
         "bad"
       ],
-      "comprehensive_score": 51.1291
+      "comprehensive_score": 51.1383
     },
     {
       "movieId": 6281,
@@ -16761,7 +16759,7 @@
       "tags": [
         "crime"
       ],
-      "comprehensive_score": 59.7082
+      "comprehensive_score": 59.714
     },
     {
       "movieId": 6541,
@@ -16783,7 +16781,7 @@
         "gothic",
         "superhero"
       ],
-      "comprehensive_score": 53.6931
+      "comprehensive_score": 53.7094
     },
     {
       "movieId": 8917,
@@ -16814,7 +16812,7 @@
       "tags": [
         "Peter Pan"
       ],
-      "comprehensive_score": 66.2707
+      "comprehensive_score": 66.2765
     },
     {
       "movieId": 53972,
@@ -16850,7 +16848,7 @@
         "Sci-fi",
         "solitude"
       ],
-      "comprehensive_score": 71.968
+      "comprehensive_score": 71.9796
     },
     {
       "movieId": 72011,
@@ -16950,7 +16948,7 @@
         "slow action",
         "visually appealing"
       ],
-      "comprehensive_score": 67.0369
+      "comprehensive_score": 67.0532
     },
     {
       "movieId": 152081,
@@ -17010,7 +17008,7 @@
         "England",
         "mental illness"
       ],
-      "comprehensive_score": 68.6093
+      "comprehensive_score": 68.6185
     },
     {
       "movieId": 724,
@@ -17094,7 +17092,7 @@
         "slasher",
         "spoof"
       ],
-      "comprehensive_score": 57.1438
+      "comprehensive_score": 57.1554
     },
     {
       "movieId": 1747,
@@ -17139,7 +17137,7 @@
         "General Motors",
         "Michigan"
       ],
-      "comprehensive_score": 69.7383
+      "comprehensive_score": 69.7475
     },
     {
       "movieId": 2953,
@@ -17158,7 +17156,7 @@
         "funny",
         "sequel"
       ],
-      "comprehensive_score": 51.713
+      "comprehensive_score": 51.7265
     },
     {
       "movieId": 3006,
@@ -17175,7 +17173,7 @@
         "tobacco",
         "true story"
       ],
-      "comprehensive_score": 68.3835
+      "comprehensive_score": 68.3927
     },
     {
       "movieId": 3256,
@@ -17209,7 +17207,7 @@
         "politics",
         "president"
       ],
-      "comprehensive_score": 64.9964
+      "comprehensive_score": 65.0056
     },
     {
       "movieId": 4321,
@@ -17241,7 +17239,7 @@
       "tags": [
         "sci-fi"
       ],
-      "comprehensive_score": 62.5746
+      "comprehensive_score": 62.5804
     },
     {
       "movieId": 4701,
@@ -17287,7 +17285,7 @@
       "tags": [
         "Hannibal Lecter"
       ],
-      "comprehensive_score": 63.7036
+      "comprehensive_score": 63.7094
     },
     {
       "movieId": 34319,
@@ -17321,7 +17319,7 @@
         "multiple storylines",
         "social commentary"
       ],
-      "comprehensive_score": 65.4872
+      "comprehensive_score": 65.5007
     },
     {
       "movieId": 61024,
@@ -17341,7 +17339,7 @@
         "Stoner Movie",
         "comedy"
       ],
-      "comprehensive_score": 67.9711
+      "comprehensive_score": 67.9845
     },
     {
       "movieId": 72641,
@@ -17388,7 +17386,7 @@
         "cinematography",
         "surreal"
       ],
-      "comprehensive_score": 67.0793
+      "comprehensive_score": 67.0909
     },
     {
       "movieId": 108932,
@@ -17414,7 +17412,7 @@
         "imaginative",
         "quirky"
       ],
-      "comprehensive_score": 71.1323
+      "comprehensive_score": 71.1497
     },
     {
       "movieId": 110102,
@@ -17442,7 +17440,7 @@
       "genres_text": "Adventure|Drama",
       "avg_rating": 3.9032,
       "rating_count": 31,
-      "tag_count": 7,
+      "tag_count": 6,
       "tags": [
         "Visually Striking",
         "cinematography",
@@ -17451,7 +17449,7 @@
         "tom hardy",
         "visually appealing"
       ],
-      "comprehensive_score": 71.5839
+      "comprehensive_score": 71.4719
     },
     {
       "movieId": 204,
@@ -17494,7 +17492,7 @@
       "tags": [
         "Jane Austen"
       ],
-      "comprehensive_score": 70.3033
+      "comprehensive_score": 70.3091
     },
     {
       "movieId": 915,
@@ -17510,7 +17508,7 @@
       "tags": [
         "rich guy - poor girl"
       ],
-      "comprehensive_score": 68.2033
+      "comprehensive_score": 68.2091
     },
     {
       "movieId": 1267,
@@ -17528,7 +17526,7 @@
         "assassination",
         "brainwashing"
       ],
-      "comprehensive_score": 75.3595
+      "comprehensive_score": 75.3687
     },
     {
       "movieId": 1271,
@@ -17592,7 +17590,7 @@
       "tags": [
         "police"
       ],
-      "comprehensive_score": 62.37
+      "comprehensive_score": 62.3758
     },
     {
       "movieId": 2403,
@@ -17623,7 +17621,7 @@
       "tags": [
         "christmas"
       ],
-      "comprehensive_score": 65.4033
+      "comprehensive_score": 65.4091
     },
     {
       "movieId": 2501,
@@ -17653,7 +17651,7 @@
       "tags": [
         "river"
       ],
-      "comprehensive_score": 70.07
+      "comprehensive_score": 70.0758
     },
     {
       "movieId": 5219,
@@ -17696,7 +17694,7 @@
         "survival",
         "violence"
       ],
-      "comprehensive_score": 72.1745
+      "comprehensive_score": 72.1946
     },
     {
       "movieId": 38038,
@@ -17715,7 +17713,7 @@
         "06 Oscar Nominated Best Movie - Animation",
         "Aardman"
       ],
-      "comprehensive_score": 66.7262
+      "comprehensive_score": 66.7354
     },
     {
       "movieId": 56757,
@@ -17821,7 +17819,7 @@
       "tags": [
         "basketball"
       ],
-      "comprehensive_score": 75.4321
+      "comprehensive_score": 75.4379
     },
     {
       "movieId": 647,
@@ -17839,7 +17837,7 @@
       "tags": [
         "Gulf War"
       ],
-      "comprehensive_score": 61.9148
+      "comprehensive_score": 61.9206
     },
     {
       "movieId": 743,
@@ -17869,7 +17867,7 @@
       "tags": [
         "divorce"
       ],
-      "comprehensive_score": 75.6734
+      "comprehensive_score": 75.6792
     },
     {
       "movieId": 1061,
@@ -17899,7 +17897,7 @@
       "tags": [
         "murder"
       ],
-      "comprehensive_score": 69.6389
+      "comprehensive_score": 69.6447
     },
     {
       "movieId": 1339,
@@ -17930,7 +17928,7 @@
       "tags": [
         "reunion"
       ],
-      "comprehensive_score": 56.8458
+      "comprehensive_score": 56.8516
     },
     {
       "movieId": 1831,
@@ -17976,7 +17974,7 @@
       "tags": [
         "boxing"
       ],
-      "comprehensive_score": 53.2252
+      "comprehensive_score": 53.231
     },
     {
       "movieId": 2421,
@@ -17993,7 +17991,7 @@
       "tags": [
         "martial arts"
       ],
-      "comprehensive_score": 54.1907
+      "comprehensive_score": 54.1965
     },
     {
       "movieId": 2485,
@@ -18056,7 +18054,7 @@
         "slasher",
         "spoof"
       ],
-      "comprehensive_score": 53.132
+      "comprehensive_score": 53.1412
     },
     {
       "movieId": 3450,
@@ -18152,7 +18150,7 @@
         "Will Smith",
         "bad script"
       ],
-      "comprehensive_score": 58.4773
+      "comprehensive_score": 58.4889
     },
     {
       "movieId": 94959,
@@ -18169,7 +18167,7 @@
       "tags": [
         "quirky"
       ],
-      "comprehensive_score": 68.1907
+      "comprehensive_score": 68.1965
     },
     {
       "movieId": 106696,
@@ -18211,7 +18209,7 @@
         "stylish",
         "widows/widowers"
       ],
-      "comprehensive_score": 70.7025
+      "comprehensive_score": 70.7218
     },
     {
       "movieId": 24,
@@ -18243,7 +18241,7 @@
         "adoption",
         "prostitution"
       ],
-      "comprehensive_score": 64.072
+      "comprehensive_score": 64.0812
     },
     {
       "movieId": 198,
@@ -18278,7 +18276,7 @@
       "tags": [
         "gothic"
       ],
-      "comprehensive_score": 56.4325
+      "comprehensive_score": 56.4383
     },
     {
       "movieId": 968,
@@ -18295,7 +18293,7 @@
       "tags": [
         "zombies"
       ],
-      "comprehensive_score": 67.6825
+      "comprehensive_score": 67.6883
     },
     {
       "movieId": 1027,
@@ -18342,7 +18340,7 @@
       "tags": [
         "moon"
       ],
-      "comprehensive_score": 72.4325
+      "comprehensive_score": 72.4383
     },
     {
       "movieId": 1299,
@@ -18359,7 +18357,7 @@
         "Cambodia",
         "Vietnam"
       ],
-      "comprehensive_score": 71.822
+      "comprehensive_score": 71.8312
     },
     {
       "movieId": 2150,
@@ -18390,7 +18388,7 @@
       "tags": [
         "journalism"
       ],
-      "comprehensive_score": 63.1825
+      "comprehensive_score": 63.1883
     },
     {
       "movieId": 2335,
@@ -18405,7 +18403,7 @@
       "tags": [
         "football"
       ],
-      "comprehensive_score": 59.6825
+      "comprehensive_score": 59.6883
     },
     {
       "movieId": 2788,
@@ -18438,7 +18436,7 @@
         "psychology",
         "winona ryder"
       ],
-      "comprehensive_score": 64.8861
+      "comprehensive_score": 64.9024
     },
     {
       "movieId": 3740,
@@ -18469,7 +18467,7 @@
       "tags": [
         "writing"
       ],
-      "comprehensive_score": 67.1825
+      "comprehensive_score": 67.1883
     },
     {
       "movieId": 4232,
@@ -18487,7 +18485,7 @@
       "tags": [
         "spying"
       ],
-      "comprehensive_score": 56.4325
+      "comprehensive_score": 56.4383
     },
     {
       "movieId": 5620,
@@ -18553,7 +18551,7 @@
         "morality",
         "visually appealing"
       ],
-      "comprehensive_score": 74.6276
+      "comprehensive_score": 74.646
     },
     {
       "movieId": 60756,
@@ -18564,14 +18562,14 @@
       "genres_text": "Comedy",
       "avg_rating": 3.5536,
       "rating_count": 28,
-      "tag_count": 8,
+      "tag_count": 4,
       "tags": [
         "Highly quotable",
         "comedy",
         "funny",
         "will ferrell"
       ],
-      "comprehensive_score": 66.3776
+      "comprehensive_score": 65.8263
     },
     {
       "movieId": 74789,
@@ -18605,7 +18603,7 @@
         "atmospheric",
         "predictable"
       ],
-      "comprehensive_score": 68.738
+      "comprehensive_score": 68.753
     },
     {
       "movieId": 97304,
@@ -18623,7 +18621,7 @@
         "cia",
         "politics"
       ],
-      "comprehensive_score": 71.5984
+      "comprehensive_score": 71.61
     },
     {
       "movieId": 115713,
@@ -18655,7 +18653,7 @@
       "tags": [
         "Aardman"
       ],
-      "comprehensive_score": 72.3275
+      "comprehensive_score": 72.3333
     },
     {
       "movieId": 741,
@@ -18700,7 +18698,7 @@
       "tags": [
         "adultery"
       ],
-      "comprehensive_score": 70.5127
+      "comprehensive_score": 70.5185
     },
     {
       "movieId": 922,
@@ -18719,7 +18717,7 @@
         "movie business",
         "movies"
       ],
-      "comprehensive_score": 76.3638
+      "comprehensive_score": 76.3754
     },
     {
       "movieId": 1021,
@@ -18749,7 +18747,7 @@
       "tags": [
         "freedom of expression"
       ],
-      "comprehensive_score": 64.5497
+      "comprehensive_score": 64.5555
     },
     {
       "movieId": 1179,
@@ -18766,7 +18764,7 @@
       "tags": [
         "crime"
       ],
-      "comprehensive_score": 65.846
+      "comprehensive_score": 65.8518
     },
     {
       "movieId": 1257,
@@ -18782,7 +18780,7 @@
       "tags": [
         "skiing"
       ],
-      "comprehensive_score": 66.6238
+      "comprehensive_score": 66.6296
     },
     {
       "movieId": 1293,
@@ -18797,7 +18795,7 @@
       "tags": [
         "India"
       ],
-      "comprehensive_score": 68.6978
+      "comprehensive_score": 68.7036
     },
     {
       "movieId": 1347,
@@ -18885,7 +18883,7 @@
         "bad",
         "doctors"
       ],
-      "comprehensive_score": 62.6059
+      "comprehensive_score": 62.6151
     },
     {
       "movieId": 3072,
@@ -18901,7 +18899,7 @@
       "tags": [
         "New York"
       ],
-      "comprehensive_score": 64.809
+      "comprehensive_score": 64.8148
     },
     {
       "movieId": 3252,
@@ -18958,7 +18956,7 @@
         "great cinematography",
         "racism"
       ],
-      "comprehensive_score": 71.9393
+      "comprehensive_score": 71.9485
     },
     {
       "movieId": 3968,
@@ -19001,7 +18999,7 @@
         "Seann William Scott",
         "really bad"
       ],
-      "comprehensive_score": 57.9393
+      "comprehensive_score": 57.9485
     },
     {
       "movieId": 4700,
@@ -19097,7 +19095,7 @@
         "Watergate",
         "journalism"
       ],
-      "comprehensive_score": 71.9564
+      "comprehensive_score": 71.968
     },
     {
       "movieId": 8873,
@@ -19125,11 +19123,9 @@
       "genres_text": "Action|Crime|Drama|Thriller",
       "avg_rating": 3.5,
       "rating_count": 27,
-      "tag_count": 1,
-      "tags": [
-        "In Netflix queue"
-      ],
-      "comprehensive_score": 64.0312
+      "tag_count": 0,
+      "tags": [],
+      "comprehensive_score": 63.3652
     },
     {
       "movieId": 40629,
@@ -19141,11 +19137,9 @@
       "genres_text": "Drama|Romance",
       "avg_rating": 3.5556,
       "rating_count": 27,
-      "tag_count": 1,
-      "tags": [
-        "In Netflix queue"
-      ],
-      "comprehensive_score": 64.809
+      "tag_count": 0,
+      "tags": [],
+      "comprehensive_score": 64.143
     },
     {
       "movieId": 52281,
@@ -19287,7 +19281,7 @@
       "tags": [
         "fun"
       ],
-      "comprehensive_score": 69.9941
+      "comprehensive_score": 69.9999
     },
     {
       "movieId": 166528,
@@ -19321,7 +19315,7 @@
       "tags": [
         "muppets"
       ],
-      "comprehensive_score": 61.4513
+      "comprehensive_score": 61.4571
     },
     {
       "movieId": 413,
@@ -19336,7 +19330,7 @@
       "tags": [
         "Comedy"
       ],
-      "comprehensive_score": 53.9129
+      "comprehensive_score": 53.9187
     },
     {
       "movieId": 916,
@@ -19354,7 +19348,7 @@
         "Italy",
         "royalty"
       ],
-      "comprehensive_score": 72.0717
+      "comprehensive_score": 72.0809
     },
     {
       "movieId": 1235,
@@ -19371,7 +19365,7 @@
       "tags": [
         "May-December romance"
       ],
-      "comprehensive_score": 74.9129
+      "comprehensive_score": 74.9187
     },
     {
       "movieId": 1476,
@@ -19429,7 +19423,7 @@
       "tags": [
         "China"
       ],
-      "comprehensive_score": 66.5667
+      "comprehensive_score": 66.5725
     },
     {
       "movieId": 2082,
@@ -19500,7 +19494,7 @@
       "tags": [
         "comic book"
       ],
-      "comprehensive_score": 55.259
+      "comprehensive_score": 55.2648
     },
     {
       "movieId": 2795,
@@ -19588,7 +19582,7 @@
         "sofia coppola",
         "suicide"
       ],
-      "comprehensive_score": 68.3096
+      "comprehensive_score": 68.3212
     },
     {
       "movieId": 3638,
@@ -19719,7 +19713,7 @@
         "M. Night Shyamalan",
         "good soundtrack"
       ],
-      "comprehensive_score": 60.2327
+      "comprehensive_score": 60.2443
     },
     {
       "movieId": 53519,
@@ -19749,7 +19743,7 @@
       "genres_text": "Action|Sci-Fi|Thriller",
       "avg_rating": 2.8654,
       "rating_count": 26,
-      "tag_count": 6,
+      "tag_count": 5,
       "tags": [
         "Ryan Reynolds",
         "bad plot",
@@ -19757,7 +19751,7 @@
         "hugh jackman",
         "too many characters"
       ],
-      "comprehensive_score": 56.1934
+      "comprehensive_score": 56.0603
     },
     {
       "movieId": 89492,
@@ -19832,7 +19826,7 @@
         "funny",
         "interesting"
       ],
-      "comprehensive_score": 71.0019
+      "comprehensive_score": 71.0135
     },
     {
       "movieId": 164179,
@@ -19853,7 +19847,7 @@
         "thought-provoking",
         "visually appealing"
       ],
-      "comprehensive_score": 71.9371
+      "comprehensive_score": 71.9545
     },
     {
       "movieId": 374,
@@ -19882,7 +19876,7 @@
       "tags": [
         "Ireland"
       ],
-      "comprehensive_score": 74.9117
+      "comprehensive_score": 74.9175
     },
     {
       "movieId": 1025,
@@ -19901,7 +19895,7 @@
         "Disney",
         "King Arthur"
       ],
-      "comprehensive_score": 65.2213
+      "comprehensive_score": 65.2305
     },
     {
       "movieId": 1086,
@@ -19933,7 +19927,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 68.1917
+      "comprehensive_score": 68.1975
     },
     {
       "movieId": 1343,
@@ -19952,7 +19946,7 @@
         "horror",
         "remake"
       ],
-      "comprehensive_score": 68.6872
+      "comprehensive_score": 68.7022
     },
     {
       "movieId": 1378,
@@ -19998,7 +19992,7 @@
       "tags": [
         "alternate universe"
       ],
-      "comprehensive_score": 65.1117
+      "comprehensive_score": 65.1175
     },
     {
       "movieId": 1801,
@@ -20015,7 +20009,7 @@
       "tags": [
         "seen more than once"
       ],
-      "comprehensive_score": 63.7117
+      "comprehensive_score": 63.7175
     },
     {
       "movieId": 2020,
@@ -20031,7 +20025,7 @@
       "tags": [
         "adultery"
       ],
-      "comprehensive_score": 70.7117
+      "comprehensive_score": 70.7175
     },
     {
       "movieId": 2186,
@@ -20049,7 +20043,7 @@
       "tags": [
         "murder"
       ],
-      "comprehensive_score": 70.4317
+      "comprehensive_score": 70.4375
     },
     {
       "movieId": 2352,
@@ -20096,7 +20090,7 @@
         "Bible",
         "Moses"
       ],
-      "comprehensive_score": 64.1013
+      "comprehensive_score": 64.1105
     },
     {
       "movieId": 2598,
@@ -20111,7 +20105,7 @@
       "tags": [
         "golfing"
       ],
-      "comprehensive_score": 54.4717
+      "comprehensive_score": 54.4775
     },
     {
       "movieId": 2872,
@@ -20128,7 +20122,7 @@
         "England",
         "King Arthur"
       ],
-      "comprehensive_score": 66.0613
+      "comprehensive_score": 66.0705
     },
     {
       "movieId": 2986,
@@ -20191,7 +20185,7 @@
       "tags": [
         "factory"
       ],
-      "comprehensive_score": 66.7917
+      "comprehensive_score": 66.7975
     },
     {
       "movieId": 3534,
@@ -20220,7 +20214,7 @@
       "tags": [
         "Pee Wee Herman"
       ],
-      "comprehensive_score": 55.8717
+      "comprehensive_score": 55.8775
     },
     {
       "movieId": 3798,
@@ -20251,7 +20245,7 @@
       "tags": [
         "wedding"
       ],
-      "comprehensive_score": 58.6717
+      "comprehensive_score": 58.6775
     },
     {
       "movieId": 5617,
@@ -20285,7 +20279,7 @@
       "tags": [
         "DEPRESSING"
       ],
-      "comprehensive_score": 60.9117
+      "comprehensive_score": 60.9175
     },
     {
       "movieId": 8983,
@@ -20302,7 +20296,7 @@
       "tags": [
         "martial arts"
       ],
-      "comprehensive_score": 63.9917
+      "comprehensive_score": 63.9975
     },
     {
       "movieId": 27706,
@@ -20324,7 +20318,7 @@
         "quirky",
         "stylized"
       ],
-      "comprehensive_score": 60.0072
+      "comprehensive_score": 60.0222
     },
     {
       "movieId": 46530,
@@ -20388,7 +20382,7 @@
       "tags": [
         "Christian Bale"
       ],
-      "comprehensive_score": 71.5517
+      "comprehensive_score": 71.5575
     },
     {
       "movieId": 67255,
@@ -20439,7 +20433,7 @@
         "fantasy",
         "too long"
       ],
-      "comprehensive_score": 65.7121
+      "comprehensive_score": 65.7255
     },
     {
       "movieId": 106920,
@@ -20474,7 +20468,7 @@
         "heartbreaking",
         "predictible plot"
       ],
-      "comprehensive_score": 75.6872
+      "comprehensive_score": 75.7022
     },
     {
       "movieId": 215,
@@ -20490,7 +20484,7 @@
       "tags": [
         "generation X"
       ],
-      "comprehensive_score": 71.1259
+      "comprehensive_score": 71.1317
     },
     {
       "movieId": 230,
@@ -20506,7 +20500,7 @@
       "tags": [
         "Stephen King"
       ],
-      "comprehensive_score": 62.0843
+      "comprehensive_score": 62.0901
     },
     {
       "movieId": 307,
@@ -20521,7 +20515,7 @@
       "tags": [
         "Death"
       ],
-      "comprehensive_score": 69.0843
+      "comprehensive_score": 69.0901
     },
     {
       "movieId": 515,
@@ -20538,7 +20532,7 @@
         "Butler",
         "Housekeeper"
       ],
-      "comprehensive_score": 65.3905
+      "comprehensive_score": 65.3997
     },
     {
       "movieId": 531,
@@ -20550,11 +20544,9 @@
       "genres_text": "Children|Drama",
       "avg_rating": 3.25,
       "rating_count": 24,
-      "tag_count": 1,
-      "tags": [
-        "In Netflix queue"
-      ],
-      "comprehensive_score": 60.0426
+      "tag_count": 0,
+      "tags": [],
+      "comprehensive_score": 59.3766
     },
     {
       "movieId": 926,
@@ -20569,7 +20561,7 @@
       "tags": [
         "Hollywood"
       ],
-      "comprehensive_score": 73.7509
+      "comprehensive_score": 73.7567
     },
     {
       "movieId": 1031,
@@ -20616,7 +20608,7 @@
       "tags": [
         "Clousseau"
       ],
-      "comprehensive_score": 66.1676
+      "comprehensive_score": 66.1734
     },
     {
       "movieId": 1212,
@@ -20635,7 +20627,7 @@
         "ferris wheel",
         "zither"
       ],
-      "comprehensive_score": 74.4169
+      "comprehensive_score": 74.4285
     },
     {
       "movieId": 1357,
@@ -20651,7 +20643,7 @@
       "tags": [
         "music"
       ],
-      "comprehensive_score": 70.5426
+      "comprehensive_score": 70.5484
     },
     {
       "movieId": 1385,
@@ -20695,7 +20687,7 @@
       "tags": [
         "mockumentary"
       ],
-      "comprehensive_score": 68.7926
+      "comprehensive_score": 68.7984
     },
     {
       "movieId": 1711,
@@ -20712,7 +20704,7 @@
       "tags": [
         "Savannah"
       ],
-      "comprehensive_score": 58.0009
+      "comprehensive_score": 58.0067
     },
     {
       "movieId": 1883,
@@ -20744,7 +20736,7 @@
         "boxing",
         "coulda been a contender"
       ],
-      "comprehensive_score": 73.5572
+      "comprehensive_score": 73.5664
     },
     {
       "movieId": 2046,
@@ -20775,7 +20767,7 @@
       "tags": [
         "weather forecaster"
       ],
-      "comprehensive_score": 63.2509
+      "comprehensive_score": 63.2567
     },
     {
       "movieId": 2369,
@@ -20821,7 +20813,7 @@
       "tags": [
         "boxing"
       ],
-      "comprehensive_score": 52.7509
+      "comprehensive_score": 52.7567
     },
     {
       "movieId": 2471,
@@ -20838,7 +20830,7 @@
       "tags": [
         "Australia"
       ],
-      "comprehensive_score": 49.2509
+      "comprehensive_score": 49.2567
     },
     {
       "movieId": 2528,
@@ -20915,7 +20907,7 @@
         "christmas",
         "new york"
       ],
-      "comprehensive_score": 59.2655
+      "comprehensive_score": 59.2747
     },
     {
       "movieId": 3098,
@@ -20931,7 +20923,7 @@
         "baseball",
         "sports"
       ],
-      "comprehensive_score": 65.9738
+      "comprehensive_score": 65.983
     },
     {
       "movieId": 3704,
@@ -20976,7 +20968,7 @@
         "Africa",
         "immigrants"
       ],
-      "comprehensive_score": 63.3488
+      "comprehensive_score": 63.358
     },
     {
       "movieId": 5103,
@@ -21041,7 +21033,7 @@
       "tags": [
         "anime"
       ],
-      "comprehensive_score": 71.4176
+      "comprehensive_score": 71.4234
     },
     {
       "movieId": 6593,
@@ -21135,7 +21127,7 @@
         "joss whedon",
         "parody"
       ],
-      "comprehensive_score": 70.2563
+      "comprehensive_score": 70.2698
     },
     {
       "movieId": 81847,
@@ -21204,7 +21196,7 @@
         "off-beat comedy",
         "quirky"
       ],
-      "comprehensive_score": 67.9891
+      "comprehensive_score": 68.0007
     },
     {
       "movieId": 105,
@@ -21234,7 +21226,7 @@
       "tags": [
         "adolescence"
       ],
-      "comprehensive_score": 63.9753
+      "comprehensive_score": 63.9811
     },
     {
       "movieId": 799,
@@ -21370,7 +21362,7 @@
       "tags": [
         "good"
       ],
-      "comprehensive_score": 53.0188
+      "comprehensive_score": 53.0246
     },
     {
       "movieId": 1792,
@@ -21400,7 +21392,7 @@
       "tags": [
         "rasicm"
       ],
-      "comprehensive_score": 66.7145
+      "comprehensive_score": 66.7203
     },
     {
       "movieId": 2052,
@@ -21431,7 +21423,7 @@
       "tags": [
         "England"
       ],
-      "comprehensive_score": 65.8014
+      "comprehensive_score": 65.8072
     },
     {
       "movieId": 2428,
@@ -21608,7 +21600,7 @@
       "tags": [
         "Cold War"
       ],
-      "comprehensive_score": 67.6275
+      "comprehensive_score": 67.6333
     },
     {
       "movieId": 8371,
@@ -21639,7 +21631,7 @@
       "tags": [
         "Truman Capote"
       ],
-      "comprehensive_score": 68.5405
+      "comprehensive_score": 68.5463
     },
     {
       "movieId": 44022,
@@ -21691,7 +21683,7 @@
         "Ben Stiller",
         "Robin Williams"
       ],
-      "comprehensive_score": 60.104
+      "comprehensive_score": 60.1132
     },
     {
       "movieId": 81932,
@@ -21781,7 +21773,7 @@
         "basketball",
         "infertility"
       ],
-      "comprehensive_score": 61.6219
+      "comprehensive_score": 61.6335
     },
     {
       "movieId": 276,
@@ -21826,7 +21818,7 @@
       "tags": [
         "aliens"
       ],
-      "comprehensive_score": 57.7741
+      "comprehensive_score": 57.7799
     },
     {
       "movieId": 1188,
@@ -21843,7 +21835,7 @@
         "Australia",
         "dance"
       ],
-      "comprehensive_score": 65.8
+      "comprehensive_score": 65.8092
     },
     {
       "movieId": 1231,
@@ -21859,7 +21851,7 @@
         "NASA",
         "space"
       ],
-      "comprehensive_score": 68.6636
+      "comprehensive_score": 68.6728
     },
     {
       "movieId": 1350,
@@ -21876,7 +21868,7 @@
       "tags": [
         "demons"
       ],
-      "comprehensive_score": 67.6377
+      "comprehensive_score": 67.6435
     },
     {
       "movieId": 1586,
@@ -21892,7 +21884,7 @@
       "tags": [
         "military"
       ],
-      "comprehensive_score": 53.3195
+      "comprehensive_score": 53.3253
     },
     {
       "movieId": 1952,
@@ -21907,7 +21899,7 @@
       "tags": [
         "prostitution"
       ],
-      "comprehensive_score": 69.5468
+      "comprehensive_score": 69.5526
     },
     {
       "movieId": 1958,
@@ -21997,7 +21989,7 @@
       "tags": [
         "heist"
       ],
-      "comprehensive_score": 67.3195
+      "comprehensive_score": 67.3253
     },
     {
       "movieId": 2600,
@@ -22014,7 +22006,7 @@
       "tags": [
         "virtual reality"
       ],
-      "comprehensive_score": 68.2741
+      "comprehensive_score": 68.2799
     },
     {
       "movieId": 2642,
@@ -22031,7 +22023,7 @@
       "tags": [
         "superhero"
       ],
-      "comprehensive_score": 45.6832
+      "comprehensive_score": 45.689
     },
     {
       "movieId": 2707,
@@ -22103,7 +22095,7 @@
       "tags": [
         "basketball"
       ],
-      "comprehensive_score": 56.8195
+      "comprehensive_score": 56.8253
     },
     {
       "movieId": 3317,
@@ -22119,7 +22111,7 @@
       "tags": [
         "writing"
       ],
-      "comprehensive_score": 65.4104
+      "comprehensive_score": 65.4162
     },
     {
       "movieId": 3360,
@@ -22135,7 +22127,7 @@
       "tags": [
         "basketball"
       ],
-      "comprehensive_score": 66.0468
+      "comprehensive_score": 66.0526
     },
     {
       "movieId": 3504,
@@ -22151,7 +22143,7 @@
       "tags": [
         "journalism"
       ],
-      "comprehensive_score": 70.5013
+      "comprehensive_score": 70.5071
     },
     {
       "movieId": 4069,
@@ -22182,7 +22174,7 @@
       "tags": [
         "zombies"
       ],
-      "comprehensive_score": 67.6377
+      "comprehensive_score": 67.6435
     },
     {
       "movieId": 5171,
@@ -22257,7 +22249,7 @@
         "crime",
         "nightclub"
       ],
-      "comprehensive_score": 68.3454
+      "comprehensive_score": 68.3546
     },
     {
       "movieId": 6323,
@@ -22275,7 +22267,7 @@
       "tags": [
         "John Cusack"
       ],
-      "comprehensive_score": 65.7286
+      "comprehensive_score": 65.7344
     },
     {
       "movieId": 6773,
@@ -22292,7 +22284,7 @@
       "tags": [
         "biking"
       ],
-      "comprehensive_score": 66.0468
+      "comprehensive_score": 66.0526
     },
     {
       "movieId": 27904,
@@ -22360,7 +22352,7 @@
         "chick flick",
         "overrated"
       ],
-      "comprehensive_score": 48.966
+      "comprehensive_score": 48.981
     },
     {
       "movieId": 80489,
@@ -22380,7 +22372,7 @@
         "romance",
         "too much love interest"
       ],
-      "comprehensive_score": 70.4272
+      "comprehensive_score": 70.4406
     },
     {
       "movieId": 91630,
@@ -22446,7 +22438,7 @@
         "predictable",
         "stupid ending"
       ],
-      "comprehensive_score": 62.7908
+      "comprehensive_score": 62.8043
     },
     {
       "movieId": 103042,
@@ -22466,7 +22458,7 @@
         "Amy Adams",
         "superhero"
       ],
-      "comprehensive_score": 60.7091
+      "comprehensive_score": 60.7183
     },
     {
       "movieId": 122920,
@@ -22498,7 +22490,7 @@
       "tags": [
         "visually appealing"
       ],
-      "comprehensive_score": 66.0468
+      "comprehensive_score": 66.0526
     },
     {
       "movieId": 207,
@@ -22528,7 +22520,7 @@
       "tags": [
         "Australia"
       ],
-      "comprehensive_score": 68.9915
+      "comprehensive_score": 68.9973
     },
     {
       "movieId": 262,
@@ -22546,7 +22538,7 @@
         "Girl Power",
         "India"
       ],
-      "comprehensive_score": 69.3242
+      "comprehensive_score": 69.3358
     },
     {
       "movieId": 371,
@@ -22562,7 +22554,7 @@
       "tags": [
         "journalism"
       ],
-      "comprehensive_score": 60.3249
+      "comprehensive_score": 60.3307
     },
     {
       "movieId": 372,
@@ -22657,7 +22649,7 @@
       "tags": [
         "bad"
       ],
-      "comprehensive_score": 54.3249
+      "comprehensive_score": 54.3307
     },
     {
       "movieId": 830,
@@ -22672,7 +22664,7 @@
       "tags": [
         "adultery"
       ],
-      "comprehensive_score": 56.9915
+      "comprehensive_score": 56.9973
     },
     {
       "movieId": 1049,
@@ -22819,85 +22811,65 @@
       "tags": [
         "mice"
       ],
-      "comprehensive_score": 62.6582
+      "comprehensive_score": 62.664
     }
   ],
   "sortRuntime": [
     {
       "task": "sort_by_comprehensive_score",
       "data_size": "100",
-      "merge_sort_seconds": "0.0001034",
-      "heap_sort_seconds": "0.0001434"
+      "merge_sort_seconds": "0.0001185",
+      "heap_sort_seconds": "0.0001847"
     },
     {
       "task": "sort_by_comprehensive_score",
       "data_size": "500",
-      "merge_sort_seconds": "0.0006968",
-      "heap_sort_seconds": "0.0009926"
+      "merge_sort_seconds": "0.000776",
+      "heap_sort_seconds": "0.0012849"
     },
     {
       "task": "sort_by_comprehensive_score",
       "data_size": "1000",
-      "merge_sort_seconds": "0.0014675",
-      "heap_sort_seconds": "0.0025736"
+      "merge_sort_seconds": "0.0018141",
+      "heap_sort_seconds": "0.003044"
     },
     {
       "task": "sort_by_comprehensive_score",
       "data_size": "5000",
-      "merge_sort_seconds": "0.0108229",
-      "heap_sort_seconds": "0.0161297"
+      "merge_sort_seconds": "0.0111117",
+      "heap_sort_seconds": "0.0193317"
     },
     {
       "task": "sort_by_comprehensive_score",
       "data_size": "9742",
-      "merge_sort_seconds": "0.0251805",
-      "heap_sort_seconds": "0.0349986"
+      "merge_sort_seconds": "0.0261748",
+      "heap_sort_seconds": "0.0432482"
     }
   ],
   "searchRuntime": [
     {
       "query_type": "title",
       "query": "Toy Story",
-      "linear_seconds": "0.0008299",
-      "index_seconds": "0.00054",
+      "linear_seconds": "0.0009163",
+      "index_seconds": "0.0005839",
       "linear_result_count": "3",
       "index_result_count": "3"
     },
     {
       "query_type": "genre",
       "query": "Comedy",
-      "linear_seconds": "0.0020307",
-      "index_seconds": "4.3e-06",
+      "linear_seconds": "0.002278",
+      "index_seconds": "4e-06",
       "linear_result_count": "3756",
       "index_result_count": "3756"
     },
     {
       "query_type": "tag",
       "query": "funny",
-      "linear_seconds": "0.0017354",
-      "index_seconds": "3.59e-05",
+      "linear_seconds": "0.0017307",
+      "index_seconds": "4.29e-05",
       "linear_result_count": "25",
       "index_result_count": "25"
-    }
-  ],
-  "netflixRuntime": [
-    {
-      "task": "netflix_sample_sort_by_score",
-      "data_size": "50",
-      "merge_sort_seconds": "4.2e-05",
-      "heap_sort_seconds": "6.28e-05"
-    },
-    {
-      "task": "netflix_sample_sort_by_score",
-      "data_size": "100",
-      "merge_sort_seconds": "0.000106",
-      "heap_sort_seconds": "0.000144"
-    },
-    {
-      "task": "netflix_sample_sort_by_score",
-      "data_size": "200",
-      "merge_sort_seconds": "0.000221",
-      "heap_sort_seconds": "0.000315"
     }
   ]
 }
