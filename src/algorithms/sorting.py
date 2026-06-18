@@ -44,52 +44,34 @@ def merge_sort(items: Iterable[T], key: str | Callable[[T], object], reverse: bo
 
 
 def heap_sort(items: Iterable[T], key: str | Callable[[T], object], reverse: bool = True) -> list[T]:
-    heap: list[T] = []
+    values = list(items)
     key_func = _key_function(key)
 
-    def higher_priority(left: T, right: T) -> bool:
+    def heap_priority(left: T, right: T) -> bool:
         if reverse:
-            return key_func(left) > key_func(right)
-        return key_func(left) < key_func(right)
+            return key_func(left) < key_func(right)
+        return key_func(left) > key_func(right)
 
-    def sift_up(index: int) -> None:
-        while index > 0:
-            parent = (index - 1) // 2
-            if not higher_priority(heap[index], heap[parent]):
-                break
-            heap[index], heap[parent] = heap[parent], heap[index]
-            index = parent
-
-    def sift_down(index: int) -> None:
-        size = len(heap)
+    def sift_down(index: int, size: int) -> None:
         while True:
             left = index * 2 + 1
             right = left + 1
             best = index
-            if left < size and higher_priority(heap[left], heap[best]):
+            if left < size and heap_priority(values[left], values[best]):
                 best = left
-            if right < size and higher_priority(heap[right], heap[best]):
+            if right < size and heap_priority(values[right], values[best]):
                 best = right
             if best == index:
                 break
-            heap[index], heap[best] = heap[best], heap[index]
+            values[index], values[best] = values[best], values[index]
             index = best
 
-    def push(item: T) -> None:
-        heap.append(item)
-        sift_up(len(heap) - 1)
+    size = len(values)
+    for index in range(size // 2 - 1, -1, -1):
+        sift_down(index, size)
 
-    def pop() -> T:
-        root = heap[0]
-        last = heap.pop()
-        if heap:
-            heap[0] = last
-            sift_down(0)
-        return root
+    for end in range(size - 1, 0, -1):
+        values[0], values[end] = values[end], values[0]
+        sift_down(0, end)
 
-    for item in items:
-        push(item)
-    result: list[T] = []
-    while heap:
-        result.append(pop())
-    return result
+    return values
