@@ -8,7 +8,6 @@ const state = {
   forYouRequest: 0,
   searchRequest: 0,
   similarRequest: 0,
-  tagAliasRequest: 0,
   tagSemanticRequest: 0,
 };
 
@@ -479,107 +478,6 @@ async function recommendSimilar(options = {}) {
   }
 }
 
-async function renderTagAliases() {
-  const requestId = ++state.tagAliasRequest;
-  const meta = document.querySelector("#tagAliasMeta");
-  const configured = document.querySelector("#tagAliasConfigured");
-  const candidates = document.querySelector("#tagAliasCandidates");
-
-  meta.textContent = "Scanning tag alias candidates...";
-  configured.innerHTML = "";
-  candidates.innerHTML = "";
-
-  try {
-    const payload = await apiGet("/api/tag-alias-candidates", { n: 12 });
-    if (requestId !== state.tagAliasRequest) return;
-    const summary = payload.summary || {};
-    meta.textContent = `${payload.count} pending | accepted ${summary.accepted_count || 0} | rejected ${summary.rejected_count || 0} | ignored ${summary.ignored_count || 0} | ${summary.raw_tag_count || 0} raw tags -> ${summary.canonical_tag_count || 0} canonical tags | ${payload.elapsed_ms.toFixed(3)} ms`;
-    configured.innerHTML = renderConfiguredAliases(payload.configured_aliases || []);
-    candidates.innerHTML = renderAliasCandidates(payload.candidates || []);
-  } catch (error) {
-    meta.textContent = error.message;
-    configured.innerHTML = "";
-    candidates.innerHTML = "";
-  }
-}
-
-function renderConfiguredAliases(aliases) {
-  const active = aliases
-    .filter((item) => item.active_in_dataset)
-    .sort((left, right) => Number(right.source_type === "accepted") - Number(left.source_type === "accepted"))
-    .slice(0, 10);
-  if (!active.length) {
-    return "<span class=\"alias-chip\">No configured aliases found in this dataset sample</span>";
-  }
-  return active.map((item) => `
-    <span class="alias-chip alias-${escapeHtml(item.source_type || "configured")}">${escapeHtml(item.source)} -> ${escapeHtml(item.target)} (${numberFmt.format(item.source_count)})</span>
-  `).join("");
-}
-
-function renderAliasCandidates(candidates) {
-  if (!candidates.length) {
-    return "<div class=\"alias-row\"><strong>No alias candidates above the confidence threshold.</strong></div>";
-  }
-  return candidates.map((item) => `
-    <div class="alias-row">
-      <div class="alias-row-header">
-        <div class="alias-pair">
-          <span class="alias-source">${escapeHtml(item.source)}</span>
-          <span class="alias-arrow">-></span>
-          <span class="alias-target">${escapeHtml(item.target)}</span>
-        </div>
-        <span class="confidence-badge confidence-${escapeHtml(item.confidence_band)}">${escapeHtml(item.confidence_band)}</span>
-      </div>
-      <div class="alias-metrics">
-        <span class="alias-metric">confidence <strong>${Number(item.confidence).toFixed(2)}</strong></span>
-        <span class="alias-metric">text <strong>${Number(item.text_similarity).toFixed(2)}</strong></span>
-        <span class="alias-metric">movies <strong>${numberFmt.format(item.movie_overlap)}</strong></span>
-        <span class="alias-metric">source <strong>${numberFmt.format(item.source_count)}</strong></span>
-        <span class="alias-metric">target <strong>${numberFmt.format(item.target_count)}</strong></span>
-      </div>
-      <div class="alias-reasons">
-        ${(item.reasons || []).map((reason) => `<span class="alias-reason">${escapeHtml(reason)}</span>`).join("")}
-      </div>
-      <div class="alias-actions">
-        <button class="alias-decision-button accept-alias" type="button" data-source="${escapeHtml(item.source)}" data-target="${escapeHtml(item.target)}" data-decision="accept">Accept</button>
-        <button class="alias-decision-button reject-alias" type="button" data-source="${escapeHtml(item.source)}" data-target="${escapeHtml(item.target)}" data-decision="reject">Reject</button>
-        <button class="alias-decision-button ignore-alias ghost-button" type="button" data-source="${escapeHtml(item.source)}" data-target="${escapeHtml(item.target)}" data-decision="ignore">Ignore</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-async function sendTagAliasDecision(button) {
-  const source = button.dataset.source;
-  const target = button.dataset.target;
-  const decision = button.dataset.decision;
-  const row = button.closest(".alias-row");
-  if (!source || !target || !decision || !row) return;
-
-  const buttons = row.querySelectorAll(".alias-decision-button");
-  buttons.forEach((item) => {
-    item.disabled = true;
-  });
-  row.classList.add("alias-row-saving");
-
-  try {
-    await apiPost("/api/tag-alias-decisions", { source, target, decision });
-    row.classList.remove("alias-row-saving");
-    row.classList.add(`alias-row-${decision}`);
-    await renderTagAliases();
-    if (decision === "accept") {
-      await renderForYou();
-      await renderTopMovies();
-    }
-  } catch (error) {
-    row.classList.remove("alias-row-saving");
-    row.insertAdjacentHTML("beforeend", `<div class="alias-error">${escapeHtml(error.message)}</div>`);
-    buttons.forEach((item) => {
-      item.disabled = false;
-    });
-  }
-}
-
 function renderCharts() {
   const sortRows = state.data.sortRuntime || [];
   const maxSort = Math.max(
@@ -623,7 +521,6 @@ async function init() {
   await runSearch({ record: false });
   await recommendSimilar({ record: false });
   await renderTagSemantics();
-  await renderTagAliases();
   renderCharts();
 }
 
@@ -645,14 +542,7 @@ document.querySelector("#semanticButton").addEventListener("click", () => render
 document.querySelector("#semanticInput").addEventListener("keydown", (event) => {
   if (event.key === "Enter") renderTagSemantics();
 });
-document.querySelector("#tagAliasRefresh").addEventListener("click", () => renderTagAliases());
 document.addEventListener("click", (event) => {
-  const aliasButton = event.target.closest(".alias-decision-button");
-  if (aliasButton) {
-    sendTagAliasDecision(aliasButton);
-    return;
-  }
-
   const item = event.target.closest(".result-item[data-movie-id], .movie-row[data-movie-id]");
   if (!item) return;
   const movieId = Number(item.dataset.movieId);

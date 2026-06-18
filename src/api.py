@@ -23,11 +23,6 @@ from src.datasets.movielens.personalization import (
 from src.datasets.movielens.profiles import build_movie_profiles
 from src.datasets.movielens.recommendation import recommend_similar_movies, top_n_movies
 from src.datasets.movielens.search import MovieLensSearchEngine
-from src.datasets.movielens.tag_aliases import (
-    DEFAULT_TAG_ALIAS_DECISIONS_PATH,
-    TagAliasDecisionStore,
-    build_tag_alias_report,
-)
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 
 
@@ -44,12 +39,6 @@ class InteractionRequest(BaseModel):
     source: Literal["interest", "collaborative", "explore", "top", "search", "similar", "detail"] | None = None
 
 
-class TagAliasDecisionRequest(BaseModel):
-    source: str = Field(min_length=1, max_length=120)
-    target: str = Field(min_length=1, max_length=120)
-    decision: Literal["accept", "reject", "ignore"]
-
-
 class MovieLensApiService:
     def __init__(self) -> None:
         self._profiles: list[dict] | None = None
@@ -58,9 +47,7 @@ class MovieLensApiService:
         self._collaborative_model: UserCollaborativeModel | None = None
         self._tag_semantics: TagSemanticModel | None = None
         self._summary: dict | None = None
-        self._tag_alias_report: dict | None = None
         self._events = PersonalizationStore(MOVIELENS_OUTPUT_DIR / "user_events.jsonl")
-        self._tag_decisions = TagAliasDecisionStore(DEFAULT_TAG_ALIAS_DECISIONS_PATH)
 
     def _ensure_loaded(self) -> None:
         if (
@@ -70,12 +57,11 @@ class MovieLensApiService:
             and self._collaborative_model is not None
             and self._tag_semantics is not None
             and self._summary is not None
-            and self._tag_alias_report is not None
         ):
             return
 
         movies, ratings, tags = load_movielens()
-        tag_aliases = self._tag_decisions.accepted_aliases()
+        tag_aliases: dict[str, str] = {}
         profiles = build_movie_profiles(movies, ratings, tags, tag_aliases=tag_aliases)
         self._profiles = profiles
         self._engine = MovieLensSearchEngine(profiles, tag_aliases=tag_aliases)
@@ -84,11 +70,6 @@ class MovieLensApiService:
         self._tag_semantics = TagSemanticModel.from_profiles(
             profiles,
             cache_path=MOVIELENS_OUTPUT_DIR / "tag_semantics.json",
-        )
-        self._tag_alias_report = build_tag_alias_report(
-            tags,
-            aliases=tag_aliases,
-            decisions=self._tag_decisions.decisions,
         )
         self._summary = {
             "movie_count": len(profiles),
@@ -225,53 +206,6 @@ class MovieLensApiService:
             "engine": "tag_movie_lsa",
         }
 
-    def tag_alias_candidates(self, n: int) -> dict:
-        started = time.perf_counter()
-        self._ensure_loaded()
-        assert self._tag_alias_report is not None
-        candidates = self._tag_alias_report["candidates"][:n]
-        return {
-            **self._tag_alias_report,
-            "candidates": candidates,
-            "count": len(candidates),
-            "elapsed_ms": _elapsed_ms(started),
-            "engine": "tag_alias_candidate_miner",
-        }
-
-    def record_tag_alias_decision(self, request: TagAliasDecisionRequest) -> dict:
-        self._ensure_loaded()
-        assert self._tag_alias_report is not None
-        candidate = _find_alias_candidate(
-            self._tag_alias_report["candidates"],
-            request.source,
-            request.target,
-        )
-        decision = self._tag_decisions.record(
-            source=request.source,
-            target=request.target,
-            decision=request.decision,
-            candidate=candidate,
-        )
-        self._clear_loaded()
-        if request.decision == "accept":
-            self._ensure_loaded()
-        return {
-            "ok": True,
-            "decision": decision,
-            "summary": self._tag_decisions.summary(),
-            "accepted_aliases": self._tag_decisions.accepted_aliases(),
-        }
-
-    def _clear_loaded(self) -> None:
-        self._profiles = None
-        self._engine = None
-        self._vector_model = None
-        self._collaborative_model = None
-        self._tag_semantics = None
-        self._summary = None
-        self._tag_alias_report = None
-
-
 class ApiState:
     def __init__(self, dataset: str) -> None:
         if dataset != "movielens":
@@ -334,14 +268,6 @@ def create_app(dataset: str = "movielens") -> FastAPI:
     ) -> dict:
         return _call_service(state.movielens.for_you, session_id=session_id.strip(), n=n)
 
-    @app.get("/api/tag-alias-candidates")
-    def tag_alias_candidates(n: int = Query(default=12, ge=1, le=50)) -> dict:
-        return _call_service(state.movielens.tag_alias_candidates, n=n)
-
-    @app.post("/api/tag-alias-decisions")
-    def tag_alias_decision(request: TagAliasDecisionRequest) -> dict:
-        return _call_service(state.movielens.record_tag_alias_decision, request=request)
-
     @app.get("/api/tag-semantics")
     def tag_semantics(
         tag: str = Query(min_length=1, max_length=120),
@@ -371,15 +297,6 @@ def _read_csv(path: Path) -> list[dict]:
 
 def _elapsed_ms(started: float) -> float:
     return round((time.perf_counter() - started) * 1000, 4)
-
-
-def _find_alias_candidate(candidates: list[dict], source: str, target: str) -> dict | None:
-    source_key = source.strip().lower()
-    target_key = target.strip().lower()
-    for item in candidates:
-        if str(item.get("source", "")).lower() == source_key and str(item.get("target", "")).lower() == target_key:
-            return item
-    return None
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -114,10 +114,6 @@ class MovieLensHttpSmokeTest(unittest.TestCase):
         self.assertEqual(semantics["summary"]["status"], "ready")
         self.assertGreaterEqual(semantics["count"], 1)
 
-        aliases = _json_get(self.port, "/api/tag-alias-candidates?n=5")
-        self.assertIn("summary", aliases)
-        self.assertLessEqual(aliases["count"], 5)
-
         event = _json_post(
             self.port,
             "/api/events",
