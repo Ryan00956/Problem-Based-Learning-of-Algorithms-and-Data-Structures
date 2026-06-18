@@ -9,6 +9,9 @@ const state = {
   searchRequest: 0,
   similarRequest: 0,
   tagSemanticRequest: 0,
+  runtimeSequence: 0,
+  runtimeSamples: [],
+  runtimeTimers: new Map(),
 };
 
 const numberFmt = new Intl.NumberFormat("en-US");
@@ -60,6 +63,131 @@ async function apiPost(path, body = {}) {
   return payload;
 }
 
+function timeApiGet(label, detail, path, params = {}, options = {}) {
+  if (options.measure === false) return apiGet(path, params);
+  const sample = beginRuntimeSample(label, detail);
+  return apiGet(path, params)
+    .then((payload) => {
+      completeRuntimeSample(sample.id, payload);
+      return payload;
+    })
+    .catch((error) => {
+      completeRuntimeSample(sample.id, null, error);
+      throw error;
+    });
+}
+
+function timeApiPost(label, detail, path, body = {}, options = {}) {
+  if (options.measure === false) return apiPost(path, body);
+  const sample = beginRuntimeSample(label, detail);
+  return apiPost(path, body)
+    .then((payload) => {
+      completeRuntimeSample(sample.id, payload);
+      return payload;
+    })
+    .catch((error) => {
+      completeRuntimeSample(sample.id, null, error);
+      throw error;
+    });
+}
+
+function beginRuntimeSample(label, detail) {
+  const sample = {
+    id: ++state.runtimeSequence,
+    label,
+    detail,
+    status: "running",
+    startedAt: new Date(),
+    startedMs: performance.now(),
+    clientMs: 0,
+    backendMs: null,
+    engine: "",
+    count: null,
+    error: "",
+  };
+
+  state.runtimeSamples.unshift(sample);
+  state.runtimeSamples = state.runtimeSamples.slice(0, 9);
+  const timer = window.setInterval(() => {
+    if (sample.status !== "running") return;
+    sample.clientMs = performance.now() - sample.startedMs;
+    renderLiveRuntime();
+  }, 100);
+  state.runtimeTimers.set(sample.id, timer);
+  renderLiveRuntime();
+  return sample;
+}
+
+function completeRuntimeSample(id, payload, error = null) {
+  const sample = state.runtimeSamples.find((item) => item.id === id);
+  if (!sample) return;
+
+  const timer = state.runtimeTimers.get(id);
+  if (timer) {
+    window.clearInterval(timer);
+    state.runtimeTimers.delete(id);
+  }
+
+  sample.clientMs = performance.now() - sample.startedMs;
+  sample.status = error ? "error" : "done";
+  sample.backendMs = Number.isFinite(payload?.elapsed_ms) ? Number(payload.elapsed_ms) : null;
+  sample.engine = payload?.engine || payload?.algorithm || "";
+  sample.count = Number.isFinite(payload?.count) ? Number(payload.count) : null;
+  sample.error = error?.message || "";
+  renderLiveRuntime();
+}
+
+function renderLiveRuntime() {
+  const list = document.querySelector("#liveRuntimeList");
+  const status = document.querySelector("#runtimeLiveStatus");
+  if (!list || !status) return;
+
+  const runningCount = state.runtimeSamples.filter((sample) => sample.status === "running").length;
+  status.textContent = runningCount ? `${runningCount} running` : state.runtimeSamples.length ? "Ready" : "Waiting";
+  status.className = `runtime-status${runningCount ? " is-running" : ""}`;
+
+  if (!state.runtimeSamples.length) {
+    list.innerHTML = `
+      <div class="runtime-empty">
+        <strong>No timed operations yet.</strong>
+        <span>Session timing log is empty.</span>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = state.runtimeSamples.map((sample) => {
+    const backendText = sample.backendMs === null ? "backend -" : `backend ${formatMs(sample.backendMs)}`;
+    const countText = sample.count === null ? "" : `<span>${numberFmt.format(sample.count)} rows</span>`;
+    const engineText = sample.engine ? `<span>${escapeHtml(sample.engine)}</span>` : "";
+    const errorText = sample.error ? `<span>${escapeHtml(sample.error)}</span>` : "";
+    return `
+      <div class="runtime-sample ${sample.status}">
+        <div>
+          <strong>${escapeHtml(sample.label)}</strong>
+          <span>${escapeHtml(sample.detail)}</span>
+        </div>
+        <div class="runtime-sample-metrics">
+          <span>${sample.status === "running" ? "running" : sample.status}</span>
+          <span>browser ${formatMs(sample.clientMs)}</span>
+          <span>${backendText}</span>
+          ${engineText}
+          ${countText}
+          ${errorText}
+          <time>${sample.startedAt.toLocaleTimeString()}</time>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function formatMs(value) {
+  const number = Number(value || 0);
+  if (number >= 1000) return `${(number / 1000).toFixed(2)}s`;
+  if (number >= 10) return `${number.toFixed(1)}ms`;
+  return `${number.toFixed(3)}ms`;
+}
+
 function renderStats() {
   const { summary } = state.data;
   const datasetName = state.data.dataset?.display_name || "MovieLens";
@@ -79,7 +207,7 @@ function cacheMovie(movie) {
   return movieId;
 }
 
-async function renderTopMovies() {
+async function renderTopMovies(options = {}) {
   const requestId = ++state.topRequest;
   const limit = Number(document.querySelector("#topLimit").value);
   const algorithm = document.querySelector("#algorithmSelect").value;
@@ -87,7 +215,7 @@ async function renderTopMovies() {
   body.innerHTML = "<tr><td colspan=\"7\">Loading...</td></tr>";
 
   try {
-    const payload = await apiGet("/api/top", { n: limit, algorithm });
+    const payload = await timeApiGet("Top-N Ranking", `${algorithm} sort | top ${limit}`, "/api/top", { n: limit, algorithm }, options);
     if (requestId !== state.topRequest) return;
     const rows = payload.items.map((movie, index) => {
       const movieId = cacheMovie(movie);
@@ -263,13 +391,14 @@ function fixed(value) {
   return number.toFixed(2);
 }
 
-async function recordInteraction(event) {
+async function recordInteraction(event, options = {}) {
   try {
-    const payload = await apiPost("/api/events", {
+    const detail = event.movie_id ? `${event.event_type} | movie ${event.movie_id}` : event.query ? `${event.event_type} | ${event.query}` : event.event_type;
+    const payload = await timeApiPost("Interaction Event", detail, "/api/events", {
       session_id: state.sessionId,
       ...event,
-    });
-    await renderForYou();
+    }, options);
+    await renderForYou(options);
     return payload;
   } catch (error) {
     document.querySelector("#forYouMeta").textContent = `Personalization event failed: ${error.message}`;
@@ -304,7 +433,7 @@ async function sendMovieFeedback(eventType) {
   }
 }
 
-async function renderForYou() {
+async function renderForYou(options = {}) {
   const requestId = ++state.forYouRequest;
   const meta = document.querySelector("#forYouMeta");
   const profile = document.querySelector("#forYouProfile");
@@ -314,7 +443,7 @@ async function renderForYou() {
   results.innerHTML = "";
 
   try {
-    const payload = await apiGet("/api/for-you", { session_id: state.sessionId, n: 10 });
+    const payload = await timeApiGet("For You", "personalized recommendation refresh", "/api/for-you", { session_id: state.sessionId, n: 10 }, options);
     if (requestId !== state.forYouRequest) return;
     const mode = payload.status === "personalized" ? "personalized" : "cold start";
     const scored = payload.scored_count === undefined ? "" : ` | ${payload.scored_count} scored`;
@@ -368,7 +497,7 @@ function renderProfileChips(profile) {
   return chips.slice(0, 8).map((label) => `<span class="profile-chip">${escapeHtml(label)}</span>`).join("");
 }
 
-async function renderTagSemantics() {
+async function renderTagSemantics(options = {}) {
   const requestId = ++state.tagSemanticRequest;
   const query = document.querySelector("#semanticInput").value.trim();
   const meta = document.querySelector("#semanticMeta");
@@ -383,7 +512,7 @@ async function renderTagSemantics() {
   meta.textContent = "Loading tag neighbors...";
   results.innerHTML = "";
   try {
-    const payload = await apiGet("/api/tag-semantics", { tag: query, n: 8 });
+    const payload = await timeApiGet("Tag Semantics", query, "/api/tag-semantics", { tag: query, n: 8 }, options);
     if (requestId !== state.tagSemanticRequest) return;
     const summary = payload.summary || {};
     meta.textContent = `${payload.tag} | ${payload.count} neighbors | ${summary.tag_count || 0} tags | ${summary.dimensions || 0} dimensions | ${summary.cache_status || "memory"} cache | ${payload.elapsed_ms.toFixed(3)} ms`;
@@ -424,7 +553,7 @@ async function runSearch(options = {}) {
   meta.textContent = "Searching backend...";
   results.innerHTML = "";
   try {
-    const payload = await apiGet("/api/search", { kind, query, n: 20 });
+    const payload = await timeApiGet("Movie Search", `${kind}: ${query}`, "/api/search", { kind, query, n: 20 }, options);
     if (requestId !== state.searchRequest) return;
     meta.textContent = `${payload.count} results | ${payload.elapsed_ms.toFixed(3)} ms via backend ${payload.engine}`;
     results.innerHTML = payload.items.map((movie) => resultItem(movie)).join("") || "<div class=\"result-item\"><strong>No result</strong><span>Try Comedy, funny, or Toy Story.</span></div>";
@@ -452,7 +581,7 @@ async function recommendSimilar(options = {}) {
   targetEl.textContent = "Recommending from backend...";
   resultsEl.innerHTML = "";
   try {
-    const payload = await apiGet("/api/recommend", { title, n: 10 });
+    const payload = await timeApiGet("Similar Movies", title, "/api/recommend", { title, n: 10 }, options);
     if (requestId !== state.similarRequest) return;
     if (!payload.target) {
       targetEl.textContent = "No target movie found.";
@@ -516,12 +645,13 @@ function barRow(label, value, max, kind, text) {
 async function init() {
   state.data = await apiGet("/api/dashboard");
   renderStats();
-  await renderForYou();
-  await renderTopMovies();
-  await runSearch({ record: false });
-  await recommendSimilar({ record: false });
-  await renderTagSemantics();
+  await renderForYou({ measure: false });
+  await renderTopMovies({ measure: false });
+  await runSearch({ record: false, measure: false });
+  await recommendSimilar({ record: false, measure: false });
+  await renderTagSemantics({ measure: false });
   renderCharts();
+  renderLiveRuntime();
 }
 
 document.querySelector("#topLimit").addEventListener("change", () => renderTopMovies());

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Recommendation Lab</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./styles.css?v=20260618-semantics" />
+    <link rel="stylesheet" href="./styles.css?v=20260618-live-runtime" />
   </head>
   <body>
     <div class="app-shell">
@@ -188,6 +188,13 @@
               <div id="searchChart" class="chart"></div>
             </div>
           </div>
+          <div class="live-runtime">
+            <div class="live-runtime-header">
+              <h3>Live Operation Timing</h3>
+              <span id="runtimeLiveStatus" class="runtime-status">Waiting</span>
+            </div>
+            <div id="liveRuntimeList" class="live-runtime-list" aria-live="polite"></div>
+          </div>
         </section>
       </main>
     </div>
@@ -208,6 +215,6 @@
         <div id="movieModalBody" class="movie-modal-body"></div>
       </section>
     </div>
-    <script src="./app.js?v=20260618-semantics"></script>
+    <script src="./app.js?v=20260618-live-runtime"></script>
   </body>
 </html>
