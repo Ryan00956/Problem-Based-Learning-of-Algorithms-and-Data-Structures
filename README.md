@@ -5,10 +5,18 @@ This project implements topic 23: a movie streaming user behavior sorting and re
 ## Data
 
 - MovieLens small dataset: `data/ml-latest-small`
+- Netflix Prize dataset: `data/netflix-prize/download`
 
-The main system uses MovieLens because it includes movie titles, genres, ratings, and tags.
+The project is organized as isolated dataset pipelines. MovieLens is the default runnable pipeline because it includes movie titles, genres, ratings, and tags. Netflix Prize has its own placeholder pipeline and should be implemented separately so it does not affect MovieLens behavior.
 
-Raw dataset files are intentionally not committed to GitHub because they can be large. Download or place the MovieLens dataset under `data/` before regenerating outputs.
+Raw dataset files are intentionally not committed to GitHub because they can be large. Download or place the required dataset under `data/` before regenerating outputs.
+
+## Dataset Architecture
+
+- Shared code lives in `src/core/` and `src/algorithms/`.
+- MovieLens-specific loading, profiling, search, recommendation, experiments, and frontend export live in `src/datasets/movielens/`.
+- Netflix-specific work belongs in `src/datasets/netflix/`.
+- Generated outputs are isolated by dataset, for example `output/movielens/`.
 
 ## Run
 
@@ -33,6 +41,7 @@ Windows:
 
 ```powershell
 .\run.ps1 demo
+.\run.ps1 --dataset movielens demo
 .\run.ps1 top -n 10 --algorithm heap
 .\run.ps1 top -n 10 --algorithm merge
 .\run.ps1 search title "Toy Story"
@@ -46,6 +55,7 @@ macOS / Linux:
 
 ```bash
 ./run.sh demo
+./run.sh --dataset movielens demo
 ./run.sh top -n 10 --algorithm heap
 ./run.sh top -n 10 --algorithm merge
 ./run.sh search title "Toy Story"
@@ -61,6 +71,7 @@ Windows:
 
 ```powershell
 .\start_frontend.ps1
+.\start_frontend.ps1 -Dataset movielens
 ```
 
 macOS / Linux:
@@ -68,6 +79,7 @@ macOS / Linux:
 ```bash
 chmod +x ./start_frontend.sh
 ./start_frontend.sh
+./start_frontend.sh 8013 movielens
 ```
 
 Then open:
@@ -88,9 +100,14 @@ The dashboard shows Top-N recommendations, title/genre/tag search, similar movie
 
 ## Outputs
 
-Generated files are saved under `output/`:
+Generated MovieLens files are saved under `output/movielens/`:
 
 - `movie_profiles.csv`
 - `sorting_runtime.csv`
 - `search_runtime.csv`
 - `runtime_chart.svg`
+
+Frontend dashboard payloads are saved under `web/data/`:
+
+- `movielens-dashboard-data.json`
+- `dashboard-data.json` as the default active dashboard payload

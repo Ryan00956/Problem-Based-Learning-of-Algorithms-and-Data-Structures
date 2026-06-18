@@ -3,99 +3,55 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.data_loader import OUTPUT_DIR, build_movie_profiles, load_movielens, save_profiles_csv
-from src.experiment import run_experiments
-from src.recommendation import recommend_similar_movies, top_n_movies
-from src.search import MovieSearchEngine
-
-
-def load_profiles() -> list[dict]:
-    movies, ratings, tags = load_movielens()
-    return build_movie_profiles(movies, ratings, tags)
-
-
-def print_movies(rows: list[dict], limit: int = 10) -> None:
-    for index, item in enumerate(rows[:limit], 1):
-        genres = "|".join(item["genres"][:4])
-        print(
-            f"{index:>2}. {item['title']} | score={item.get('comprehensive_score', 0):.2f} "
-            f"| rating={item['avg_rating']:.2f} | count={item['rating_count']} | genres={genres}"
-        )
+from src.core.registry import DATASETS, get_dataset
+from src.datasets.movielens.experiment import OUTPUT_SUBDIR as MOVIELENS_OUTPUT_DIR
 
 
 def command_demo(args: argparse.Namespace) -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    profiles = load_profiles()
-    save_profiles_csv(profiles, OUTPUT_DIR / "movie_profiles.csv")
-    engine = MovieSearchEngine(profiles)
-
-    print("\nTop movies by heap sort:")
-    top_heap = top_n_movies(profiles, n=args.n, algorithm="heap")
-    print_movies(top_heap, args.n)
-
-    print("\nTop movies by merge sort:")
-    top_merge = top_n_movies(profiles, n=args.n, algorithm="merge")
-    print_movies(top_merge, args.n)
-
-    print("\nIndexed title search: Toy Story")
-    print_movies(engine.index_title_search("Toy Story"), 5)
-
-    print("\nIndexed genre search: Comedy")
-    print_movies(engine.index_genre_search("Comedy"), 5)
-
-    print("\nIndexed tag search: funny")
-    print_movies(engine.index_tag_search("funny"), 5)
-
-    print("\nSimilar movie recommendation for Toy Story:")
-    target, recommendations = recommend_similar_movies("Toy Story", profiles, engine, n=args.n)
-    if target is None:
-        print("No target movie found.")
-    else:
-        print(f"Target: {target['title']}")
-        print_movies(recommendations, args.n)
-
-    print(f"\nSaved profiles to: {OUTPUT_DIR / 'movie_profiles.csv'}")
+    pipeline = get_dataset(args.dataset)
+    pipeline.run_demo(args.n)
 
 
 def command_top(args: argparse.Namespace) -> None:
-    profiles = load_profiles()
-    print_movies(top_n_movies(profiles, n=args.n, algorithm=args.algorithm), args.n)
+    pipeline = get_dataset(args.dataset)
+    rows = pipeline.show_top(args.n, args.algorithm)
+    pipeline.print_movies(rows, args.n)
 
 
 def command_search(args: argparse.Namespace) -> None:
-    profiles = load_profiles()
-    engine = MovieSearchEngine(profiles)
-    if args.kind == "title":
-        rows = engine.index_title_search(args.query)
-    elif args.kind == "genre":
-        rows = engine.index_genre_search(args.query)
-    elif args.kind == "tag":
-        rows = engine.index_tag_search(args.query)
-    else:
-        raise ValueError(args.kind)
-    print_movies(rows, args.n)
+    pipeline = get_dataset(args.dataset)
+    rows = pipeline.search(args.kind, args.query, args.n)
+    pipeline.print_movies(rows, args.n)
 
 
 def command_recommend(args: argparse.Namespace) -> None:
-    profiles = load_profiles()
-    engine = MovieSearchEngine(profiles)
-    target, rows = recommend_similar_movies(args.title, profiles, engine, n=args.n)
+    pipeline = get_dataset(args.dataset)
+    target, rows = pipeline.recommend(args.title, args.n)
     if target is None:
         print("No target movie found.")
         return
     print(f"Target: {target['title']}")
-    print_movies(rows, args.n)
+    pipeline.print_movies(rows, args.n)
 
 
 def command_experiment(args: argparse.Namespace) -> None:
-    paths = run_experiments(Path(args.output_dir))
-    print("Experiment outputs:")
+    pipeline = get_dataset(args.dataset)
+    output_dir = Path(args.output_dir) if args.output_dir else default_output_dir(args.dataset)
+    paths = pipeline.run_experiments(output_dir)
+    print(f"{pipeline.display_name} experiment outputs:")
     for name, path in paths.items():
         print(f"- {name}: {path}")
 
 
+def default_output_dir(dataset: str) -> Path:
+    if dataset == "movielens":
+        return MOVIELENS_OUTPUT_DIR
+    return Path("output") / dataset
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Movie streaming recommendation course project")
+    parser.add_argument("--dataset", choices=sorted(DATASETS), default="movielens")
     sub = parser.add_subparsers(dest="command")
 
     demo = sub.add_parser("demo", help="Run a full feature demonstration")
@@ -118,8 +74,8 @@ def build_parser() -> argparse.ArgumentParser:
     recommend.add_argument("-n", type=int, default=10)
     recommend.set_defaults(func=command_recommend)
 
-    experiment = sub.add_parser("experiment", help="Run sorting and search runtime experiments")
-    experiment.add_argument("--output-dir", default=str(OUTPUT_DIR))
+    experiment = sub.add_parser("experiment", help="Run runtime experiments")
+    experiment.add_argument("--output-dir", default=None)
     experiment.set_defaults(func=command_experiment)
 
     return parser
@@ -129,8 +85,12 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
     if not hasattr(args, "func"):
-        args = parser.parse_args(["demo"])
-    args.func(args)
+        args.func = command_demo
+        args.n = 10
+    try:
+        args.func(args)
+    except NotImplementedError as exc:
+        parser.exit(2, f"{exc}\n")
 
 
 if __name__ == "__main__":

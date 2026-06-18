@@ -70,11 +70,12 @@ function heapSort(items, keyFn, reverse = true) {
 
 function renderStats() {
   const { summary } = state.data;
+  const datasetName = state.data.dataset?.display_name || "MovieLens";
   document.querySelector("#movieCount").textContent = numberFmt.format(summary.movie_count);
   document.querySelector("#ratingCount").textContent = numberFmt.format(summary.rating_count);
   document.querySelector("#tagCount").textContent = numberFmt.format(summary.tag_count);
   document.querySelector("#userCount").textContent = numberFmt.format(summary.user_count);
-  document.querySelector("#datasetStatus").textContent = "MovieLens loaded";
+  document.querySelector("#datasetStatus").textContent = `${datasetName} loaded`;
 }
 
 function renderTopMovies() {

@@ -15,7 +15,10 @@ if (Test-Path $VenvPython) {
 
 Push-Location $ProjectRoot
 try {
-    & $Python -m src.export_frontend_data
+    & $Python -m src.export_frontend_data @args
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
 } finally {
     Pop-Location
 }

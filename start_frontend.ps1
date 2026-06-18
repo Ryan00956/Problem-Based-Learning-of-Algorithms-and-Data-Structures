@@ -1,5 +1,6 @@
 param(
-    [int]$Port = 8013
+    [int]$Port = 8013,
+    [string]$Dataset = "movielens"
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,7 +20,7 @@ if (Test-Path $VenvPython) {
 
 Push-Location $ProjectRoot
 try {
-    & .\export_frontend_data.ps1
+    & .\export_frontend_data.ps1 --dataset $Dataset
     $listening = $false
     try {
         $response = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/" -UseBasicParsing -TimeoutSec 2
@@ -34,6 +35,7 @@ try {
     }
 
     Write-Output "Frontend URL: http://127.0.0.1:$Port/"
+    Write-Output "Dataset: $Dataset"
 } finally {
     Pop-Location
 }

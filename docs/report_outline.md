@@ -7,11 +7,13 @@ The main goal is to rank movies, search movie information efficiently, and recom
 
 ## 2. Dataset
 
-Main dataset: MovieLens `ml-latest-small`.
+Main runnable dataset: MovieLens `ml-latest-small`.
 
 - `movies.csv`: movie id, title, genres.
 - `ratings.csv`: user id, movie id, rating, timestamp.
 - `tags.csv`: user id, movie id, text tag, timestamp.
+
+Extension dataset boundary: Netflix Prize has a separate dataset pipeline placeholder. Its loader, preprocessing, and recommendation algorithms should be implemented under `src/datasets/netflix/` without changing the MovieLens pipeline.
 
 ## 3. Data Preprocessing
 
@@ -76,9 +78,9 @@ The similarity score is used to rank candidate movies.
 
 Output files:
 
-- `output/sorting_runtime.csv`
-- `output/search_runtime.csv`
-- `output/runtime_chart.svg`
+- `output/movielens/sorting_runtime.csv`
+- `output/movielens/search_runtime.csv`
+- `output/movielens/runtime_chart.svg`
 
 Experiment comparisons:
 
