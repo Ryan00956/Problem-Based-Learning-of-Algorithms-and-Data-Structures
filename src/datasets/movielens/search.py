@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import dataclass
 from difflib import SequenceMatcher
 import re
 from typing import Iterable
@@ -13,6 +14,16 @@ def normalize(text: str) -> str:
 def tokenize(text: str) -> list[str]:
     normalized = normalize(text)
     return [part for part in re.sub(r"[^a-z0-9]+", " ", normalized).split() if part]
+
+
+@dataclass(frozen=True)
+class SearchMatch:
+    item: dict
+    field: str
+    match_type: str
+    similarity: float
+    matched_token_count: int = 1
+    query_token_count: int = 1
 
 
 class MovieLensSearchEngine:
@@ -30,6 +41,7 @@ class MovieLensSearchEngine:
         self.genre_ngram_index: dict[str, set[str]] = defaultdict(set)
         self.tag_ngram_index: dict[str, set[str]] = defaultdict(set)
         self._build_indexes()
+        self._sort_indexes()
 
     def _build_indexes(self) -> None:
         for item in self.profiles:
@@ -58,6 +70,21 @@ class MovieLensSearchEngine:
         for ngram in _ngrams(key):
             index[ngram].add(key)
 
+    def _sort_indexes(self) -> None:
+        for index in (
+            self.title_index,
+            self.title_phrase_index,
+            self.title_token_index,
+            self.genre_index,
+            self.tag_index,
+            self.tag_token_index,
+        ):
+            for items in index.values():
+                items.sort(key=self._quality_order)
+
+    def _quality_order(self, item: dict) -> tuple[float, int]:
+        return (-float(item.get("comprehensive_score", 0.0)), self.profile_order[item["movieId"]])
+
     def linear_title_search(self, query: str) -> list[dict]:
         q = normalize(query)
         return [item for item in self.profiles if q in normalize(item["title"])]
@@ -67,11 +94,11 @@ class MovieLensSearchEngine:
         if not q:
             return []
 
-        exact = list(self.title_index.get(q, []))
-        if exact:
-            return _unique_by_movie_id(exact)
+        exact_phrase = list(self.title_phrase_index.get(q, []))
+        if exact_phrase:
+            return self._rank_items(exact_phrase, "title", "exact_phrase")
 
-        token_matches = self._token_search(tokenize(q), self.title_token_index, self.title_ngram_index)
+        token_matches = self._token_search(tokenize(q), self.title_token_index, self.title_ngram_index, "title")
         if token_matches:
             return token_matches
 
@@ -90,7 +117,7 @@ class MovieLensSearchEngine:
         exact = list(self.genre_index.get(q, []))
         if exact or not q:
             return exact
-        return self._fuzzy_key_search(q, self.genre_index, self.genre_ngram_index)
+        return self._fuzzy_key_search(q, self.genre_index, self.genre_ngram_index, "genre")
 
     def linear_tag_search(self, tag: str) -> list[dict]:
         q = normalize(tag)
@@ -101,21 +128,22 @@ class MovieLensSearchEngine:
         if not q:
             return []
 
-        substring_matches = self._key_search(q, self.tag_index, self.tag_ngram_index)
+        substring_matches = self._key_search(q, self.tag_index, self.tag_ngram_index, "tag")
         if substring_matches:
             return substring_matches
 
-        token_matches = self._token_search(tokenize(q), self.tag_token_index, self.tag_ngram_index)
+        token_matches = self._token_search(tokenize(q), self.tag_token_index, self.tag_ngram_index, "tag")
         if token_matches:
             return token_matches
 
-        return self._fuzzy_key_search(q, self.tag_index, self.tag_ngram_index)
+        return self._fuzzy_key_search(q, self.tag_index, self.tag_ngram_index, "tag")
 
     def _token_search(
         self,
         tokens: list[str],
         token_index: dict[str, list[dict]],
         ngram_index: dict[str, set[str]],
+        field: str,
     ) -> list[dict]:
         if not tokens:
             return []
@@ -124,50 +152,117 @@ class MovieLensSearchEngine:
         for token in tokens:
             direct = list(token_index.get(token, []))
             if direct:
-                postings.append(direct)
+                postings.append({item["movieId"]: (item, 1.0) for item in direct})
                 continue
 
-            fuzzy_keys = _fuzzy_keys(
+            fuzzy_keys = _fuzzy_key_scores(
                 token,
                 token_index,
                 ngram_index,
                 min_score=0.78,
                 best_only=len(tokens) == 1,
             )
-            fuzzy_items = []
-            for key in fuzzy_keys:
-                fuzzy_items.extend(token_index[key])
+            fuzzy_items = {}
+            for score, key in fuzzy_keys:
+                for item in token_index[key]:
+                    movie_id = item["movieId"]
+                    current = fuzzy_items.get(movie_id)
+                    if current is None or score > current[1]:
+                        fuzzy_items[movie_id] = (item, score)
             if not fuzzy_items:
                 return []
-            postings.append(_unique_by_movie_id(fuzzy_items))
+            postings.append(fuzzy_items)
 
-        return self._order_by_profile(_intersect_by_movie_id(postings))
+        common_ids = set(postings[0])
+        for posting in postings[1:]:
+            common_ids &= set(posting)
+
+        matches = []
+        for movie_id in common_ids:
+            item = postings[0][movie_id][0]
+            scores = [posting[movie_id][1] for posting in postings]
+            match_type = "exact_token" if all(score == 1.0 for score in scores) else "fuzzy_token"
+            matches.append(
+                SearchMatch(
+                    item=item,
+                    field=field,
+                    match_type=match_type,
+                    similarity=sum(scores) / len(scores),
+                    matched_token_count=len(tokens),
+                    query_token_count=len(tokens),
+                )
+            )
+        return self._rank_matches(matches)
 
     def _key_search(
         self,
         query: str,
         key_index: dict[str, list[dict]],
         ngram_index: dict[str, set[str]],
+        field: str = "title",
     ) -> list[dict]:
         matches = []
         for key in _candidate_keys(query, key_index, ngram_index):
             if query in key:
-                matches.extend(key_index[key])
-        return self._order_by_profile(_unique_by_movie_id(matches))
+                match_type = "exact_key" if query == key else "substring"
+                similarity = 1.0 if query == key else SequenceMatcher(None, query, key).ratio()
+                for item in key_index[key]:
+                    matches.append(SearchMatch(item, field, match_type, similarity))
+        return self._rank_matches(matches)
 
     def _fuzzy_key_search(
         self,
         query: str,
         key_index: dict[str, list[dict]],
         ngram_index: dict[str, set[str]],
+        field: str = "title",
     ) -> list[dict]:
         matches = []
-        for key in _fuzzy_keys(query, key_index, ngram_index):
-            matches.extend(key_index[key])
-        return self._order_by_profile(_unique_by_movie_id(matches))
+        for score, key in _fuzzy_key_scores(query, key_index, ngram_index):
+            for item in key_index[key]:
+                matches.append(SearchMatch(item, field, "fuzzy_key", score))
+        return self._rank_matches(matches)
 
-    def _order_by_profile(self, items: Iterable[dict]) -> list[dict]:
-        return sorted(items, key=lambda item: self.profile_order[item["movieId"]])
+    def _rank_items(
+        self,
+        items: Iterable[dict],
+        field: str,
+        match_type: str,
+        similarity: float = 1.0,
+    ) -> list[dict]:
+        return self._rank_matches([SearchMatch(item, field, match_type, similarity) for item in items])
+
+    def _rank_matches(self, matches: Iterable[SearchMatch]) -> list[dict]:
+        best_by_id: dict[int, SearchMatch] = {}
+        for match in matches:
+            movie_id = match.item["movieId"]
+            current = best_by_id.get(movie_id)
+            if current is None or self._rank_tuple(match) > self._rank_tuple(current):
+                best_by_id[movie_id] = match
+
+        ranked = sorted(best_by_id.values(), key=self._rank_tuple, reverse=True)
+        return [match.item for match in ranked]
+
+    def _rank_tuple(self, match: SearchMatch) -> tuple[float, float, float, float, float, int]:
+        type_priority = {
+            "exact_phrase": 700.0,
+            "exact_key": 620.0,
+            "exact_token": 560.0,
+            "substring": 440.0,
+            "fuzzy_token": 360.0,
+            "fuzzy_key": 300.0,
+        }.get(match.match_type, 0.0)
+        field_priority = {"title": 30.0, "genre": 20.0, "tag": 10.0}.get(match.field, 0.0)
+        coverage = match.matched_token_count / max(match.query_token_count, 1)
+        quality = float(match.item.get("comprehensive_score", 0.0))
+        return (
+            type_priority,
+            field_priority,
+            match.similarity,
+            coverage,
+            quality,
+            -self.profile_order[match.item["movieId"]],
+        )
 
 
 def _ngrams(text: str, size: int = 2) -> set[str]:
@@ -196,13 +291,13 @@ def _candidate_keys(
     return {key for key in candidates if key in key_index}
 
 
-def _fuzzy_keys(
+def _fuzzy_key_scores(
     query: str,
     key_index: dict[str, list[dict]],
     ngram_index: dict[str, set[str]],
     min_score: float = 0.72,
     best_only: bool = True,
-) -> list[str]:
+) -> list[tuple[float, str]]:
     query_ngrams = _ngrams(query)
     scored_matches = []
     for key in _candidate_keys(query, key_index, ngram_index):
@@ -217,30 +312,8 @@ def _fuzzy_keys(
     if not scored_matches:
         return []
     if not best_only:
-        return [key for _, key in scored_matches]
+        return scored_matches
 
     best_score = max(score for score, _ in scored_matches)
-    return [key for score, key in scored_matches if score >= best_score - 0.04]
+    return [(score, key) for score, key in scored_matches if score >= best_score - 0.04]
 
-
-def _unique_by_movie_id(items: Iterable[dict]) -> list[dict]:
-    seen = set()
-    result = []
-    for item in items:
-        movie_id = item["movieId"]
-        if movie_id in seen:
-            continue
-        seen.add(movie_id)
-        result.append(item)
-    return result
-
-
-def _intersect_by_movie_id(postings: list[list[dict]]) -> list[dict]:
-    if not postings:
-        return []
-
-    common_ids = {item["movieId"] for item in postings[0]}
-    for items in postings[1:]:
-        common_ids &= {item["movieId"] for item in items}
-
-    return [item for item in postings[0] if item["movieId"] in common_ids]
