@@ -26,6 +26,7 @@ from src.datasets.movielens.search import MovieLensSearchEngine
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 from src.datasets.netflix.import_duckdb import DEFAULT_DB_PATH as NETFLIX_DB_PATH
 from src.datasets.netflix.scoring import load_movie_scores, rank_movie_scores
+from src.datasets.netflix.search import build_search_engine
 
 
 WEB_DIR = PROJECT_ROOT / "web"
@@ -212,14 +213,16 @@ class MovieLensApiService:
 class NetflixApiService:
     def __init__(self) -> None:
         self._scores: list[dict] | None = None
+        self._engine: MovieLensSearchEngine | None = None
         self._summary: dict | None = None
 
     def _ensure_loaded(self) -> None:
-        if self._scores is not None and self._summary is not None:
+        if self._scores is not None and self._engine is not None and self._summary is not None:
             return
 
         scores = load_movie_scores()
         self._scores = scores
+        self._engine = build_search_engine(scores)
         self._summary = {
             "movie_count": len(scores),
             "rating_count": int(sum(item["rating_count"] for item in scores)),
@@ -233,6 +236,12 @@ class NetflixApiService:
         self._ensure_loaded()
         assert self._scores is not None
         return self._scores
+
+    @property
+    def engine(self) -> MovieLensSearchEngine:
+        self._ensure_loaded()
+        assert self._engine is not None
+        return self._engine
 
     def dashboard(self) -> dict:
         self._ensure_loaded()
@@ -257,8 +266,20 @@ class NetflixApiService:
             "elapsed_ms": _elapsed_ms(started),
         }
 
-    def search(self, *args, **kwargs) -> dict:
-        raise NotImplementedError("Netflix search is not implemented yet.")
+    def search(self, kind: Literal["title", "genre", "tag"], query: str, n: int) -> dict:
+        if kind != "title":
+            raise ValueError("Netflix search only supports title because this dataset has no genres or tags.")
+
+        started = time.perf_counter()
+        rows = self.engine.index_title_search(query)
+        return {
+            "items": rows[:n],
+            "count": len(rows),
+            "kind": kind,
+            "query": query,
+            "elapsed_ms": _elapsed_ms(started),
+            "engine": "indexed_title_search",
+        }
 
     def recommend(self, *args, **kwargs) -> dict:
         raise NotImplementedError("Netflix similar recommendation is not implemented yet.")

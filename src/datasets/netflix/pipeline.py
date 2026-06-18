@@ -5,6 +5,7 @@ from pathlib import Path
 from src.core.pipeline import DatasetPipeline
 from src.datasets.netflix.experiment import run_experiments
 from src.datasets.netflix.scoring import build_movie_scores, load_movie_scores, rank_movie_scores, top_movie_scores
+from src.datasets.netflix.search import search_titles
 
 
 def _not_implemented(*args, **kwargs):
@@ -45,6 +46,12 @@ def _show_top(n: int, algorithm: str = "heap") -> list[dict]:
     return rank_movie_scores(load_movie_scores(), n=n, algorithm=algorithm)
 
 
+def _search(kind: str, query: str, n: int = 10) -> list[dict]:
+    if kind not in {"title", "genre", "tag"}:
+        raise ValueError(kind)
+    return search_titles(load_movie_scores(), kind, query, n=n)
+
+
 def _run_demo(n: int = 10) -> None:
     summary = build_movie_scores()
     print("Netflix Prize scoring summary:")
@@ -66,7 +73,7 @@ PIPELINE = DatasetPipeline(
     print_movies=_print_movies,
     run_demo=_run_demo,
     show_top=_show_top,
-    search=_not_implemented,
+    search=_search,
     recommend=_not_implemented_recommend,
     run_experiments=_run_experiments_for_pipeline,
     export_frontend_data=_not_implemented_export,
