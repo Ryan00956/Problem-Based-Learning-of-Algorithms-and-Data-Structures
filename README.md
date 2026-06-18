@@ -88,6 +88,19 @@ Then open:
 http://127.0.0.1:8013/
 ```
 
+The startup script serves the frontend and a FastAPI backend from the same port. The dashboard uses:
+
+- `GET /api/dashboard` for dataset summary and runtime CSV data.
+- `GET /api/top?n=10&algorithm=heap` for Top-N recommendations.
+- `GET /api/search?kind=title&query=Toy%20Story&n=20` for indexed search.
+- `GET /api/recommend?title=Toy%20Story&n=10` for similar movie recommendations.
+
+FastAPI docs are available at:
+
+```text
+http://127.0.0.1:8013/docs
+```
+
 The dashboard shows Top-N recommendations, title/genre/tag search, similar movie recommendation, and runtime comparisons.
 
 ## Implemented Algorithms
@@ -107,7 +120,7 @@ Generated MovieLens files are saved under `output/movielens/`:
 - `search_runtime.csv`
 - `runtime_chart.svg`
 
-Frontend dashboard payloads are saved under `web/data/`:
+Optional static export payloads can still be generated under `web/data/`:
 
 - `movielens-dashboard-data.json`
 - `dashboard-data.json` as the default active dashboard payload

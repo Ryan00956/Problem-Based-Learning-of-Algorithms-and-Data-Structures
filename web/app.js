@@ -1,56 +1,35 @@
 const state = {
   data: null,
+  topRequest: 0,
+  searchRequest: 0,
+  similarRequest: 0,
 };
 
 const numberFmt = new Intl.NumberFormat("en-US");
 
-function normalize(value) {
-  return String(value || "").trim().toLowerCase();
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-function scoreMovie(movie) {
-  return Number(movie.comprehensive_score || 0);
-}
-
-function mergeSort(items, keyFn, reverse = true) {
-  const values = [...items];
-  if (values.length <= 1) return values;
-  const mid = Math.floor(values.length / 2);
-  const left = mergeSort(values.slice(0, mid), keyFn, reverse);
-  const right = mergeSort(values.slice(mid), keyFn, reverse);
-  const result = [];
-  let i = 0;
-  let j = 0;
-  while (i < left.length && j < right.length) {
-    const before = reverse ? keyFn(left[i]) >= keyFn(right[j]) : keyFn(left[i]) <= keyFn(right[j]);
-    result.push(before ? left[i++] : right[j++]);
-  }
-  return result.concat(left.slice(i), right.slice(j));
-}
-
-function heapSort(items, keyFn, reverse = true) {
-  const values = [...items];
-  const heapPriority = (a, b) => (reverse ? keyFn(a) < keyFn(b) : keyFn(a) > keyFn(b));
-  const siftDown = (index, size) => {
-    while (true) {
-      const left = index * 2 + 1;
-      const right = left + 1;
-      let best = index;
-      if (left < size && heapPriority(values[left], values[best])) best = left;
-      if (right < size && heapPriority(values[right], values[best])) best = right;
-      if (best === index) break;
-      [values[index], values[best]] = [values[best], values[index]];
-      index = best;
+async function apiGet(path, params = {}) {
+  const url = new URL(path, window.location.origin);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      url.searchParams.set(key, value);
     }
-  };
-  for (let index = Math.floor(values.length / 2) - 1; index >= 0; index -= 1) {
-    siftDown(index, values.length);
+  });
+
+  const response = await fetch(url);
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload.error || `Request failed: ${response.status}`);
   }
-  for (let end = values.length - 1; end > 0; end -= 1) {
-    [values[0], values[end]] = [values[end], values[0]];
-    siftDown(0, end);
-  }
-  return values;
+  return payload;
 }
 
 function renderStats() {
@@ -60,91 +39,105 @@ function renderStats() {
   document.querySelector("#ratingCount").textContent = numberFmt.format(summary.rating_count);
   document.querySelector("#tagCount").textContent = numberFmt.format(summary.tag_count);
   document.querySelector("#userCount").textContent = numberFmt.format(summary.user_count);
-  document.querySelector("#datasetStatus").textContent = `${datasetName} loaded`;
+  document.querySelector("#datasetStatus").textContent = `${datasetName} loaded from backend`;
 }
 
-function renderTopMovies() {
+async function renderTopMovies() {
+  const requestId = ++state.topRequest;
   const limit = Number(document.querySelector("#topLimit").value);
   const algorithm = document.querySelector("#algorithmSelect").value;
-  const sorted = algorithm === "merge"
-    ? mergeSort(state.data.topMovies, scoreMovie, true)
-    : heapSort(state.data.topMovies, scoreMovie, true);
-  const rows = sorted.slice(0, limit).map((movie, index) => `
-    <tr>
-      <td>${index + 1}</td>
-      <td><div class="movie-title">${movie.title}</div></td>
-      <td>${genreTags(movie.genres)}</td>
-      <td>${Number(movie.avg_rating).toFixed(2)}</td>
-      <td>${Number(movie.bayesian_rating ?? movie.avg_rating).toFixed(2)}</td>
-      <td>${numberFmt.format(movie.rating_count)}</td>
-      <td class="score">${Number(movie.comprehensive_score).toFixed(2)}</td>
-    </tr>
-  `).join("");
-  document.querySelector("#topMoviesBody").innerHTML = rows;
+  const body = document.querySelector("#topMoviesBody");
+  body.innerHTML = "<tr><td colspan=\"7\">Loading...</td></tr>";
+
+  try {
+    const payload = await apiGet("/api/top", { n: limit, algorithm });
+    if (requestId !== state.topRequest) return;
+    const rows = payload.items.map((movie, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td><div class="movie-title">${escapeHtml(movie.title)}</div></td>
+        <td>${genreTags(movie.genres)}</td>
+        <td>${Number(movie.avg_rating).toFixed(2)}</td>
+        <td>${Number(movie.bayesian_rating ?? movie.avg_rating).toFixed(2)}</td>
+        <td>${numberFmt.format(movie.rating_count)}</td>
+        <td class="score">${Number(movie.comprehensive_score).toFixed(2)}</td>
+      </tr>
+    `).join("");
+    body.innerHTML = rows;
+  } catch (error) {
+    body.innerHTML = `<tr><td colspan="7">${escapeHtml(error.message)}</td></tr>`;
+  }
 }
 
 function genreTags(genres) {
-  return (genres || []).slice(0, 4).map((genre) => `<span class="tag">${genre}</span>`).join("");
+  return (genres || []).slice(0, 4).map((genre) => `<span class="tag">${escapeHtml(genre)}</span>`).join("");
 }
 
 function resultItem(movie, extra = "") {
   return `
     <div class="result-item">
-      <strong>${movie.title}</strong>
-      <span>rating ${Number(movie.avg_rating).toFixed(2)} · count ${numberFmt.format(movie.rating_count)} · score ${Number(movie.comprehensive_score).toFixed(2)}${extra}</span>
+      <strong>${escapeHtml(movie.title)}</strong>
+      <span>rating ${Number(movie.avg_rating).toFixed(2)} | count ${numberFmt.format(movie.rating_count)} | score ${Number(movie.comprehensive_score).toFixed(2)}${extra}</span>
       <div>${genreTags(movie.genres)}</div>
     </div>
   `;
 }
 
-function runSearch() {
+async function runSearch() {
+  const requestId = ++state.searchRequest;
   const kind = document.querySelector("#searchKind").value;
-  const query = normalize(document.querySelector("#searchInput").value);
-  const started = performance.now();
-  let results = [];
+  const query = document.querySelector("#searchInput").value.trim();
+  const meta = document.querySelector("#searchMeta");
+  const results = document.querySelector("#searchResults");
   if (!query) {
-    results = [];
-  } else if (kind === "title") {
-    results = state.data.movies.filter((movie) => normalize(movie.title).includes(query));
-  } else if (kind === "genre") {
-    results = state.data.movies.filter((movie) => (movie.genres || []).some((genre) => normalize(genre) === query));
-  } else {
-    results = state.data.movies.filter((movie) => (movie.tags || []).some((tag) => normalize(tag).includes(query)));
-  }
-  const elapsed = performance.now() - started;
-  document.querySelector("#searchMeta").textContent = `${results.length} results · ${elapsed.toFixed(3)} ms in browser`;
-  document.querySelector("#searchResults").innerHTML = results.slice(0, 20).map((movie) => resultItem(movie)).join("") || "<div class=\"result-item\"><strong>No result</strong><span>Try Comedy, funny, or Toy Story.</span></div>";
-}
-
-function recommendSimilar() {
-  const query = normalize(document.querySelector("#similarInput").value);
-  const target = state.data.movies.find((movie) => normalize(movie.title).includes(query));
-  if (!target) {
-    document.querySelector("#similarTarget").textContent = "No target movie found.";
-    document.querySelector("#similarResults").innerHTML = "";
+    meta.textContent = "Enter a search query.";
+    results.innerHTML = "";
     return;
   }
-  const targetGenres = new Set((target.genres || []).map(normalize));
-  const targetTags = new Set((target.tags || []).map(normalize));
-  const candidates = state.data.movies
-    .filter((movie) => movie.movieId !== target.movieId)
-    .map((movie) => {
-      const genreOverlap = (movie.genres || []).filter((genre) => targetGenres.has(normalize(genre))).length;
-      const tagOverlap = (movie.tags || []).filter((tag) => targetTags.has(normalize(tag))).length;
-      return {
-        ...movie,
-        similarity_score: genreOverlap * 10 + tagOverlap * 15 + scoreMovie(movie) * 0.1,
-        shared_genres: genreOverlap,
-        shared_tags: tagOverlap,
-      };
-    })
-    .filter((movie) => movie.shared_genres || movie.shared_tags);
-  const ranked = heapSort(candidates, (movie) => movie.similarity_score, true).slice(0, 10);
-  document.querySelector("#similarTarget").textContent = `Target: ${target.title}`;
-  document.querySelector("#similarResults").innerHTML = ranked.map((movie) => {
-    const extra = ` · shared genres ${movie.shared_genres} · shared tags ${movie.shared_tags}`;
-    return resultItem(movie, extra);
-  }).join("");
+
+  meta.textContent = "Searching backend...";
+  results.innerHTML = "";
+  try {
+    const payload = await apiGet("/api/search", { kind, query, n: 20 });
+    if (requestId !== state.searchRequest) return;
+    meta.textContent = `${payload.count} results | ${payload.elapsed_ms.toFixed(3)} ms via backend ${payload.engine}`;
+    results.innerHTML = payload.items.map((movie) => resultItem(movie)).join("") || "<div class=\"result-item\"><strong>No result</strong><span>Try Comedy, funny, or Toy Story.</span></div>";
+  } catch (error) {
+    meta.textContent = error.message;
+    results.innerHTML = "";
+  }
+}
+
+async function recommendSimilar() {
+  const requestId = ++state.similarRequest;
+  const title = document.querySelector("#similarInput").value.trim();
+  const targetEl = document.querySelector("#similarTarget");
+  const resultsEl = document.querySelector("#similarResults");
+  if (!title) {
+    targetEl.textContent = "Enter a movie title.";
+    resultsEl.innerHTML = "";
+    return;
+  }
+
+  targetEl.textContent = "Recommending from backend...";
+  resultsEl.innerHTML = "";
+  try {
+    const payload = await apiGet("/api/recommend", { title, n: 10 });
+    if (requestId !== state.similarRequest) return;
+    if (!payload.target) {
+      targetEl.textContent = "No target movie found.";
+      resultsEl.innerHTML = "";
+      return;
+    }
+    targetEl.textContent = `Target: ${payload.target.title} | ${payload.elapsed_ms.toFixed(3)} ms via backend ${payload.engine}`;
+    resultsEl.innerHTML = payload.items.map((movie) => {
+      const extra = ` | shared genres ${movie.shared_genres} | shared tags ${movie.shared_tags}`;
+      return resultItem(movie, extra);
+    }).join("");
+  } catch (error) {
+    targetEl.textContent = error.message;
+    resultsEl.innerHTML = "";
+  }
 }
 
 function renderCharts() {
@@ -167,35 +160,34 @@ function barRow(label, value, max, kind, text) {
   const width = Math.max(2, (value / max) * 100);
   return `
     <div class="bar-row">
-      <span>${label}</span>
+      <span>${escapeHtml(label)}</span>
       <div class="bar-track"><div class="bar ${kind}" style="width:${width}%"></div></div>
-      <span>${text} ${value.toFixed(5)}s</span>
+      <span>${escapeHtml(text)} ${value.toFixed(5)}s</span>
     </div>
   `;
 }
 
 async function init() {
-  const response = await fetch("./data/dashboard-data.json");
-  state.data = await response.json();
+  state.data = await apiGet("/api/dashboard");
   renderStats();
-  renderTopMovies();
-  runSearch();
-  recommendSimilar();
+  await renderTopMovies();
+  await runSearch();
+  await recommendSimilar();
   renderCharts();
 }
 
-document.querySelector("#topLimit").addEventListener("change", renderTopMovies);
-document.querySelector("#algorithmSelect").addEventListener("change", renderTopMovies);
-document.querySelector("#searchButton").addEventListener("click", runSearch);
+document.querySelector("#topLimit").addEventListener("change", () => renderTopMovies());
+document.querySelector("#algorithmSelect").addEventListener("change", () => renderTopMovies());
+document.querySelector("#searchButton").addEventListener("click", () => runSearch());
 document.querySelector("#searchInput").addEventListener("keydown", (event) => {
   if (event.key === "Enter") runSearch();
 });
-document.querySelector("#similarButton").addEventListener("click", recommendSimilar);
+document.querySelector("#similarButton").addEventListener("click", () => recommendSimilar());
 document.querySelector("#similarInput").addEventListener("keydown", (event) => {
   if (event.key === "Enter") recommendSimilar();
 });
 
 init().catch((error) => {
-  document.querySelector("#datasetStatus").textContent = "Failed to load data";
+  document.querySelector("#datasetStatus").textContent = "Failed to load backend API";
   console.error(error);
 });

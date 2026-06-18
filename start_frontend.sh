@@ -18,21 +18,52 @@ else
   exit 1
 fi
 
-"$PYTHON_BIN" -m src.export_frontend_data --dataset "$DATASET"
+if ! "$PYTHON_BIN" -c "import fastapi, uvicorn" >/dev/null 2>&1; then
+  echo "FastAPI dependencies are missing. Run ./setup_venv.sh to install requirements.txt." >&2
+  exit 1
+fi
+
+if "$PYTHON_BIN" - <<PY >/dev/null 2>&1
+import urllib.request
+urllib.request.urlopen("http://127.0.0.1:${PORT}/api/health", timeout=2)
+PY
+then
+  echo "Frontend URL: http://127.0.0.1:${PORT}/"
+  echo "API Health: http://127.0.0.1:${PORT}/api/health"
+  echo "Dataset: ${DATASET}"
+  exit 0
+fi
 
 if "$PYTHON_BIN" - <<PY >/dev/null 2>&1
 import urllib.request
 urllib.request.urlopen("http://127.0.0.1:${PORT}/", timeout=2)
 PY
 then
-  echo "Frontend URL: http://127.0.0.1:${PORT}/"
-  echo "Dataset: ${DATASET}"
-  exit 0
+  echo "Port ${PORT} is already serving a non-API frontend. Stop that process or choose another port." >&2
+  exit 1
 fi
 
-nohup "$PYTHON_BIN" -m http.server "$PORT" --directory web >/tmp/movie_recommendation_lab_${PORT}.log 2>&1 &
-sleep 1
+nohup "$PYTHON_BIN" -m src.api --port "$PORT" --dataset "$DATASET" >/tmp/movie_recommendation_lab_${PORT}.log 2>&1 &
+READY=0
+for _ in $(seq 1 20); do
+  sleep 0.5
+  if "$PYTHON_BIN" - <<PY >/dev/null 2>&1
+import urllib.request
+urllib.request.urlopen("http://127.0.0.1:${PORT}/api/health", timeout=2)
+PY
+  then
+    READY=1
+    break
+  fi
+done
+
+if [[ "$READY" != "1" ]]; then
+  echo "FastAPI server did not become ready on port ${PORT}." >&2
+  echo "Server log: /tmp/movie_recommendation_lab_${PORT}.log" >&2
+  exit 1
+fi
 
 echo "Frontend URL: http://127.0.0.1:${PORT}/"
+echo "API Health: http://127.0.0.1:${PORT}/api/health"
 echo "Dataset: ${DATASET}"
 echo "Server log: /tmp/movie_recommendation_lab_${PORT}.log"

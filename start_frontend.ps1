@@ -20,21 +20,51 @@ if (Test-Path $VenvPython) {
 
 Push-Location $ProjectRoot
 try {
-    & .\export_frontend_data.ps1 --dataset $Dataset
+    try {
+        & $Python -c "import fastapi, uvicorn" | Out-Null
+    } catch {
+        throw "FastAPI dependencies are missing. Run .\setup_venv.ps1 to install requirements.txt."
+    }
+
     $listening = $false
     try {
-        $response = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/" -UseBasicParsing -TimeoutSec 2
+        $response = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/api/health" -UseBasicParsing -TimeoutSec 2
         $listening = $response.StatusCode -eq 200
     } catch {
         $listening = $false
     }
 
     if (-not $listening) {
-        Start-Process -FilePath $Python -ArgumentList @("-m", "http.server", "$Port", "--directory", "web") -WorkingDirectory $ProjectRoot -WindowStyle Hidden
-        Start-Sleep -Seconds 2
+        $portBusy = $false
+        try {
+            Invoke-WebRequest -Uri "http://127.0.0.1:$Port/" -UseBasicParsing -TimeoutSec 2 | Out-Null
+            $portBusy = $true
+        } catch {
+            $portBusy = $false
+        }
+        if ($portBusy) {
+            throw "Port $Port is already serving a non-API frontend. Stop that process or choose another port."
+        }
+        Start-Process -FilePath $Python -ArgumentList @("-m", "src.api", "--port", "$Port", "--dataset", "$Dataset") -WorkingDirectory $ProjectRoot -WindowStyle Hidden
+        for ($attempt = 0; $attempt -lt 20; $attempt += 1) {
+            Start-Sleep -Milliseconds 500
+            try {
+                $response = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/api/health" -UseBasicParsing -TimeoutSec 2
+                if ($response.StatusCode -eq 200) {
+                    $listening = $true
+                    break
+                }
+            } catch {
+                $listening = $false
+            }
+        }
+        if (-not $listening) {
+            throw "FastAPI server did not become ready on port $Port."
+        }
     }
 
     Write-Output "Frontend URL: http://127.0.0.1:$Port/"
+    Write-Output "API Health: http://127.0.0.1:$Port/api/health"
     Write-Output "Dataset: $Dataset"
 } finally {
     Pop-Location
