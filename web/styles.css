@@ -879,6 +879,10 @@ th:first-child {
   background: var(--coral);
 }
 
+.bar.topn {
+  background: #2f9e64;
+}
+
 .bar.linear {
   background: var(--teal);
 }

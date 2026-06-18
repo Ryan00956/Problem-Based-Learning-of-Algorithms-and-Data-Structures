@@ -91,9 +91,11 @@ http://127.0.0.1:8013/
 The startup script serves the frontend and a FastAPI backend from the same port. The dashboard uses:
 
 - `GET /api/dashboard` for dataset summary and runtime CSV data.
-- `GET /api/top?n=10&algorithm=heap` for Top-N recommendations.
+- `GET /api/top?n=10&algorithm=heap` for Top-N heap recommendations.
 - `GET /api/search?kind=title&query=Toy%20Story&n=20` for indexed search.
 - `GET /api/recommend?title=Toy%20Story&n=10` for similar movie recommendations.
+- `POST /api/events` for browser-session behavior tracking.
+- `GET /api/for-you?session_id=...&n=10` for personalized For You recommendations.
 
 FastAPI docs are available at:
 
@@ -101,15 +103,17 @@ FastAPI docs are available at:
 http://127.0.0.1:8013/docs
 ```
 
-The dashboard shows Top-N recommendations, title/genre/tag search, similar movie recommendation, and runtime comparisons.
+The dashboard shows Top-N recommendations, personalized For You recommendations, title/genre/tag search, similar movie recommendation, and runtime comparisons.
 
 ## Implemented Algorithms
 
 - Merge sort for movie ranking.
-- Heap sort for movie ranking and Top-N recommendation.
+- Heap sort for full ranking experiments.
+- Top-N heap selection for movie recommendations without sorting the full movie list.
 - Linear search for baseline movie lookup.
 - Dictionary/inverted-index search for faster title, genre, and tag lookup.
 - Similar movie recommendation based on shared genres, shared tags, and comprehensive score.
+- Personalized For You recommendation based on backend behavior events, sparse content vectors, inverted-index cosine scoring, score-quality boosts, and a diverse high-score cold start fallback.
 
 ## Outputs
 

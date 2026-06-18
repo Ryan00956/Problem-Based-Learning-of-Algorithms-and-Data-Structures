@@ -1,17 +1,17 @@
 from __future__ import annotations
 
-from src.algorithms.sorting import heap_sort, merge_sort
+from src.algorithms.sorting import heap_sort, merge_sort, top_n_heap
 from src.datasets.movielens.search import MovieLensSearchEngine, normalize
 
 
 def top_n_movies(profiles: list[dict], n: int = 10, algorithm: str = "heap") -> list[dict]:
     if algorithm == "merge":
         ranked = merge_sort(profiles, key="comprehensive_score", reverse=True)
+        return ranked[:n]
     elif algorithm == "heap":
-        ranked = heap_sort(profiles, key="comprehensive_score", reverse=True)
+        return top_n_heap(profiles, n=n, key="comprehensive_score", reverse=True)
     else:
         raise ValueError(f"unknown algorithm: {algorithm}")
-    return ranked[:n]
 
 
 def recommend_similar_movies(
@@ -42,4 +42,4 @@ def recommend_similar_movies(
             enriched["shared_tags"] = tag_overlap
             scored.append(enriched)
 
-    return target, heap_sort(scored, key="similarity_score", reverse=True)[:n]
+    return target, top_n_heap(scored, n=n, key="similarity_score", reverse=True)

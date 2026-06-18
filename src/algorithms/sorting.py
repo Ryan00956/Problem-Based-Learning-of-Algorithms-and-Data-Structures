@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import heapq
 from typing import Callable, Iterable, TypeVar
 
 
@@ -75,3 +76,13 @@ def heap_sort(items: Iterable[T], key: str | Callable[[T], object], reverse: boo
         sift_down(0, end)
 
     return values
+
+
+def top_n_heap(items: Iterable[T], n: int, key: str | Callable[[T], object], reverse: bool = True) -> list[T]:
+    if n <= 0:
+        return []
+
+    key_func = _key_function(key)
+    if reverse:
+        return heapq.nlargest(n, items, key=key_func)
+    return heapq.nsmallest(n, items, key=key_func)

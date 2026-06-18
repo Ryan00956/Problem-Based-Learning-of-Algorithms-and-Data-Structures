@@ -31,7 +31,7 @@ def run_demo(n: int = 10) -> None:
     save_profiles_csv(profiles, OUTPUT_SUBDIR / "movie_profiles.csv")
     engine = MovieLensSearchEngine(profiles)
 
-    print("\nTop movies by heap sort:")
+    print("\nTop movies by Top-N heap:")
     print_movies(top_n_movies(profiles, n=n, algorithm="heap"), n)
 
     print("\nTop movies by merge sort:")

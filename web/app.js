@@ -571,10 +571,18 @@ async function sendTagAliasDecision(button) {
 
 function renderCharts() {
   const sortRows = state.data.sortRuntime || [];
-  const maxSort = Math.max(...sortRows.flatMap((row) => [Number(row.merge_sort_seconds), Number(row.heap_sort_seconds)]), 0.001);
+  const maxSort = Math.max(
+    ...sortRows.flatMap((row) => [
+      Number(row.merge_sort_seconds),
+      Number(row.heap_sort_seconds),
+      Number(row.top_n_heap_seconds || 0),
+    ]),
+    0.001
+  );
   document.querySelector("#sortChart").innerHTML = sortRows.map((row) => `
     ${barRow(`${row.data_size}`, Number(row.merge_sort_seconds), maxSort, "merge", "merge")}
     ${barRow("", Number(row.heap_sort_seconds), maxSort, "heap", "heap")}
+    ${row.top_n_heap_seconds ? barRow("", Number(row.top_n_heap_seconds), maxSort, "topn", "top-n") : ""}
   `).join("");
 
   const searchRows = state.data.searchRuntime || [];

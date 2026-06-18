@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Literal
 
-from src.algorithms.sorting import heap_sort
+from src.algorithms.sorting import top_n_heap
 from src.datasets.movielens.search import MovieLensSearchEngine, normalize
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 from src.datasets.movielens.tags import canonicalize_tag
@@ -555,7 +555,8 @@ def _diverse_cold_start(
     exclude_movie_ids: set[int] | None = None,
 ) -> list[dict]:
     excluded = exclude_movie_ids or set()
-    ranked = heap_sort(profiles, key="comprehensive_score", reverse=True)
+    candidate_count = max(n * 40, 120)
+    ranked = top_n_heap(profiles, n=candidate_count, key="comprehensive_score", reverse=True)
     return _diversify([dict(item) for item in ranked if item["movieId"] not in excluded], n)
 
 
@@ -566,11 +567,12 @@ def _exploration_candidates(
     exclude_movie_ids: set[int],
     limit: int,
 ) -> list[dict]:
-    ranked = heap_sort(profiles, key="comprehensive_score", reverse=True)
+    candidate_count = max(limit * 6, 600)
+    ranked = top_n_heap(profiles, n=candidate_count, key="comprehensive_score", reverse=True)
     candidates = []
     user_norm = _norm(model.vector)
     disliked_norm = _norm(model.disliked_vector)
-    for item in ranked[: max(limit * 6, 600)]:
+    for item in ranked:
         movie_id = item["movieId"]
         if movie_id in exclude_movie_ids:
             continue

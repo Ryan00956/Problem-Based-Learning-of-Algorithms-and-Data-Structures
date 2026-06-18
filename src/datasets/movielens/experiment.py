@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 from typing import Callable
 
-from src.algorithms.sorting import heap_sort, merge_sort
+from src.algorithms.sorting import heap_sort, merge_sort, top_n_heap
 from src.core.paths import OUTPUT_DIR
 from src.datasets.movielens.loader import load_movielens
 from src.datasets.movielens.profiles import build_movie_profiles, save_profiles_csv
@@ -40,12 +40,15 @@ def run_experiments(output_dir: Path = OUTPUT_SUBDIR) -> dict[str, Path]:
         subset = profiles[:size]
         _, merge_seconds = timed_call(merge_sort, subset, key="comprehensive_score", reverse=True)
         _, heap_seconds = timed_call(heap_sort, subset, key="comprehensive_score", reverse=True)
+        _, top_n_heap_seconds = timed_call(top_n_heap, subset, 10, key="comprehensive_score", reverse=True)
         sort_results.append(
             {
                 "task": "sort_by_comprehensive_score",
                 "data_size": size,
+                "top_n": 10,
                 "merge_sort_seconds": round(merge_seconds, 8),
                 "heap_sort_seconds": round(heap_seconds, 8),
+                "top_n_heap_seconds": round(top_n_heap_seconds, 8),
             }
         )
 
@@ -103,7 +106,10 @@ def _write_sort_svg(rows: list[dict], path: Path) -> None:
     margin_bottom = 70
     plot_width = width - 130
     plot_height = height - 130
-    max_time = max(max(row["merge_sort_seconds"], row["heap_sort_seconds"]) for row in rows) or 1.0
+    max_time = max(
+        max(row["merge_sort_seconds"], row["heap_sort_seconds"], row["top_n_heap_seconds"])
+        for row in rows
+    ) or 1.0
     max_size = max(row["data_size"] for row in rows) or 1
 
     def x(size: int) -> float:
@@ -114,6 +120,7 @@ def _write_sort_svg(rows: list[dict], path: Path) -> None:
 
     merge_points = " ".join(f"{x(row['data_size']):.2f},{y(row['merge_sort_seconds']):.2f}" for row in rows)
     heap_points = " ".join(f"{x(row['data_size']):.2f},{y(row['heap_sort_seconds']):.2f}" for row in rows)
+    top_n_points = " ".join(f"{x(row['data_size']):.2f},{y(row['top_n_heap_seconds']):.2f}" for row in rows)
 
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
@@ -123,8 +130,10 @@ def _write_sort_svg(rows: list[dict], path: Path) -> None:
         f'<line x1="{margin_left}" y1="60" x2="{margin_left}" y2="{height-margin_bottom}" stroke="#333"/>',
         f'<polyline points="{merge_points}" fill="none" stroke="#1f77b4" stroke-width="3"/>',
         f'<polyline points="{heap_points}" fill="none" stroke="#d62728" stroke-width="3"/>',
+        f'<polyline points="{top_n_points}" fill="none" stroke="#2ca02c" stroke-width="3"/>',
         '<text x="650" y="80" font-size="14" font-family="Arial" fill="#1f77b4">Merge sort</text>',
         '<text x="650" y="105" font-size="14" font-family="Arial" fill="#d62728">Heap sort</text>',
+        '<text x="650" y="130" font-size="14" font-family="Arial" fill="#2ca02c">Top-N heap</text>',
         '<text x="360" y="430" font-size="14" font-family="Arial" fill="#333">Data size</text>',
         '<text x="15" y="230" font-size="14" font-family="Arial" fill="#333" transform="rotate(-90 15,230)">Seconds</text>',
     ]
@@ -133,5 +142,6 @@ def _write_sort_svg(rows: list[dict], path: Path) -> None:
         lines.append(f'<text x="{x(row["data_size"])-15:.2f}" y="410" font-size="11" font-family="Arial">{label}</text>')
         lines.append(f'<circle cx="{x(row["data_size"]):.2f}" cy="{y(row["merge_sort_seconds"]):.2f}" r="4" fill="#1f77b4"/>')
         lines.append(f'<circle cx="{x(row["data_size"]):.2f}" cy="{y(row["heap_sort_seconds"]):.2f}" r="4" fill="#d62728"/>')
+        lines.append(f'<circle cx="{x(row["data_size"]):.2f}" cy="{y(row["top_n_heap_seconds"]):.2f}" r="4" fill="#2ca02c"/>')
     lines.append("</svg>")
     path.write_text("\n".join(lines), encoding="utf-8")

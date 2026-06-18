@@ -36,7 +36,7 @@ def export_frontend_data() -> dict[str, Path]:
             "rating_count": int(len(ratings)),
             "tag_count": int(sum(len(item["tags"]) for item in profiles)),
             "user_count": int(ratings["userId"].nunique()),
-            "top_algorithm": "heap_sort",
+            "top_algorithm": "top_n_heap",
         },
         "topMovies": ranked[:100],
         "movies": searchable,

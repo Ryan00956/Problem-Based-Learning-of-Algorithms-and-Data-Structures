@@ -87,7 +87,7 @@ class MovieLensApiService:
             "rating_count": int(len(ratings)),
             "tag_count": int(sum(len(item["tags"]) for item in profiles)),
             "user_count": int(ratings["userId"].nunique()),
-            "top_algorithm": "heap_sort",
+            "top_algorithm": "top_n_heap",
         }
 
     @property
