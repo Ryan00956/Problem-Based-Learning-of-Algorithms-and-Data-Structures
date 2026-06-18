@@ -128,3 +128,11 @@ Optional static export payloads can still be generated under `web/data/`:
 
 - `movielens-dashboard-data.json`
 - `dashboard-data.json` as the default active dashboard payload
+
+## Tests
+
+Run the MovieLens HTTP smoke test with:
+
+```powershell
+python -m unittest discover
+```

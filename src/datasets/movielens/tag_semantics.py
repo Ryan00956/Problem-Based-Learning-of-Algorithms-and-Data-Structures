@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import Counter, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
 import json
@@ -248,15 +248,21 @@ def _profile_signature(
     min_similarity: float,
     min_shared_movies: int,
 ) -> str:
-    counts: Counter[str] = Counter()
+    tag_movie_weights: defaultdict[str, list[tuple[int, float]]] = defaultdict(list)
     for item in profiles:
+        movie_id = int(item.get("movieId", 0))
         for tag in _item_tag_details(item):
             key = normalize(tag["tag"])
             if key:
-                counts[key] += 1
+                weight = round(float(tag.get("weight", tag.get("count", 1.0)) or 1.0), 6)
+                tag_movie_weights[key].append((movie_id, weight))
     payload = {
+        "signature_version": 2,
         "movie_count": len(profiles),
-        "tag_counts": sorted(counts.items()),
+        "tag_movie_weights": [
+            (tag, sorted(values))
+            for tag, values in sorted(tag_movie_weights.items())
+        ],
         "dimensions": dimensions,
         "neighbor_limit": neighbor_limit,
         "min_movie_count": min_movie_count,

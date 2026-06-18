@@ -9,11 +9,12 @@ from src.datasets.movielens.loader import load_movielens
 from src.datasets.movielens.profiles import build_movie_profiles, save_profiles_csv
 from src.datasets.movielens.recommendation import recommend_similar_movies, top_n_movies
 from src.datasets.movielens.search import MovieLensSearchEngine
+from src.datasets.movielens.tag_aliases import load_accepted_tag_aliases
 
 
 def load_profiles() -> list[dict]:
     movies, ratings, tags = load_movielens()
-    return build_movie_profiles(movies, ratings, tags)
+    return build_movie_profiles(movies, ratings, tags, tag_aliases=load_accepted_tag_aliases())
 
 
 def print_movies(rows: list[dict], limit: int = 10) -> None:

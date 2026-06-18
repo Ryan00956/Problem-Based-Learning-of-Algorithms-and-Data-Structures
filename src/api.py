@@ -22,7 +22,11 @@ from src.datasets.movielens.personalization import (
 from src.datasets.movielens.profiles import build_movie_profiles
 from src.datasets.movielens.recommendation import recommend_similar_movies, top_n_movies
 from src.datasets.movielens.search import MovieLensSearchEngine
-from src.datasets.movielens.tag_aliases import TagAliasDecisionStore, build_tag_alias_report
+from src.datasets.movielens.tag_aliases import (
+    DEFAULT_TAG_ALIAS_DECISIONS_PATH,
+    TagAliasDecisionStore,
+    build_tag_alias_report,
+)
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 
 
@@ -54,7 +58,7 @@ class MovieLensApiService:
         self._summary: dict | None = None
         self._tag_alias_report: dict | None = None
         self._events = PersonalizationStore(MOVIELENS_OUTPUT_DIR / "user_events.jsonl")
-        self._tag_decisions = TagAliasDecisionStore(MOVIELENS_OUTPUT_DIR / "tag_alias_decisions.json")
+        self._tag_decisions = TagAliasDecisionStore(DEFAULT_TAG_ALIAS_DECISIONS_PATH)
 
     def _ensure_loaded(self) -> None:
         if (

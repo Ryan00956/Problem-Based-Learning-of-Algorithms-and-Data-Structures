@@ -10,6 +10,7 @@ from src.core.paths import OUTPUT_DIR
 from src.datasets.movielens.loader import load_movielens
 from src.datasets.movielens.profiles import build_movie_profiles, save_profiles_csv
 from src.datasets.movielens.search import MovieLensSearchEngine
+from src.datasets.movielens.tag_aliases import load_accepted_tag_aliases
 
 
 OUTPUT_SUBDIR = OUTPUT_DIR / "movielens"
@@ -31,7 +32,7 @@ def timed_call(func: Callable, *args, repeat: int = 3, **kwargs) -> tuple[object
 def run_experiments(output_dir: Path = OUTPUT_SUBDIR) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     movies, ratings, tags = load_movielens()
-    profiles = build_movie_profiles(movies, ratings, tags)
+    profiles = build_movie_profiles(movies, ratings, tags, tag_aliases=load_accepted_tag_aliases())
     save_profiles_csv(profiles, output_dir / "movie_profiles.csv")
 
     sort_results = []

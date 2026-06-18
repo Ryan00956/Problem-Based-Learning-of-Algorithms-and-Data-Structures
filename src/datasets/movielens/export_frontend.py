@@ -10,6 +10,7 @@ from src.datasets.movielens.experiment import OUTPUT_SUBDIR
 from src.datasets.movielens.loader import load_movielens
 from src.datasets.movielens.profiles import build_movie_profiles
 from src.datasets.movielens.recommendation import top_n_movies
+from src.datasets.movielens.tag_aliases import load_accepted_tag_aliases
 
 
 def _read_csv(path: Path) -> list[dict]:
@@ -22,7 +23,7 @@ def _read_csv(path: Path) -> list[dict]:
 def export_frontend_data() -> dict[str, Path]:
     WEB_DATA_DIR.mkdir(parents=True, exist_ok=True)
     movies, ratings, tags = load_movielens()
-    profiles = build_movie_profiles(movies, ratings, tags)
+    profiles = build_movie_profiles(movies, ratings, tags, tag_aliases=load_accepted_tag_aliases())
     ranked = top_n_movies(profiles, n=len(profiles), algorithm="heap")
 
     searchable = sorted(profiles, key=lambda item: item["rating_count"], reverse=True)[:1200]

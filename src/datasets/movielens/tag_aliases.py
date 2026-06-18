@@ -12,10 +12,12 @@ from typing import Iterable, Literal, Mapping
 
 import pandas as pd
 
+from src.core.paths import OUTPUT_DIR
 from src.datasets.movielens.tags import TAG_ALIASES, canonicalize_tag, normalize_tag_key
 
 
 AliasDecision = Literal["accept", "reject", "ignore"]
+DEFAULT_TAG_ALIAS_DECISIONS_PATH = OUTPUT_DIR / "movielens" / "tag_alias_decisions.json"
 
 
 class TagAliasDecisionStore:
@@ -92,8 +94,11 @@ class TagAliasDecisionStore:
     def _load(self) -> list[dict]:
         if not self.path.exists():
             return []
-        with self.path.open("r", encoding="utf-8") as handle:
-            payload = json.load(handle)
+        try:
+            with self.path.open("r", encoding="utf-8") as handle:
+                payload = json.load(handle)
+        except (OSError, json.JSONDecodeError):
+            return []
         if isinstance(payload, dict):
             raw_items = payload.get("decisions", [])
         elif isinstance(payload, list):
@@ -108,6 +113,10 @@ class TagAliasDecisionStore:
         with self.path.open("w", encoding="utf-8") as handle:
             json.dump(payload, handle, indent=2, ensure_ascii=False)
             handle.write("\n")
+
+
+def load_accepted_tag_aliases(path: Path = DEFAULT_TAG_ALIAS_DECISIONS_PATH) -> dict[str, str]:
+    return TagAliasDecisionStore(path).accepted_aliases()
 
 
 def build_tag_alias_report(
