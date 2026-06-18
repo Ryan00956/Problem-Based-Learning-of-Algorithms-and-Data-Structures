@@ -77,7 +77,17 @@ The system recommends similar movies based on:
 
 The similarity score is used to rank candidate movies.
 
-## 7. Experiments
+## 7. Personalized For You Recommendation
+
+The For You module combines three candidate sources:
+
+- Interest candidates from the current browser session's content profile.
+- Collaborative candidates from historical MovieLens users with similar rating behavior.
+- Exploration candidates from diverse high-score movies.
+
+The collaborative model converts the active session's view/like/dislike events into pseudo-ratings, finds similar historical users with centered cosine similarity, and recommends movies that those similar users rated highly.
+
+## 8. Experiments
 
 Output files:
 
@@ -91,8 +101,8 @@ Experiment comparisons:
 - Linear search vs index search.
 - MovieLens dataset.
 
-## 8. Conclusion
+## 9. Conclusion
 
 The project shows that algorithm choice affects system efficiency.
 Sorting algorithms are useful for Top-N ranking, while indexes greatly improve query speed.
-The combination of sorting, search, and simple similarity scoring forms a complete recommendation workflow.
+The combination of sorting, search, content similarity, and collaborative filtering forms a complete recommendation workflow.

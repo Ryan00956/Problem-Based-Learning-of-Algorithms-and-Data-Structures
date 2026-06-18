@@ -113,7 +113,7 @@ The dashboard shows Top-N recommendations, personalized For You recommendations,
 - Linear search for baseline movie lookup.
 - Dictionary/inverted-index search for faster title, genre, and tag lookup.
 - Similar movie recommendation based on shared genres, shared tags, and comprehensive score.
-- Personalized For You recommendation based on backend behavior events, sparse content vectors, inverted-index cosine scoring, score-quality boosts, and a diverse high-score cold start fallback.
+- Personalized For You recommendation based on backend behavior events, sparse content vectors, inverted-index cosine scoring, user-user collaborative filtering from historical ratings, score-quality boosts, and a diverse high-score cold start fallback.
 
 ## Outputs
 

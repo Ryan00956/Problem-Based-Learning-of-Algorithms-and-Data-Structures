@@ -141,11 +141,13 @@ function recommendationMeta(movie) {
 function bucketLabel(bucket) {
   return {
     interest: "Interest",
+    collaborative: "Similar users",
     explore: "Explore",
   }[bucket] || bucket;
 }
 
 function bucketClass(bucket) {
+  if (bucket === "collaborative") return "bucket-collaborative";
   return bucket === "explore" ? "bucket-explore" : "bucket-interest";
 }
 
@@ -193,6 +195,12 @@ function movieDetailsHtml(movie) {
     ["Vector similarity", movie.vector_similarity],
     ["Vector score", movie.vector_score],
     ["Quality boost", movie.quality_boost],
+    ["Collaborative score", movie.collaborative_score],
+    ["Similar users", movie.similar_user_count],
+    ["Supporting users", movie.collaborative_support],
+    ["Neighbor avg rating", movie.neighbor_avg_rating],
+    ["Max user similarity", movie.max_user_similarity],
+    ["Shared movie count", movie.shared_movie_count],
     ["Preference score", movie.preference_score],
     ["Seed similarity", movie.seed_similarity_score],
   ].filter(([, value]) => value !== undefined && value !== null);
@@ -328,10 +336,13 @@ async function renderForYou() {
 
 function bucketCountText(counts) {
   const interest = counts.interest || 0;
+  const collaborative = counts.collaborative || 0;
   const explore = counts.explore || 0;
-  if (interest && explore) return `${interest} interest + ${explore} explore`;
-  if (interest) return `${interest} interest`;
-  if (explore) return `${explore} explore`;
+  const parts = [];
+  if (interest) parts.push(`${interest} interest`);
+  if (collaborative) parts.push(`${collaborative} similar users`);
+  if (explore) parts.push(`${explore} explore`);
+  if (parts.length) return parts.join(" + ");
   return "mixed recommendations";
 }
 

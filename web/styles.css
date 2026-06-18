@@ -419,6 +419,12 @@ th:first-child {
   color: #225f32;
 }
 
+.bucket-collaborative {
+  background: #fff5df;
+  border-color: #e2bd6d;
+  color: #6c4b10;
+}
+
 .bucket-explore {
   background: #eef3ff;
   border-color: #b8c9ee;

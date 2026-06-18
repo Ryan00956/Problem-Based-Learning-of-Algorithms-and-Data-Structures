@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Literal
 
 from src.algorithms.sorting import top_n_heap
+from src.datasets.movielens.collaborative import UserCollaborativeModel
 from src.datasets.movielens.search import MovieLensSearchEngine, normalize
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 from src.datasets.movielens.tags import canonicalize_tag
@@ -17,7 +18,7 @@ from src.datasets.movielens.tags import canonicalize_tag
 
 InteractionType = Literal["search", "similar", "view", "like", "dislike", "reset"]
 SearchKind = Literal["title", "genre", "tag"]
-RecommendationSource = Literal["interest", "explore", "top", "search", "similar", "detail"]
+RecommendationSource = Literal["interest", "collaborative", "explore", "top", "search", "similar", "detail"]
 
 LONG_EVENT_LIMIT = 240
 SHORT_EVENT_LIMIT = 25
@@ -27,6 +28,8 @@ EXPLICIT_LIKE_WEIGHT = 0.28
 DISLIKE_VECTOR_WEIGHT = 0.45
 INTEREST_SHARE = 0.75
 EXPLORE_SHARE = 0.25
+COLLABORATIVE_SHARE = 0.25
+COLLABORATIVE_EXPLORE_SHARE = 0.15
 MAX_GENRE_SHARE = 0.5
 DISLIKED_SIMILARITY_LIMIT = 0.72
 SEMANTIC_EXPANSION_WEIGHT = 0.3
@@ -219,6 +222,7 @@ def recommend_for_you(
     n: int = 10,
     vector_model: MovieVectorModel | None = None,
     tag_semantics: TagSemanticModel | None = None,
+    collaborative_model: UserCollaborativeModel | None = None,
 ) -> dict:
     vector_model = vector_model or MovieVectorModel(profiles)
     memory_events = sorted(events, key=lambda event: event.timestamp)[-LONG_EVENT_LIMIT:]
@@ -272,7 +276,22 @@ def recommend_for_you(
         exclude_movie_ids=model.seed_movie_ids,
         limit=max(n * 18, 160),
     )
-    items = _blend_recommendations(ranked_interest, exploration_candidates, n, model)
+    collaborative_result = _collaborative_candidates(
+        collaborative_model,
+        memory_events,
+        vector_model,
+        model,
+        exclude_movie_ids=model.seed_movie_ids,
+        limit=max(n * 12, 120),
+    )
+    collaborative_candidates = collaborative_result["items"]
+    items = _blend_recommendations(
+        ranked_interest,
+        collaborative_candidates,
+        exploration_candidates,
+        n,
+        model,
+    )
     if len(items) < n:
         existing_ids = {item["movieId"] for item in items}
         backfill_excludes = model.seed_movie_ids | existing_ids
@@ -293,10 +312,12 @@ def recommend_for_you(
         "scored_count": len(interest_candidates),
         "posting_count": posting_count,
         "bucket_counts": dict(bucket_counts),
-        "interest_target": _interest_target(n),
-        "explore_target": _explore_target(n),
+        "interest_target": _interest_target(n, bool(collaborative_candidates)),
+        "collaborative_target": _collaborative_target(n, bool(collaborative_candidates)),
+        "explore_target": _explore_target(n, bool(collaborative_candidates)),
+        "collaborative": collaborative_result["summary"],
         "profile": _profile_summary(model),
-        "engine": "inverted_vector_cosine_blend",
+        "engine": "hybrid_content_collaborative_blend",
         "status": "personalized",
     }
 
@@ -605,14 +626,82 @@ def _exploration_candidates(
     return candidates
 
 
+def _collaborative_candidates(
+    collaborative_model: UserCollaborativeModel | None,
+    events: list[InteractionEvent],
+    vector_model: MovieVectorModel,
+    model: UserPreferenceModel,
+    exclude_movie_ids: set[int],
+    limit: int,
+) -> dict:
+    summary = {
+        "eligible_movie_count": 0,
+        "neighbor_count": 0,
+        "top_similarity": 0.0,
+        "max_shared_movies": 0,
+    }
+    if collaborative_model is None:
+        return {"items": [], "summary": summary}
+
+    result = collaborative_model.recommend(events, exclude_movie_ids=exclude_movie_ids, limit=limit)
+    summary = {
+        "eligible_movie_count": result["eligible_movie_count"],
+        "neighbor_count": result["neighbor_count"],
+        "top_similarity": result["top_similarity"],
+        "max_shared_movies": result["max_shared_movies"],
+    }
+    disliked_norm = _norm(model.disliked_vector)
+    items = []
+    for candidate in result["candidates"]:
+        item = vector_model.by_id.get(candidate.movie_id)
+        if not item:
+            continue
+
+        disliked_similarity = _cosine_to_vector(
+            vector_model,
+            model.disliked_vector,
+            disliked_norm,
+            candidate.movie_id,
+        )
+        if disliked_similarity >= DISLIKED_SIMILARITY_LIMIT:
+            continue
+
+        quality_boost = _normalized_number(
+            item.get("comprehensive_score", 0.0),
+            vector_model.max_values["comprehensive_score"],
+        ) * 14.0
+        personal_score = candidate.score + quality_boost - disliked_similarity * 30.0
+        if personal_score <= 0:
+            continue
+
+        enriched = dict(item)
+        enriched["personal_score"] = round(personal_score, 4)
+        enriched["collaborative_score"] = candidate.score
+        enriched["similar_user_count"] = candidate.neighbor_count
+        enriched["collaborative_support"] = candidate.support_count
+        enriched["neighbor_avg_rating"] = candidate.avg_neighbor_rating
+        enriched["max_user_similarity"] = candidate.max_similarity
+        enriched["shared_movie_count"] = candidate.shared_movie_count
+        enriched["quality_boost"] = round(quality_boost, 4)
+        enriched["disliked_similarity"] = round(disliked_similarity, 4)
+        enriched["recommendation_bucket"] = "collaborative"
+        enriched["recommendation_reason"] = _collaborative_reason(candidate)
+        items.append(enriched)
+
+    return {"items": items, "summary": summary}
+
+
 def _blend_recommendations(
     interest_candidates: list[dict],
+    collaborative_candidates: list[dict],
     exploration_candidates: list[dict],
     n: int,
     model: UserPreferenceModel,
 ) -> list[dict]:
-    interest_target = _interest_target(n)
-    explore_target = _explore_target(n)
+    has_collaborative = bool(collaborative_candidates)
+    interest_target = _interest_target(n, has_collaborative)
+    collaborative_target = _collaborative_target(n, has_collaborative)
+    explore_target = _explore_target(n, has_collaborative)
     genre_cap = max(2, math.ceil(n * MAX_GENRE_SHARE))
     top_profile_genres = [name for name, value in _positive_ranked(model.genres, 6)]
 
@@ -624,10 +713,21 @@ def _blend_recommendations(
     state = (selected, selected_ids, genre_counts, tag_counts, bucket_counts)
 
     _take_diverse(
+        collaborative_candidates,
+        collaborative_target,
+        state,
+        interest_target,
+        collaborative_target,
+        explore_target,
+        genre_cap,
+        top_profile_genres,
+    )
+    _take_diverse(
         interest_candidates,
         interest_target,
         state,
         interest_target,
+        collaborative_target,
         explore_target,
         genre_cap,
         top_profile_genres,
@@ -637,16 +737,18 @@ def _blend_recommendations(
         explore_target,
         state,
         interest_target,
+        collaborative_target,
         explore_target,
         genre_cap,
         top_profile_genres,
     )
     if len(selected) < n:
         _take_diverse(
-            interest_candidates + exploration_candidates,
+            interest_candidates + collaborative_candidates + exploration_candidates,
             n - len(selected),
             state,
             interest_target,
+            collaborative_target,
             explore_target,
             genre_cap,
             top_profile_genres,
@@ -660,6 +762,7 @@ def _take_diverse(
     target_count: int,
     state: tuple[list[dict], set[int], Counter[str], Counter[str], Counter[str]],
     interest_target: int,
+    collaborative_target: int,
     explore_target: int,
     genre_cap: int,
     top_profile_genres: list[str],
@@ -681,6 +784,7 @@ def _take_diverse(
                 tag_counts,
                 bucket_counts,
                 interest_target,
+                collaborative_target,
                 explore_target,
                 genre_cap,
                 top_profile_genres,
@@ -703,15 +807,25 @@ def _take_diverse(
 
 
 def _interleave_for_display(items: list[dict]) -> list[dict]:
-    interest = [item for item in items if item.get("recommendation_bucket") != "explore"]
+    interest = [item for item in items if item.get("recommendation_bucket") == "interest"]
+    collaborative = [item for item in items if item.get("recommendation_bucket") == "collaborative"]
     explore = [item for item in items if item.get("recommendation_bucket") == "explore"]
     ordered: list[dict] = []
-    while interest or explore:
-        for _ in range(3):
+    fallback = [
+        item
+        for item in items
+        if item.get("recommendation_bucket") not in {"interest", "collaborative", "explore"}
+    ]
+    while interest or collaborative or explore or fallback:
+        for _ in range(2):
             if interest:
                 ordered.append(interest.pop(0))
+        if collaborative:
+            ordered.append(collaborative.pop(0))
         if explore:
             ordered.append(explore.pop(0))
+        if not (interest or collaborative or explore) and fallback:
+            ordered.append(fallback.pop(0))
     return ordered
 
 
@@ -721,6 +835,7 @@ def _selection_score(
     tag_counts: Counter[str],
     bucket_counts: Counter[str],
     interest_target: int,
+    collaborative_target: int,
     explore_target: int,
     genre_cap: int,
     top_profile_genres: list[str],
@@ -730,6 +845,8 @@ def _selection_score(
 
     if bucket == "explore":
         score += 28.0 if bucket_counts["explore"] < explore_target else -32.0
+    elif bucket == "collaborative":
+        score += 18.0 if bucket_counts["collaborative"] < collaborative_target else -24.0
     else:
         score += 10.0 if bucket_counts["interest"] < interest_target else -12.0
 
@@ -754,14 +871,26 @@ def _selection_score(
     )
 
 
-def _interest_target(n: int) -> int:
+def _interest_target(n: int, has_collaborative: bool = False) -> int:
     if n <= 1:
         return n
+    if has_collaborative:
+        return max(1, n - _collaborative_target(n, True) - _explore_target(n, True))
     return max(1, min(n, round(n * INTEREST_SHARE)))
 
 
-def _explore_target(n: int) -> int:
-    return max(0, n - _interest_target(n))
+def _collaborative_target(n: int, has_collaborative: bool = False) -> int:
+    if not has_collaborative or n <= 2:
+        return 0
+    return max(1, min(n - 1, round(n * COLLABORATIVE_SHARE)))
+
+
+def _explore_target(n: int, has_collaborative: bool = False) -> int:
+    if has_collaborative:
+        if n <= 2:
+            return 0
+        return max(1, min(n - 1, round(n * COLLABORATIVE_EXPLORE_SHARE)))
+    return max(0, n - _interest_target(n, False))
 
 
 def _interest_reason(model: UserPreferenceModel, item: dict) -> str:
@@ -786,6 +915,13 @@ def _exploration_reason(model: UserPreferenceModel, item: dict, vector_similarit
     if new_genres:
         return f"High-scoring exploration outside your usual {', '.join(new_genres)} mix."
     return "High-scoring exploration to test a new direction."
+
+
+def _collaborative_reason(candidate) -> str:
+    return (
+        f"{candidate.support_count} similar users rated this around "
+        f"{candidate.avg_neighbor_rating:.1f}/5."
+    )
 
 
 def _cosine_to_vector(

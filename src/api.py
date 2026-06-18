@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 
 from src.core.paths import OUTPUT_DIR, PROJECT_ROOT
 from src.core.registry import DATASETS
+from src.datasets.movielens.collaborative import UserCollaborativeModel
 from src.datasets.movielens.loader import load_movielens
 from src.datasets.movielens.personalization import (
     InteractionEvent,
@@ -40,7 +41,7 @@ class InteractionRequest(BaseModel):
     kind: Literal["title", "genre", "tag"] | None = None
     query: str = Field(default="", max_length=160)
     movie_id: int | None = None
-    source: Literal["interest", "explore", "top", "search", "similar", "detail"] | None = None
+    source: Literal["interest", "collaborative", "explore", "top", "search", "similar", "detail"] | None = None
 
 
 class TagAliasDecisionRequest(BaseModel):
@@ -54,6 +55,7 @@ class MovieLensApiService:
         self._profiles: list[dict] | None = None
         self._engine: MovieLensSearchEngine | None = None
         self._vector_model: MovieVectorModel | None = None
+        self._collaborative_model: UserCollaborativeModel | None = None
         self._tag_semantics: TagSemanticModel | None = None
         self._summary: dict | None = None
         self._tag_alias_report: dict | None = None
@@ -65,6 +67,7 @@ class MovieLensApiService:
             self._profiles is not None
             and self._engine is not None
             and self._vector_model is not None
+            and self._collaborative_model is not None
             and self._tag_semantics is not None
             and self._summary is not None
             and self._tag_alias_report is not None
@@ -77,6 +80,7 @@ class MovieLensApiService:
         self._profiles = profiles
         self._engine = MovieLensSearchEngine(profiles, tag_aliases=tag_aliases)
         self._vector_model = MovieVectorModel(profiles)
+        self._collaborative_model = UserCollaborativeModel(ratings)
         self._tag_semantics = TagSemanticModel.from_profiles(
             profiles,
             cache_path=MOVIELENS_OUTPUT_DIR / "tag_semantics.json",
@@ -117,6 +121,12 @@ class MovieLensApiService:
         self._ensure_loaded()
         assert self._tag_semantics is not None
         return self._tag_semantics
+
+    @property
+    def collaborative_model(self) -> UserCollaborativeModel:
+        self._ensure_loaded()
+        assert self._collaborative_model is not None
+        return self._collaborative_model
 
     def dashboard(self) -> dict:
         self._ensure_loaded()
@@ -196,6 +206,7 @@ class MovieLensApiService:
             n=n,
             vector_model=self.vector_model,
             tag_semantics=self.tag_semantics,
+            collaborative_model=self.collaborative_model,
         )
         payload["elapsed_ms"] = _elapsed_ms(started)
         return payload
@@ -255,6 +266,7 @@ class MovieLensApiService:
         self._profiles = None
         self._engine = None
         self._vector_model = None
+        self._collaborative_model = None
         self._tag_semantics = None
         self._summary = None
         self._tag_alias_report = None
