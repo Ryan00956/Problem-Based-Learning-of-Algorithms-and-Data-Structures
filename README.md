@@ -11,6 +11,14 @@ The project is organized as isolated dataset pipelines. MovieLens is the default
 
 Raw dataset files are intentionally not committed to GitHub because they can be large. Download or place the required dataset under `data/` before regenerating outputs.
 
+Build the local Netflix DuckDB database from the raw Prize files with:
+
+```powershell
+python -m src.datasets.netflix.import_duckdb --force
+```
+
+The generated database is written to `data/netflix-prize/netflix.duckdb` and is intentionally ignored by Git.
+
 ## Dataset Architecture
 
 - Shared code lives in `src/core/` and `src/algorithms/`.

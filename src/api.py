@@ -24,10 +24,13 @@ from src.datasets.movielens.profiles import build_movie_profiles
 from src.datasets.movielens.recommendation import recommend_similar_movies, top_n_movies
 from src.datasets.movielens.search import MovieLensSearchEngine
 from src.datasets.movielens.tag_semantics import TagSemanticModel
+from src.datasets.netflix.import_duckdb import DEFAULT_DB_PATH as NETFLIX_DB_PATH
+from src.datasets.netflix.scoring import load_movie_scores, rank_movie_scores
 
 
 WEB_DIR = PROJECT_ROOT / "web"
 MOVIELENS_OUTPUT_DIR = OUTPUT_DIR / "movielens"
+NETFLIX_OUTPUT_DIR = OUTPUT_DIR / "netflix"
 
 
 class InteractionRequest(BaseModel):
@@ -206,13 +209,80 @@ class MovieLensApiService:
             "engine": "tag_movie_lsa",
         }
 
+class NetflixApiService:
+    def __init__(self) -> None:
+        self._scores: list[dict] | None = None
+        self._summary: dict | None = None
+
+    def _ensure_loaded(self) -> None:
+        if self._scores is not None and self._summary is not None:
+            return
+
+        scores = load_movie_scores()
+        self._scores = scores
+        self._summary = {
+            "movie_count": len(scores),
+            "rating_count": int(sum(item["rating_count"] for item in scores)),
+            "tag_count": 0,
+            "user_count": _netflix_user_count(),
+            "top_algorithm": "top_n_heap",
+        }
+
+    @property
+    def scores(self) -> list[dict]:
+        self._ensure_loaded()
+        assert self._scores is not None
+        return self._scores
+
+    def dashboard(self) -> dict:
+        self._ensure_loaded()
+        assert self._summary is not None
+        return {
+            "dataset": {
+                "name": "netflix",
+                "display_name": "Netflix Prize",
+            },
+            "summary": self._summary,
+            "sortRuntime": _read_csv(NETFLIX_OUTPUT_DIR / "sorting_runtime.csv"),
+            "searchRuntime": [],
+        }
+
+    def top(self, n: int, algorithm: Literal["heap", "merge"]) -> dict:
+        started = time.perf_counter()
+        rows = rank_movie_scores(self.scores, n=n, algorithm=algorithm)
+        return {
+            "items": rows,
+            "count": len(rows),
+            "algorithm": algorithm,
+            "elapsed_ms": _elapsed_ms(started),
+        }
+
+    def search(self, *args, **kwargs) -> dict:
+        raise NotImplementedError("Netflix search is not implemented yet.")
+
+    def recommend(self, *args, **kwargs) -> dict:
+        raise NotImplementedError("Netflix similar recommendation is not implemented yet.")
+
+    def record_event(self, *args, **kwargs) -> dict:
+        raise NotImplementedError("Netflix behavior events are not implemented yet.")
+
+    def for_you(self, *args, **kwargs) -> dict:
+        raise NotImplementedError("Netflix personalized recommendation is not implemented yet.")
+
+    def tag_semantic_neighbors(self, *args, **kwargs) -> dict:
+        raise NotImplementedError("Netflix tag semantics are not implemented because this dataset has no tags.")
+
+
 class ApiState:
     def __init__(self, dataset: str) -> None:
-        if dataset != "movielens":
+        if dataset == "movielens":
+            self.service = MovieLensApiService()
+        elif dataset == "netflix":
+            self.service = NetflixApiService()
+        else:
             available = ", ".join(sorted(DATASETS))
-            raise ValueError(f"API server currently supports movielens. Available datasets: {available}")
+            raise ValueError(f"unknown API dataset: {dataset}. Available datasets: {available}")
         self.dataset = dataset
-        self.movielens = MovieLensApiService()
 
 
 def create_app(dataset: str = "movielens") -> FastAPI:
@@ -233,14 +303,14 @@ def create_app(dataset: str = "movielens") -> FastAPI:
 
     @app.get("/api/dashboard")
     def dashboard() -> dict:
-        return _call_service(state.movielens.dashboard)
+        return _call_service(state.service.dashboard)
 
     @app.get("/api/top")
     def top(
         n: int = Query(default=10, ge=1, le=100),
         algorithm: Literal["heap", "merge"] = "heap",
     ) -> dict:
-        return _call_service(state.movielens.top, n=n, algorithm=algorithm)
+        return _call_service(state.service.top, n=n, algorithm=algorithm)
 
     @app.get("/api/search")
     def search(
@@ -248,32 +318,32 @@ def create_app(dataset: str = "movielens") -> FastAPI:
         query: str = Query(default="", min_length=0),
         n: int = Query(default=20, ge=1, le=100),
     ) -> dict:
-        return _call_service(state.movielens.search, kind=kind, query=query.strip(), n=n)
+        return _call_service(state.service.search, kind=kind, query=query.strip(), n=n)
 
     @app.get("/api/recommend")
     def recommend(
         title: str = Query(default="", min_length=0),
         n: int = Query(default=10, ge=1, le=50),
     ) -> dict:
-        return _call_service(state.movielens.recommend, title=title.strip(), n=n)
+        return _call_service(state.service.recommend, title=title.strip(), n=n)
 
     @app.post("/api/events")
     def record_event(request: InteractionRequest) -> dict:
-        return _call_service(state.movielens.record_event, request=request)
+        return _call_service(state.service.record_event, request=request)
 
     @app.get("/api/for-you")
     def for_you(
         session_id: str = Query(min_length=1, max_length=120),
         n: int = Query(default=10, ge=1, le=50),
     ) -> dict:
-        return _call_service(state.movielens.for_you, session_id=session_id.strip(), n=n)
+        return _call_service(state.service.for_you, session_id=session_id.strip(), n=n)
 
     @app.get("/api/tag-semantics")
     def tag_semantics(
         tag: str = Query(min_length=1, max_length=120),
         n: int = Query(default=8, ge=1, le=30),
     ) -> dict:
-        return _call_service(state.movielens.tag_semantic_neighbors, tag=tag.strip(), n=n)
+        return _call_service(state.service.tag_semantic_neighbors, tag=tag.strip(), n=n)
 
     app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")
     return app
@@ -286,6 +356,18 @@ def _call_service(func, *args, **kwargs) -> dict:
         raise HTTPException(status_code=500, detail=f"missing data file: {exc.filename}") from exc
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except NotImplementedError as exc:
+        raise HTTPException(status_code=501, detail=str(exc)) from exc
+
+
+def _netflix_user_count() -> int:
+    import duckdb
+
+    conn = duckdb.connect(str(NETFLIX_DB_PATH), read_only=True)
+    try:
+        return int(conn.execute("SELECT COUNT(*) FROM user_stats").fetchone()[0])
+    finally:
+        conn.close()
 
 
 def _read_csv(path: Path) -> list[dict]:
