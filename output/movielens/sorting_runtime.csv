@@ -1,6 +1,0 @@
-﻿task,data_size,merge_sort_seconds,heap_sort_seconds
-sort_by_comprehensive_score,100,0.0002392,0.0003262
-sort_by_comprehensive_score,500,0.0008962,0.001506
-sort_by_comprehensive_score,1000,0.0020197,0.0032651
-sort_by_comprehensive_score,5000,0.0119149,0.021776
-sort_by_comprehensive_score,9742,0.0280739,0.0472942

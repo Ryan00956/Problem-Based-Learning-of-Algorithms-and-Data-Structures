@@ -1,6 +1,14 @@
 # Raw datasets are large and should be downloaded locally.
 /data/
 
+# Generated analysis/export files.
+/output/
+/web/data/*.json
+
+# Local reference/design artifacts.
+/docs/frontend_concept.png
+/2026年春季-算法课-研究导向性教学设计.pdf
+
 # Python cache and local virtual environments.
 __pycache__/
 *.py[cod]
