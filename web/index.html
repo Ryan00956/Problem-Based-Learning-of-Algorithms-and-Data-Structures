@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Recommendation Lab</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css?v=20260618-semantics" />
   </head>
   <body>
     <div class="app-shell">
@@ -18,8 +19,11 @@
         </div>
         <nav>
           <a class="nav-item active" href="#recommendations">Top-N</a>
+          <a class="nav-item" href="#forYou">For You</a>
+          <a class="nav-item" href="#tagSemantics">Semantics</a>
           <a class="nav-item" href="#search">Search</a>
           <a class="nav-item" href="#similar">Similar</a>
+          <a class="nav-item" href="#tagCleanup">Tags</a>
           <a class="nav-item" href="#runtime">Runtime</a>
         </nav>
         <div class="method-note">
@@ -56,6 +60,37 @@
             <span>Users</span>
             <strong id="userCount">-</strong>
           </div>
+        </section>
+
+        <section id="forYou" class="panel for-you-panel">
+          <div class="panel-header">
+            <div>
+              <h2>For You</h2>
+              <p>Backend model learns from this browser session and falls back to diverse high-score movies before enough behavior is available.</p>
+            </div>
+            <div class="controls">
+              <button id="forYouRefresh" type="button">Refresh</button>
+              <button id="forYouReset" class="ghost-button" type="button">Reset</button>
+            </div>
+          </div>
+          <div id="forYouMeta" class="result-meta"></div>
+          <div id="forYouProfile" class="profile-row"></div>
+          <div id="forYouResults" class="result-list for-you-list"></div>
+        </section>
+
+        <section id="tagSemantics" class="panel semantic-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Tag Semantics</h2>
+              <p>Local LSA neighbors learned from movie-tag co-occurrence.</p>
+            </div>
+          </div>
+          <div class="search-row semantic-search-row">
+            <input id="semanticInput" type="search" value="mind-bending" placeholder="Tag" />
+            <button id="semanticButton" type="button">Inspect</button>
+          </div>
+          <div id="semanticMeta" class="result-meta"></div>
+          <div id="semanticResults" class="semantic-neighbor-list"></div>
         </section>
 
         <section id="recommendations" class="panel recommendation-panel">
@@ -137,6 +172,21 @@
           </div>
         </section>
 
+        <section id="tagCleanup" class="panel tag-cleanup-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Tag Cleanup</h2>
+              <p>Data-driven alias candidates from tag text and movie overlap.</p>
+            </div>
+            <div class="controls">
+              <button id="tagAliasRefresh" type="button">Refresh</button>
+            </div>
+          </div>
+          <div id="tagAliasMeta" class="result-meta"></div>
+          <div id="tagAliasConfigured" class="alias-configured"></div>
+          <div id="tagAliasCandidates" class="alias-list"></div>
+        </section>
+
         <section id="runtime" class="panel runtime-panel">
           <div class="panel-header">
             <div>
@@ -157,6 +207,23 @@
         </section>
       </main>
     </div>
-    <script src="./app.js"></script>
+    <div id="movieModal" class="modal-backdrop" hidden>
+      <section class="movie-modal" role="dialog" aria-modal="true" aria-labelledby="movieModalTitle">
+        <div class="movie-modal-header">
+          <div>
+            <h2 id="movieModalTitle">Movie Details</h2>
+            <div id="movieModalSubtitle" class="result-meta"></div>
+            <div class="movie-feedback" aria-label="Movie feedback">
+              <button id="movieLikeButton" class="feedback-button like-button" type="button">Like</button>
+              <button id="movieDislikeButton" class="feedback-button dislike-button" type="button">Not for me</button>
+              <span id="movieFeedbackStatus" class="feedback-status" aria-live="polite"></span>
+            </div>
+          </div>
+          <button id="movieModalClose" class="ghost-button modal-close" type="button" aria-label="Close movie details">X</button>
+        </div>
+        <div id="movieModalBody" class="movie-modal-body"></div>
+      </section>
+    </div>
+    <script src="./app.js?v=20260618-semantics"></script>
   </body>
 </html>

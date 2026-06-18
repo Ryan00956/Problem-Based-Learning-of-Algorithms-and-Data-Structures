@@ -4,7 +4,9 @@ from collections import defaultdict
 from dataclasses import dataclass
 from difflib import SequenceMatcher
 import re
-from typing import Iterable
+from typing import Iterable, Mapping
+
+from src.datasets.movielens.tags import canonicalize_tag
 
 
 def normalize(text: str) -> str:
@@ -27,8 +29,9 @@ class SearchMatch:
 
 
 class MovieLensSearchEngine:
-    def __init__(self, profiles: Iterable[dict]):
+    def __init__(self, profiles: Iterable[dict], tag_aliases: Mapping[str, str] | None = None):
         self.profiles = list(profiles)
+        self.tag_aliases = dict(tag_aliases or {})
         self.by_id = {item["movieId"]: item for item in self.profiles}
         self.profile_order = {item["movieId"]: index for index, item in enumerate(self.profiles)}
         self.title_index: dict[str, list[dict]] = defaultdict(list)
@@ -120,11 +123,11 @@ class MovieLensSearchEngine:
         return self._fuzzy_key_search(q, self.genre_index, self.genre_ngram_index, "genre")
 
     def linear_tag_search(self, tag: str) -> list[dict]:
-        q = normalize(tag)
+        q = self.canonicalize_tag(tag) or normalize(tag)
         return [item for item in self.profiles if any(q in normalize(t) for t in item["tags"])]
 
     def index_tag_search(self, tag: str) -> list[dict]:
-        q = normalize(tag)
+        q = self.canonicalize_tag(tag) or normalize(tag)
         if not q:
             return []
 
@@ -137,6 +140,9 @@ class MovieLensSearchEngine:
             return token_matches
 
         return self._fuzzy_key_search(q, self.tag_index, self.tag_ngram_index, "tag")
+
+    def canonicalize_tag(self, tag: object) -> str:
+        return canonicalize_tag(tag, self.tag_aliases)
 
     def _token_search(
         self,
@@ -316,4 +322,3 @@ def _fuzzy_key_scores(
 
     best_score = max(score for score, _ in scored_matches)
     return [(score, key) for score, key in scored_matches if score >= best_score - 0.04]
-
