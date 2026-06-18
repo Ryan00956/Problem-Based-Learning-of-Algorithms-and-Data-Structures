@@ -29,43 +29,28 @@ function mergeSort(items, keyFn, reverse = true) {
 }
 
 function heapSort(items, keyFn, reverse = true) {
-  const heap = [];
-  const higherPriority = (a, b) => (reverse ? keyFn(a) > keyFn(b) : keyFn(a) < keyFn(b));
-  const siftUp = (index) => {
-    while (index > 0) {
-      const parent = Math.floor((index - 1) / 2);
-      if (!higherPriority(heap[index], heap[parent])) break;
-      [heap[index], heap[parent]] = [heap[parent], heap[index]];
-      index = parent;
-    }
-  };
-  const siftDown = (index) => {
+  const values = [...items];
+  const heapPriority = (a, b) => (reverse ? keyFn(a) < keyFn(b) : keyFn(a) > keyFn(b));
+  const siftDown = (index, size) => {
     while (true) {
       const left = index * 2 + 1;
       const right = left + 1;
       let best = index;
-      if (left < heap.length && higherPriority(heap[left], heap[best])) best = left;
-      if (right < heap.length && higherPriority(heap[right], heap[best])) best = right;
+      if (left < size && heapPriority(values[left], values[best])) best = left;
+      if (right < size && heapPriority(values[right], values[best])) best = right;
       if (best === index) break;
-      [heap[index], heap[best]] = [heap[best], heap[index]];
+      [values[index], values[best]] = [values[best], values[index]];
       index = best;
     }
   };
-  for (const item of items) {
-    heap.push(item);
-    siftUp(heap.length - 1);
+  for (let index = Math.floor(values.length / 2) - 1; index >= 0; index -= 1) {
+    siftDown(index, values.length);
   }
-  const result = [];
-  while (heap.length) {
-    const root = heap[0];
-    const last = heap.pop();
-    if (heap.length) {
-      heap[0] = last;
-      siftDown(0);
-    }
-    result.push(root);
+  for (let end = values.length - 1; end > 0; end -= 1) {
+    [values[0], values[end]] = [values[end], values[0]];
+    siftDown(0, end);
   }
-  return result;
+  return values;
 }
 
 function renderStats() {
@@ -90,6 +75,7 @@ function renderTopMovies() {
       <td><div class="movie-title">${movie.title}</div></td>
       <td>${genreTags(movie.genres)}</td>
       <td>${Number(movie.avg_rating).toFixed(2)}</td>
+      <td>${Number(movie.bayesian_rating ?? movie.avg_rating).toFixed(2)}</td>
       <td>${numberFmt.format(movie.rating_count)}</td>
       <td class="score">${Number(movie.comprehensive_score).toFixed(2)}</td>
     </tr>

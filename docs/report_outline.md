@@ -20,13 +20,16 @@ Extension dataset boundary: Netflix Prize has a separate dataset pipeline placeh
 For each movie, the system computes:
 
 - Average rating.
+- Bayesian trusted rating.
 - Rating count.
+- Recent rating count.
 - Tag count.
 - Genre list.
 - Tag list.
 - Comprehensive score.
 
-Comprehensive score combines rating quality, popularity, and tag activity.
+Comprehensive score combines Bayesian rating quality, popularity, tag activity, and recent activity.
+The Bayesian rating pulls low-sample movies toward the global MovieLens average, so one 5-star rating does not receive the full rating-quality score.
 
 ## 4. Sorting Algorithms
 
