@@ -26,4 +26,15 @@ if ! "$PYTHON_BIN" -c "import pandas, numpy, fastapi, uvicorn, duckdb" >/dev/nul
   PYTHON_BIN=".venv/bin/python"
 fi
 
+DATASET="movielens"
+PREV=""
+for ARG in "$@"; do
+  if [[ "$PREV" == "--dataset" ]]; then
+    DATASET="$ARG"
+    break
+  fi
+  PREV="$ARG"
+done
+
+"$PYTHON_BIN" -m src.bootstrap_data --dataset "$DATASET"
 "$PYTHON_BIN" -m src.main "$@"

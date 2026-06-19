@@ -29,6 +29,8 @@ if ! "$PYTHON_BIN" -c "import pandas, numpy, fastapi, uvicorn, duckdb" >/dev/nul
   PYTHON_BIN=".venv/bin/python"
 fi
 
+"$PYTHON_BIN" -m src.bootstrap_data --dataset "$DATASET"
+
 stop_project_api_on_port() {
   local port="$1"
 

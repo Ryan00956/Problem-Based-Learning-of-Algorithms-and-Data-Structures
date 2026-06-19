@@ -12,7 +12,7 @@
 
 ## 一键演示
 
-需要 Python 3.10+。第一次运行会自动创建 `.venv` 并安装 `requirements.txt`。
+需要 Python 3.10+。第一次运行会自动创建 `.venv`、安装 `requirements.txt`、下载 MovieLens small 数据集，并启动本地页面。
 
 Windows:
 
@@ -43,13 +43,13 @@ http://127.0.0.1:8013/
 
 ## 数据集
 
-默认数据集：
+默认数据集会自动下载：
 
 ```text
 data/ml-latest-small
 ```
 
-需要包含 MovieLens small 的 `movies.csv`、`ratings.csv`、`tags.csv`。这是第一版课堂演示和基础实验的主数据集。
+启动脚本会在缺少数据时自动从 GroupLens 下载 `ml-latest-small.zip`，并解压出 `movies.csv`、`ratings.csv`、`tags.csv`。这是第一版课堂演示和基础实验的主数据集。
 
 进阶数据集：
 
@@ -72,6 +72,15 @@ output/netflix/movie_scores.csv
 ```
 
 说明：Netflix Prize 数据集没有 genre 和 tag 字段，因此 Netflix 只支持标题搜索；genre/tag 搜索会明确返回不支持。
+
+如果用 `.\start_frontend.ps1 -Dataset netflix` 或 `.\run.ps1 --dataset netflix ...`，脚本会检查 `data/netflix-prize/netflix.duckdb`。若数据库不存在但本地原始文件已经放好，会自动构建 DuckDB；若原始文件也没有，会给你 8 秒确认是否下载/解压 Netflix Prize 大包，默认不下载。
+
+Netflix 下载行为：
+
+- 直接按回车、输入 `n`、或 8 秒不操作：跳过下载并停止 Netflix 启动。
+- 输入 `y` 再回车：下载或使用本地缓存的 `data/nf_prize_dataset.tar.gz`，解压后构建 `netflix.duckdb`。
+- 可用环境变量 `NETFLIX_PRIZE_URL` 覆盖默认下载地址。
+- 默认下载源是公开镜像 `https://archive.org/download/nf_prize_dataset.tar/nf_prize_dataset.tar.gz`，文件较大，首次处理会比较久。
 
 ## 运行命令
 

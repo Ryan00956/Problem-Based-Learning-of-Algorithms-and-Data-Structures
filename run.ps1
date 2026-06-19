@@ -32,6 +32,19 @@ try {
         $Python = $VenvPython
     }
 
+    $Dataset = "movielens"
+    for ($index = 0; $index -lt $args.Count; $index += 1) {
+        if ($args[$index] -eq "--dataset" -and ($index + 1) -lt $args.Count) {
+            $Dataset = $args[$index + 1]
+            break
+        }
+    }
+
+    & $Python -m src.bootstrap_data --dataset $Dataset
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
     & $Python -m src.main @args
     if ($LASTEXITCODE -ne 0) {
         exit $LASTEXITCODE

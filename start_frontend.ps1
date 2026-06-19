@@ -84,6 +84,11 @@ try {
         & $Python -c "import pandas, numpy, fastapi, uvicorn, duckdb" | Out-Null
     }
 
+    & $Python -m src.bootstrap_data --dataset $Dataset
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
     Stop-ProjectApiOnPort -Port $Port
 
     $listening = $false
