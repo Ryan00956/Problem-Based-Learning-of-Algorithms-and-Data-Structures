@@ -28,6 +28,33 @@ def build_movie_scores(
     conn = duckdb.connect(str(db_path))
     try:
         conn.execute(
+            """
+            CREATE OR REPLACE TABLE movie_preference_stats AS
+            WITH constants AS (
+                SELECT
+                    (SUM(rating_avg * rating_count) / SUM(rating_count))::DOUBLE AS global_avg_rating,
+                    (SELECT MIN(rating)::DOUBLE FROM ratings) AS min_rating,
+                    (SELECT MAX(rating)::DOUBLE FROM ratings) AS max_rating
+                FROM movie_stats
+            )
+            SELECT
+                ratings.movie_id,
+                AVG(
+                    LEAST(
+                        GREATEST(
+                            ratings.rating::DOUBLE - user_stats.rating_avg::DOUBLE + constants.global_avg_rating,
+                            constants.min_rating
+                        ),
+                        constants.max_rating
+                    )
+                )::DOUBLE AS preference_adjusted_rating
+            FROM ratings
+            JOIN user_stats ON user_stats.user_id = ratings.user_id
+            CROSS JOIN constants
+            GROUP BY ratings.movie_id
+            """
+        )
+        conn.execute(
             f"""
             CREATE OR REPLACE TABLE movie_recent_stats AS
             WITH dataset_window AS (
@@ -61,6 +88,7 @@ def build_movie_scores(
                     movies.title,
                     movies.release_year,
                     movie_stats.rating_avg::DOUBLE AS avg_rating,
+                    movie_preference_stats.preference_adjusted_rating::DOUBLE AS preference_adjusted_rating,
                     movie_stats.rating_count::INTEGER AS rating_count,
                     COALESCE(movie_recent_stats.recent_rating_count, 0)::INTEGER AS recent_rating_count,
                     constants.global_avg_rating,
@@ -71,6 +99,7 @@ def build_movie_scores(
                     constants.max_rating_date
                 FROM movies
                 JOIN movie_stats ON movies.movie_id = movie_stats.movie_id
+                JOIN movie_preference_stats ON movies.movie_id = movie_preference_stats.movie_id
                 LEFT JOIN movie_recent_stats ON movies.movie_id = movie_recent_stats.movie_id
                 CROSS JOIN constants
             ),
@@ -78,13 +107,16 @@ def build_movie_scores(
                 SELECT
                     *,
                     ((rating_count * avg_rating + prior_rating_count * global_avg_rating)
-                        / (rating_count + prior_rating_count))::DOUBLE AS bayesian_rating
+                        / (rating_count + prior_rating_count))::DOUBLE AS bayesian_rating,
+                    ((rating_count * preference_adjusted_rating + prior_rating_count * global_avg_rating)
+                        / (rating_count + prior_rating_count))::DOUBLE AS preference_adjusted_bayesian_rating
                 FROM base
             ),
             components AS (
                 SELECT
                     *,
                     (bayesian_rating / 5.0) * 70.0 AS rating_score,
+                    (preference_adjusted_bayesian_rating / 5.0) * 70.0 AS preference_adjusted_rating_score,
                     CASE
                         WHEN max_rating_count > 0 THEN (LN(1 + rating_count) / LN(1 + max_rating_count)) * 25.0
                         ELSE 0.0
@@ -101,12 +133,18 @@ def build_movie_scores(
                 release_year,
                 ROUND(avg_rating, 4) AS avg_rating,
                 ROUND(bayesian_rating, 4) AS bayesian_rating,
+                ROUND(preference_adjusted_rating, 4) AS preference_adjusted_rating,
+                ROUND(preference_adjusted_bayesian_rating, 4) AS preference_adjusted_bayesian_rating,
+                ROUND(preference_adjusted_bayesian_rating - bayesian_rating, 4) AS preference_adjustment,
                 rating_count,
                 recent_rating_count,
                 ROUND(rating_score, 4) AS rating_score,
+                ROUND(preference_adjusted_rating_score, 4) AS preference_adjusted_rating_score,
                 ROUND(popularity_score, 4) AS popularity_score,
                 ROUND(freshness_score, 4) AS freshness_score,
                 ROUND(rating_score + popularity_score + freshness_score, 4) AS comprehensive_score,
+                ROUND(preference_adjusted_rating_score + popularity_score + freshness_score, 4)
+                    AS preference_adjusted_comprehensive_score,
                 ROUND(global_avg_rating, 4) AS global_avg_rating,
                 prior_rating_count,
                 recent_days,
@@ -146,7 +184,7 @@ def build_movie_scores(
 def top_movie_scores(db_path: Path = DEFAULT_DB_PATH, *, n: int = 10) -> list[dict[str, Any]]:
     conn = duckdb.connect(str(db_path), read_only=True)
     try:
-        if not _table_exists(conn, "movie_scores"):
+        if not _score_table_ready(conn):
             conn.close()
             build_movie_scores(db_path)
             conn = duckdb.connect(str(db_path), read_only=True)
@@ -158,12 +196,17 @@ def top_movie_scores(db_path: Path = DEFAULT_DB_PATH, *, n: int = 10) -> list[di
                 release_year,
                 avg_rating,
                 bayesian_rating,
+                preference_adjusted_rating,
+                preference_adjusted_bayesian_rating,
+                preference_adjustment,
                 rating_count,
                 recent_rating_count,
                 rating_score,
+                preference_adjusted_rating_score,
                 popularity_score,
                 freshness_score,
-                comprehensive_score
+                comprehensive_score,
+                preference_adjusted_comprehensive_score
             FROM movie_scores
             ORDER BY comprehensive_score DESC, rating_count DESC, movie_id ASC
             LIMIT ?
@@ -179,7 +222,7 @@ def top_movie_scores(db_path: Path = DEFAULT_DB_PATH, *, n: int = 10) -> list[di
 def load_movie_scores(db_path: Path = DEFAULT_DB_PATH) -> list[dict[str, Any]]:
     conn = duckdb.connect(str(db_path), read_only=True)
     try:
-        if not _table_exists(conn, "movie_scores"):
+        if not _score_table_ready(conn):
             conn.close()
             build_movie_scores(db_path)
             conn = duckdb.connect(str(db_path), read_only=True)
@@ -191,12 +234,17 @@ def load_movie_scores(db_path: Path = DEFAULT_DB_PATH) -> list[dict[str, Any]]:
                 release_year,
                 avg_rating,
                 bayesian_rating,
+                preference_adjusted_rating,
+                preference_adjusted_bayesian_rating,
+                preference_adjustment,
                 rating_count,
                 recent_rating_count,
                 rating_score,
+                preference_adjusted_rating_score,
                 popularity_score,
                 freshness_score,
-                comprehensive_score
+                comprehensive_score,
+                preference_adjusted_comprehensive_score
             FROM movie_scores
             ORDER BY movie_id ASC
             """,
@@ -207,11 +255,28 @@ def load_movie_scores(db_path: Path = DEFAULT_DB_PATH) -> list[dict[str, Any]]:
     return [_movie_score_from_row(row) for row in rows]
 
 
-def rank_movie_scores(scores: list[dict[str, Any]], *, n: int = 10, algorithm: str = "heap") -> list[dict[str, Any]]:
+SCORE_KEYS = {
+    "default": "comprehensive_score",
+    "preference_adjusted": "preference_adjusted_comprehensive_score",
+}
+
+
+def rank_movie_scores(
+    scores: list[dict[str, Any]],
+    *,
+    n: int = 10,
+    algorithm: str = "heap",
+    score_mode: str = "default",
+) -> list[dict[str, Any]]:
+    try:
+        score_key = SCORE_KEYS[score_mode]
+    except KeyError as exc:
+        raise ValueError(f"unknown score mode: {score_mode}") from exc
+
     if algorithm == "merge":
-        return merge_sort(scores, key="comprehensive_score", reverse=True)[:n]
+        return merge_sort(scores, key=score_key, reverse=True)[:n]
     if algorithm == "heap":
-        return top_n_heap(scores, n=n, key="comprehensive_score", reverse=True)
+        return top_n_heap(scores, n=n, key=score_key, reverse=True)
     raise ValueError(f"unknown sorting algorithm: {algorithm}")
 
 
@@ -222,14 +287,37 @@ def _movie_score_from_row(row: tuple) -> dict[str, Any]:
         "release_year",
         "avg_rating",
         "bayesian_rating",
+        "preference_adjusted_rating",
+        "preference_adjusted_bayesian_rating",
+        "preference_adjustment",
         "rating_count",
         "recent_rating_count",
         "rating_score",
+        "preference_adjusted_rating_score",
         "popularity_score",
         "freshness_score",
         "comprehensive_score",
+        "preference_adjusted_comprehensive_score",
     ]
     return dict(zip(columns, row, strict=True))
+
+
+def _score_table_ready(conn: duckdb.DuckDBPyConnection) -> bool:
+    required_columns = {
+        "movie_id",
+        "title",
+        "avg_rating",
+        "bayesian_rating",
+        "preference_adjusted_bayesian_rating",
+        "comprehensive_score",
+        "preference_adjusted_comprehensive_score",
+    }
+    return _table_exists(conn, "movie_scores") and required_columns <= _table_columns(conn, "movie_scores")
+
+
+def _table_columns(conn: duckdb.DuckDBPyConnection, table_name: str) -> set[str]:
+    rows = conn.execute("SELECT column_name FROM information_schema.columns WHERE table_name = ?", [table_name]).fetchall()
+    return {str(row[0]) for row in rows}
 
 
 def _table_exists(conn: duckdb.DuckDBPyConnection, table_name: str) -> bool:

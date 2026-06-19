@@ -24,7 +24,10 @@ from src.datasets.movielens.profiles import build_movie_profiles
 from src.datasets.movielens.recommendation import recommend_similar_movies, top_n_movies
 from src.datasets.movielens.search import MovieLensSearchEngine
 from src.datasets.movielens.tag_semantics import TagSemanticModel
+from src.datasets.netflix.collaborative import NetflixCollaborativeModel
 from src.datasets.netflix.import_duckdb import DEFAULT_DB_PATH as NETFLIX_DB_PATH
+from src.datasets.netflix.recommendation import recommend_for_events as recommend_netflix_for_events
+from src.datasets.netflix.recommendation import recommend_similar_movies as recommend_netflix_similar_movies
 from src.datasets.netflix.scoring import load_movie_scores, rank_movie_scores
 from src.datasets.netflix.search import build_search_engine
 
@@ -126,13 +129,22 @@ class MovieLensApiService:
             "searchRuntime": _read_csv(OUTPUT_DIR / "movielens" / "search_runtime.csv"),
         }
 
-    def top(self, n: int, algorithm: Literal["heap", "merge"]) -> dict:
+    def top(
+        self,
+        n: int,
+        algorithm: Literal["heap", "merge"],
+        score_mode: Literal["default", "preference_adjusted"] = "default",
+    ) -> dict:
         started = time.perf_counter()
-        rows = top_n_movies(self.profiles, n=n, algorithm=algorithm)
+        rows = top_n_movies(self.profiles, n=n, algorithm=algorithm, score_mode=score_mode)
         return {
             "items": rows,
             "count": len(rows),
             "algorithm": algorithm,
+            "score_mode": score_mode,
+            "score_key": "preference_adjusted_comprehensive_score"
+            if score_mode == "preference_adjusted"
+            else "comprehensive_score",
             "elapsed_ms": _elapsed_ms(started),
         }
 
@@ -214,15 +226,23 @@ class NetflixApiService:
     def __init__(self) -> None:
         self._scores: list[dict] | None = None
         self._engine: MovieLensSearchEngine | None = None
+        self._collaborative_model: NetflixCollaborativeModel | None = None
         self._summary: dict | None = None
+        self._events = PersonalizationStore(NETFLIX_OUTPUT_DIR / "user_events.jsonl")
 
     def _ensure_loaded(self) -> None:
-        if self._scores is not None and self._engine is not None and self._summary is not None:
+        if (
+            self._scores is not None
+            and self._engine is not None
+            and self._collaborative_model is not None
+            and self._summary is not None
+        ):
             return
 
         scores = load_movie_scores()
         self._scores = scores
         self._engine = build_search_engine(scores)
+        self._collaborative_model = NetflixCollaborativeModel(NETFLIX_DB_PATH)
         self._summary = {
             "movie_count": len(scores),
             "rating_count": int(sum(item["rating_count"] for item in scores)),
@@ -243,6 +263,12 @@ class NetflixApiService:
         assert self._engine is not None
         return self._engine
 
+    @property
+    def collaborative_model(self) -> NetflixCollaborativeModel:
+        self._ensure_loaded()
+        assert self._collaborative_model is not None
+        return self._collaborative_model
+
     def dashboard(self) -> dict:
         self._ensure_loaded()
         assert self._summary is not None
@@ -256,13 +282,22 @@ class NetflixApiService:
             "searchRuntime": [],
         }
 
-    def top(self, n: int, algorithm: Literal["heap", "merge"]) -> dict:
+    def top(
+        self,
+        n: int,
+        algorithm: Literal["heap", "merge"],
+        score_mode: Literal["default", "preference_adjusted"] = "default",
+    ) -> dict:
         started = time.perf_counter()
-        rows = rank_movie_scores(self.scores, n=n, algorithm=algorithm)
+        rows = rank_movie_scores(self.scores, n=n, algorithm=algorithm, score_mode=score_mode)
         return {
             "items": rows,
             "count": len(rows),
             "algorithm": algorithm,
+            "score_mode": score_mode,
+            "score_key": "preference_adjusted_comprehensive_score"
+            if score_mode == "preference_adjusted"
+            else "comprehensive_score",
             "elapsed_ms": _elapsed_ms(started),
         }
 
@@ -281,29 +316,81 @@ class NetflixApiService:
             "engine": "indexed_title_search",
         }
 
-    def recommend(self, *args, **kwargs) -> dict:
-        raise NotImplementedError("Netflix similar recommendation is not implemented yet.")
+    def recommend(self, title: str, n: int) -> dict:
+        started = time.perf_counter()
+        target, rows = recommend_netflix_similar_movies(
+            title,
+            self.scores,
+            model=self.collaborative_model,
+            n=n,
+        )
+        return {
+            "target": target,
+            "items": rows,
+            "count": len(rows),
+            "elapsed_ms": _elapsed_ms(started),
+            "engine": "netflix_collaborative_similarity",
+        }
 
-    def record_event(self, *args, **kwargs) -> dict:
-        raise NotImplementedError("Netflix behavior events are not implemented yet.")
+    def record_event(self, request: InteractionRequest) -> dict:
+        if request.kind in {"genre", "tag"}:
+            raise ValueError("Netflix behavior events only support title searches and movie feedback.")
+        event = InteractionEvent(
+            session_id=request.session_id.strip(),
+            event_type=request.event_type,
+            timestamp=time.time(),
+            kind=request.kind,
+            query=request.query.strip(),
+            movie_id=request.movie_id,
+            source=request.source,
+        )
+        event_count = self._events.add(event)
+        return {
+            "ok": True,
+            "event_count": event_count,
+            "event_type": event.event_type,
+        }
 
-    def for_you(self, *args, **kwargs) -> dict:
-        raise NotImplementedError("Netflix personalized recommendation is not implemented yet.")
+    def for_you(self, session_id: str, n: int) -> dict:
+        started = time.perf_counter()
+        payload = recommend_netflix_for_events(
+            self._events.get(session_id),
+            self.scores,
+            model=self.collaborative_model,
+            n=n,
+        )
+        payload["elapsed_ms"] = _elapsed_ms(started)
+        return payload
 
     def tag_semantic_neighbors(self, *args, **kwargs) -> dict:
         raise NotImplementedError("Netflix tag semantics are not implemented because this dataset has no tags.")
 
 
 class ApiState:
-    def __init__(self, dataset: str) -> None:
-        if dataset == "movielens":
-            self.service = MovieLensApiService()
-        elif dataset == "netflix":
-            self.service = NetflixApiService()
-        else:
+    def __init__(self, default_dataset: str) -> None:
+        if default_dataset not in DATASETS:
             available = ", ".join(sorted(DATASETS))
-            raise ValueError(f"unknown API dataset: {dataset}. Available datasets: {available}")
-        self.dataset = dataset
+            raise ValueError(f"unknown API dataset: {default_dataset}. Available datasets: {available}")
+        self.default_dataset = default_dataset
+        self._services: dict[str, MovieLensApiService | NetflixApiService] = {}
+
+    def service_for(self, dataset: str | None = None) -> MovieLensApiService | NetflixApiService:
+        selected = dataset or self.default_dataset
+        if selected not in DATASETS:
+            available = ", ".join(sorted(DATASETS))
+            raise ValueError(f"unknown API dataset: {selected}. Available datasets: {available}")
+        if selected not in self._services:
+            self._services[selected] = self._create_service(selected)
+        return self._services[selected]
+
+    @staticmethod
+    def _create_service(dataset: str) -> MovieLensApiService | NetflixApiService:
+        if dataset == "movielens":
+            return MovieLensApiService()
+        if dataset == "netflix":
+            return NetflixApiService()
+        available = ", ".join(sorted(DATASETS))
+        raise ValueError(f"unknown API dataset: {dataset}. Available datasets: {available}")
 
 
 def create_app(dataset: str = "movielens") -> FastAPI:
@@ -319,55 +406,86 @@ def create_app(dataset: str = "movielens") -> FastAPI:
     )
 
     @app.get("/api/health")
-    def health() -> dict:
-        return {"ok": True, "dataset": state.dataset}
+    def health(dataset: str | None = Query(default=None)) -> dict:
+        try:
+            selected = dataset or state.default_dataset
+            if selected not in DATASETS:
+                state.service_for(selected)
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        return {
+            "ok": True,
+            "dataset": selected,
+            "default_dataset": state.default_dataset,
+            "available_datasets": sorted(DATASETS),
+        }
 
     @app.get("/api/dashboard")
-    def dashboard() -> dict:
-        return _call_service(state.service.dashboard)
+    def dashboard(dataset: str | None = Query(default=None)) -> dict:
+        service = _select_service(state, dataset)
+        return _call_service(service.dashboard)
 
     @app.get("/api/top")
     def top(
         n: int = Query(default=10, ge=1, le=100),
         algorithm: Literal["heap", "merge"] = "heap",
+        score_mode: Literal["default", "preference_adjusted"] = "default",
+        dataset: str | None = Query(default=None),
     ) -> dict:
-        return _call_service(state.service.top, n=n, algorithm=algorithm)
+        service = _select_service(state, dataset)
+        return _call_service(service.top, n=n, algorithm=algorithm, score_mode=score_mode)
 
     @app.get("/api/search")
     def search(
         kind: Literal["title", "genre", "tag"] = "title",
         query: str = Query(default="", min_length=0),
         n: int = Query(default=20, ge=1, le=100),
+        dataset: str | None = Query(default=None),
     ) -> dict:
-        return _call_service(state.service.search, kind=kind, query=query.strip(), n=n)
+        service = _select_service(state, dataset)
+        return _call_service(service.search, kind=kind, query=query.strip(), n=n)
 
     @app.get("/api/recommend")
     def recommend(
         title: str = Query(default="", min_length=0),
         n: int = Query(default=10, ge=1, le=50),
+        dataset: str | None = Query(default=None),
     ) -> dict:
-        return _call_service(state.service.recommend, title=title.strip(), n=n)
+        service = _select_service(state, dataset)
+        return _call_service(service.recommend, title=title.strip(), n=n)
 
     @app.post("/api/events")
-    def record_event(request: InteractionRequest) -> dict:
-        return _call_service(state.service.record_event, request=request)
+    def record_event(request: InteractionRequest, dataset: str | None = Query(default=None)) -> dict:
+        service = _select_service(state, dataset)
+        return _call_service(service.record_event, request=request)
 
     @app.get("/api/for-you")
     def for_you(
         session_id: str = Query(min_length=1, max_length=120),
         n: int = Query(default=10, ge=1, le=50),
+        dataset: str | None = Query(default=None),
     ) -> dict:
-        return _call_service(state.service.for_you, session_id=session_id.strip(), n=n)
+        service = _select_service(state, dataset)
+        return _call_service(service.for_you, session_id=session_id.strip(), n=n)
 
     @app.get("/api/tag-semantics")
     def tag_semantics(
         tag: str = Query(min_length=1, max_length=120),
         n: int = Query(default=8, ge=1, le=30),
+        dataset: str | None = Query(default=None),
     ) -> dict:
-        return _call_service(state.service.tag_semantic_neighbors, tag=tag.strip(), n=n)
+        service = _select_service(state, dataset)
+        return _call_service(service.tag_semantic_neighbors, tag=tag.strip(), n=n)
 
     app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")
     return app
+
+
+def _select_service(state: ApiState, dataset: str | None) -> MovieLensApiService | NetflixApiService:
+    try:
+        return state.service_for(dataset)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 def _call_service(func, *args, **kwargs) -> dict:

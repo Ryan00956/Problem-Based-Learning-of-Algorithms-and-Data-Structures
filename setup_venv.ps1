@@ -1,5 +1,6 @@
 param(
-    [string]$Python = ""
+    [string]$Python = "",
+    [string]$Requirements = "requirements.txt"
 )
 
 $ErrorActionPreference = "Stop"
@@ -7,7 +8,7 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $VenvDir = Join-Path $ProjectRoot ".venv"
 $VenvPython = Join-Path $VenvDir "Scripts\python.exe"
-$Requirements = Join-Path $ProjectRoot "requirements.txt"
+$RequirementsPath = Join-Path $ProjectRoot $Requirements
 
 Push-Location $ProjectRoot
 try {
@@ -24,10 +25,15 @@ try {
     }
 
     & $VenvPython -m pip install --upgrade pip
-    & $VenvPython -m pip install -r $Requirements
+    if (-not (Test-Path $RequirementsPath)) {
+        throw "Requirements file was not found: $RequirementsPath"
+    }
 
-    Write-Output "Virtual environment is ready: $VenvDir"
-    Write-Output "Run commands with .\run.ps1 or start the dashboard with .\start_frontend.ps1"
+    & $VenvPython -m pip install -r $RequirementsPath
+
+    Write-Host "Virtual environment is ready: $VenvDir"
+    Write-Host "Installed dependencies from: $Requirements"
+    Write-Host "Run commands with .\run.ps1 or start the dashboard with .\start_frontend.ps1"
 } finally {
     Pop-Location
 }

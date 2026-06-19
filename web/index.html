@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Recommendation Lab</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./styles.css?v=20260618-live-runtime" />
+    <link rel="stylesheet" href="./styles.css?v=20260619-preference-adjusted" />
   </head>
   <body>
     <div class="app-shell">
@@ -20,7 +20,7 @@
         <nav>
           <a class="nav-item active" href="#recommendations">Top-N</a>
           <a class="nav-item" href="#forYou">For You</a>
-          <a class="nav-item" href="#tagSemantics">Semantics</a>
+          <a class="nav-item" href="#tagSemantics" data-feature="tag-semantics">Semantics</a>
           <a class="nav-item" href="#search">Search</a>
           <a class="nav-item" href="#similar">Similar</a>
           <a class="nav-item" href="#runtime">Runtime</a>
@@ -39,7 +39,16 @@
             <h1>Movie Recommendation Lab</h1>
             <p>影视流媒体用户观看行为排序与推荐系统</p>
           </div>
-          <div class="dataset-status" id="datasetStatus">Loading data...</div>
+          <div class="dataset-switcher">
+            <label>
+              Dataset
+              <select id="datasetSelect" aria-label="Dataset">
+                <option value="movielens">MovieLens</option>
+                <option value="netflix">Netflix Prize</option>
+              </select>
+            </label>
+            <div class="dataset-status" id="datasetStatus">Loading data...</div>
+          </div>
         </header>
 
         <section class="stats-grid" aria-label="Dataset summary">
@@ -51,7 +60,7 @@
             <span>Ratings</span>
             <strong id="ratingCount">-</strong>
           </div>
-          <div class="stat">
+          <div class="stat" data-feature="tags">
             <span>Tags</span>
             <strong id="tagCount">-</strong>
           </div>
@@ -77,7 +86,7 @@
           <div id="forYouResults" class="result-list for-you-list"></div>
         </section>
 
-        <section id="tagSemantics" class="panel semantic-panel">
+        <section id="tagSemantics" class="panel semantic-panel" data-feature="tag-semantics">
           <div class="panel-header">
             <div>
               <h2>Tag Semantics</h2>
@@ -96,7 +105,7 @@
           <div class="panel-header">
             <div>
               <h2>Top-N Recommendations</h2>
-              <p>按综合评分排序，展示评分质量、热度和标签活跃度。</p>
+              <p id="topDescription">按综合评分排序，展示评分质量、热度和标签活跃度。</p>
             </div>
             <div class="controls">
               <label>
@@ -114,6 +123,13 @@
                   <option value="merge">Merge Sort</option>
                 </select>
               </label>
+              <label data-feature="preference-adjusted">
+                Score
+                <select id="scoreModeSelect">
+                  <option value="default">Default</option>
+                  <option value="preference_adjusted">Preference Adjusted</option>
+                </select>
+              </label>
             </div>
           </div>
           <div class="table-wrap">
@@ -124,9 +140,9 @@
                   <th>Movie</th>
                   <th>Genres</th>
                   <th>Avg Rating</th>
-                  <th>Trusted</th>
+                  <th id="trustedScoreHeader">Trusted</th>
                   <th>Count</th>
-                  <th>Score</th>
+                  <th id="topScoreHeader">Score</th>
                 </tr>
               </thead>
               <tbody id="topMoviesBody"></tbody>
@@ -139,7 +155,7 @@
             <div class="panel-header compact">
               <div>
                 <h2>Movie Search</h2>
-                <p>支持电影名、类别和标签检索。</p>
+                <p id="searchDescription">支持电影名、类别和标签检索。</p>
               </div>
             </div>
             <div class="search-row">
@@ -159,7 +175,7 @@
             <div class="panel-header compact">
               <div>
                 <h2>Similar Movies</h2>
-                <p>根据共同类别、共同标签和综合评分推荐。</p>
+                <p id="similarDescription">根据共同类别、共同标签和综合评分推荐。</p>
               </div>
             </div>
             <div class="search-row">
@@ -215,6 +231,6 @@
         <div id="movieModalBody" class="movie-modal-body"></div>
       </section>
     </div>
-    <script src="./app.js?v=20260618-live-runtime"></script>
+    <script src="./app.js?v=20260619-preference-adjusted"></script>
   </body>
 </html>

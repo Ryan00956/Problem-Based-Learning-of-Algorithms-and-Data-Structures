@@ -1,0 +1,4 @@
+-r requirements.txt
+scipy>=1.11,<2.0
+hnswlib>=0.8,<1.0
+optuna>=4.9,<5.0

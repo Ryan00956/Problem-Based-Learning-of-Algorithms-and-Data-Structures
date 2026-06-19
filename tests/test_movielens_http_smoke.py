@@ -101,6 +101,12 @@ class MovieLensHttpSmokeTest(unittest.TestCase):
         top = _json_get(self.port, "/api/top?n=5&algorithm=heap")
         self.assertEqual(top["count"], 5)
         self.assertEqual(top["items"][0]["title"], "Shawshank Redemption, The (1994)")
+        self.assertEqual(top["score_mode"], "default")
+
+        adjusted_top = _json_get(self.port, "/api/top?n=5&algorithm=heap&score_mode=preference_adjusted")
+        self.assertEqual(adjusted_top["count"], 5)
+        self.assertEqual(adjusted_top["score_key"], "preference_adjusted_comprehensive_score")
+        self.assertIn("preference_adjusted_bayesian_rating", adjusted_top["items"][0])
 
         search = _json_get(self.port, "/api/search?kind=tag&query=mind-bending&n=5")
         self.assertGreaterEqual(search["count"], 1)

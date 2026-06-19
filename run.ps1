@@ -2,6 +2,12 @@ $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $VenvPython = Join-Path $ProjectRoot ".venv\Scripts\python.exe"
+$SetupScript = Join-Path $ProjectRoot "setup_venv.ps1"
+
+if (-not (Test-Path $VenvPython) -and (Test-Path $SetupScript)) {
+    Write-Host "Local virtual environment was not found. Creating it now..."
+    & $SetupScript
+}
 
 if (Test-Path $VenvPython) {
     $Python = $VenvPython
@@ -15,6 +21,17 @@ if (Test-Path $VenvPython) {
 
 Push-Location $ProjectRoot
 try {
+    try {
+        & $Python -c "import pandas, numpy, fastapi, uvicorn, duckdb" | Out-Null
+    } catch {
+        if (-not (Test-Path $SetupScript)) {
+            throw "Python dependencies are missing. Install requirements.txt, then rerun this command."
+        }
+        Write-Host "Python dependencies are missing. Installing the demo requirements now..."
+        & $SetupScript
+        $Python = $VenvPython
+    }
+
     & $Python -m src.main @args
     if ($LASTEXITCODE -ne 0) {
         exit $LASTEXITCODE

@@ -4,19 +4,15 @@ from pathlib import Path
 
 from src.core.pipeline import DatasetPipeline
 from src.datasets.netflix.experiment import run_experiments
+from src.datasets.netflix.recommendation import recommend_similar_movies
 from src.datasets.netflix.scoring import build_movie_scores, load_movie_scores, rank_movie_scores, top_movie_scores
 from src.datasets.netflix.search import search_titles
 
 
 def _not_implemented(*args, **kwargs):
     raise NotImplementedError(
-        "Netflix Prize support is intentionally isolated and has not been implemented yet. "
-        "Use --dataset movielens until the Netflix-specific loader and algorithms are added."
+        "This Netflix Prize command is not implemented for the static pipeline yet."
     )
-
-
-def _not_implemented_recommend(title: str, n: int = 10) -> tuple[dict | None, list[dict]]:
-    _not_implemented(title, n)
 
 
 def _not_implemented_experiments(output_dir: Path) -> dict[str, Path]:
@@ -52,6 +48,10 @@ def _search(kind: str, query: str, n: int = 10) -> list[dict]:
     return search_titles(load_movie_scores(), kind, query, n=n)
 
 
+def _recommend(title: str, n: int = 10) -> tuple[dict | None, list[dict]]:
+    return recommend_similar_movies(title, load_movie_scores(), n=n)
+
+
 def _run_demo(n: int = 10) -> None:
     summary = build_movie_scores()
     print("Netflix Prize scoring summary:")
@@ -74,7 +74,7 @@ PIPELINE = DatasetPipeline(
     run_demo=_run_demo,
     show_top=_show_top,
     search=_search,
-    recommend=_not_implemented_recommend,
+    recommend=_recommend,
     run_experiments=_run_experiments_for_pipeline,
     export_frontend_data=_not_implemented_export,
 )

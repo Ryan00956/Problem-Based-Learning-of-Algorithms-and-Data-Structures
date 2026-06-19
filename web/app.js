@@ -1,5 +1,42 @@
+const numberFmt = new Intl.NumberFormat("en-US");
+const DATASETS = {
+  movielens: {
+    name: "movielens",
+    label: "MovieLens",
+    defaultQuery: "Toy Story",
+    defaultSimilar: "Toy Story",
+    supportsTags: true,
+    supportsTagSemantics: true,
+    supportsPreferenceAdjusted: true,
+    searchKinds: [
+      ["title", "Title"],
+      ["genre", "Genre"],
+      ["tag", "Tag"],
+    ],
+    topDescription: "按综合评分排序，展示评分质量、热度和标签活跃度。",
+    searchDescription: "支持电影名、类别和标签检索。",
+    similarDescription: "根据共同类别、共同标签和综合评分推荐。",
+    emptySearchHint: "Try Comedy, funny, or Toy Story.",
+  },
+  netflix: {
+    name: "netflix",
+    label: "Netflix Prize",
+    defaultQuery: "Toy Story",
+    defaultSimilar: "Toy Story",
+    supportsTags: false,
+    supportsTagSemantics: false,
+    supportsPreferenceAdjusted: true,
+    searchKinds: [["title", "Title"]],
+    topDescription: "按 Netflix Prize 评分质量与热度排序。",
+    searchDescription: "Netflix Prize 数据集仅支持电影名检索。",
+    similarDescription: "基于 Netflix 用户协同过滤推荐相似影片。",
+    emptySearchHint: "Try Matrix, Toy Story, or Lord of the Rings.",
+  },
+};
+
 const state = {
   data: null,
+  dataset: getInitialDataset(),
   sessionId: getSessionId(),
   movieCache: new Map(),
   activeMovieId: null,
@@ -13,8 +50,6 @@ const state = {
   runtimeSamples: [],
   runtimeTimers: new Map(),
 };
-
-const numberFmt = new Intl.NumberFormat("en-US");
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -34,8 +69,20 @@ function getSessionId() {
   return next;
 }
 
+function getInitialDataset() {
+  const saved = window.localStorage.getItem("movie_lab_dataset");
+  return DATASETS[saved] ? saved : "movielens";
+}
+
+function datasetConfig() {
+  return DATASETS[state.dataset] || DATASETS.movielens;
+}
+
 async function apiGet(path, params = {}) {
   const url = new URL(path, window.location.origin);
+  if (path.startsWith("/api/")) {
+    url.searchParams.set("dataset", state.dataset);
+  }
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
       url.searchParams.set(key, value);
@@ -51,7 +98,11 @@ async function apiGet(path, params = {}) {
 }
 
 async function apiPost(path, body = {}) {
-  const response = await fetch(new URL(path, window.location.origin), {
+  const url = new URL(path, window.location.origin);
+  if (path.startsWith("/api/")) {
+    url.searchParams.set("dataset", state.dataset);
+  }
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -198,6 +249,39 @@ function renderStats() {
   document.querySelector("#datasetStatus").textContent = `${datasetName} loaded from backend`;
 }
 
+function applyDatasetChrome(options = {}) {
+  const config = datasetConfig();
+  const resetInputs = options.resetInputs !== false;
+  document.querySelector("#datasetSelect").value = config.name;
+  document.body.dataset.dataset = config.name;
+  document.querySelectorAll('[data-feature="tag-semantics"]').forEach((node) => {
+    node.hidden = !config.supportsTagSemantics;
+  });
+  document.querySelectorAll('[data-feature="tags"]').forEach((node) => {
+    node.hidden = !config.supportsTags;
+  });
+  document.querySelectorAll('[data-feature="preference-adjusted"]').forEach((node) => {
+    node.hidden = !config.supportsPreferenceAdjusted;
+  });
+  if (!config.supportsPreferenceAdjusted) {
+    document.querySelector("#scoreModeSelect").value = "default";
+  }
+  document.querySelector("#topDescription").textContent = config.topDescription;
+  document.querySelector("#searchDescription").textContent = config.searchDescription;
+  document.querySelector("#similarDescription").textContent = config.similarDescription;
+
+  const searchKind = document.querySelector("#searchKind");
+  searchKind.innerHTML = config.searchKinds
+    .map(([value, label]) => `<option value="${escapeHtml(value)}">${escapeHtml(label)}</option>`)
+    .join("");
+  searchKind.value = "title";
+
+  if (resetInputs) {
+    document.querySelector("#searchInput").value = config.defaultQuery;
+    document.querySelector("#similarInput").value = config.defaultSimilar;
+  }
+}
+
 function cacheMovie(movie) {
   const movieId = movie?.movieId ?? movie?.movie_id;
   if (movieId !== undefined && movieId !== null) {
@@ -211,23 +295,43 @@ async function renderTopMovies(options = {}) {
   const requestId = ++state.topRequest;
   const limit = Number(document.querySelector("#topLimit").value);
   const algorithm = document.querySelector("#algorithmSelect").value;
+  const config = datasetConfig();
+  const scoreMode = config.supportsPreferenceAdjusted
+    ? document.querySelector("#scoreModeSelect").value
+    : "default";
+  const scoreKey = scoreMode === "preference_adjusted"
+    ? "preference_adjusted_comprehensive_score"
+    : "comprehensive_score";
+  const trustedKey = scoreMode === "preference_adjusted"
+    ? "preference_adjusted_bayesian_rating"
+    : "bayesian_rating";
+  document.querySelector("#trustedScoreHeader").textContent = scoreMode === "preference_adjusted" ? "Corrected" : "Trusted";
+  document.querySelector("#topScoreHeader").textContent = scoreMode === "preference_adjusted" ? "Adjusted Score" : "Score";
   const body = document.querySelector("#topMoviesBody");
   body.innerHTML = "<tr><td colspan=\"7\">Loading...</td></tr>";
 
   try {
-    const payload = await timeApiGet("Top-N Ranking", `${algorithm} sort | top ${limit}`, "/api/top", { n: limit, algorithm }, options);
+    const payload = await timeApiGet(
+      "Top-N Ranking",
+      `${algorithm} sort | ${scoreMode} | top ${limit}`,
+      "/api/top",
+      { n: limit, algorithm, score_mode: scoreMode },
+      options,
+    );
     if (requestId !== state.topRequest) return;
     const rows = payload.items.map((movie, index) => {
       const movieId = cacheMovie(movie);
+      const trustedRating = Number(movie[trustedKey] ?? movie.bayesian_rating ?? movie.avg_rating);
+      const score = Number(movie[scoreKey] ?? movie.comprehensive_score);
       return `
         <tr class="movie-row" data-movie-id="${escapeHtml(movieId)}" data-recommendation-source="top" tabindex="0">
           <td>${index + 1}</td>
           <td><div class="movie-title">${escapeHtml(movie.title)}</div></td>
           <td>${genreTags(movie.genres)}</td>
           <td>${Number(movie.avg_rating).toFixed(2)}</td>
-          <td>${Number(movie.bayesian_rating ?? movie.avg_rating).toFixed(2)}</td>
+          <td>${trustedRating.toFixed(2)}</td>
           <td>${numberFmt.format(movie.rating_count)}</td>
-          <td class="score">${Number(movie.comprehensive_score).toFixed(2)}</td>
+          <td class="score">${score.toFixed(2)}</td>
         </tr>
       `;
     }).join("");
@@ -285,7 +389,8 @@ function openMovieDetails(movieId, source = null) {
   state.activeMovieId = Number(movieId);
   state.activeRecommendationSource = source || movie.recommendation_bucket || null;
   document.querySelector("#movieModalTitle").textContent = movie.title;
-  document.querySelector("#movieModalSubtitle").textContent = `${(movie.genres || []).join(" | ") || "No genre"} | movieId ${movie.movieId}`;
+  const genreText = (movie.genres || []).join(" | ");
+  document.querySelector("#movieModalSubtitle").textContent = `${genreText ? `${genreText} | ` : ""}movieId ${movie.movieId}`;
   document.querySelector("#movieFeedbackStatus").textContent = "";
   document.querySelector("#movieModalBody").innerHTML = movieDetailsHtml(movie);
   document.querySelector("#movieModal").hidden = false;
@@ -299,18 +404,30 @@ function closeMovieDetails() {
 }
 
 function movieDetailsHtml(movie) {
+  const config = datasetConfig();
   const scoreRows = [
-    ["Average rating", fixed(movie.avg_rating)],
-    ["Trusted rating", fixed(movie.bayesian_rating ?? movie.avg_rating)],
-    ["Rating count", numberFmt.format(movie.rating_count || 0)],
-    ["Recent ratings", numberFmt.format(movie.recent_rating_count || 0)],
-    ["Comprehensive score", fixed(movie.comprehensive_score)],
-    ["Rating score", fixed(movie.rating_score)],
-    ["Popularity score", fixed(movie.popularity_score)],
-    ["Tag score", fixed(movie.tag_score)],
-    ["Tag evidence", fixed(movie.tag_evidence)],
-    ["Freshness score", fixed(movie.freshness_score)],
-  ];
+    ["Average rating", fixed(movie.avg_rating), movie.avg_rating],
+    ["Trusted rating", fixed(movie.bayesian_rating ?? movie.avg_rating), movie.bayesian_rating ?? movie.avg_rating],
+    [
+      "Preference corrected rating",
+      fixed(movie.preference_adjusted_bayesian_rating),
+      movie.preference_adjusted_bayesian_rating,
+    ],
+    ["Preference adjustment", signedFixed(movie.preference_adjustment), movie.preference_adjustment],
+    ["Rating count", numberFmt.format(movie.rating_count || 0), movie.rating_count],
+    ["Recent ratings", numberFmt.format(movie.recent_rating_count || 0), movie.recent_rating_count],
+    ["Comprehensive score", fixed(movie.comprehensive_score), movie.comprehensive_score],
+    [
+      "Adjusted score",
+      fixed(movie.preference_adjusted_comprehensive_score),
+      movie.preference_adjusted_comprehensive_score,
+    ],
+    ["Rating score", fixed(movie.rating_score), movie.rating_score],
+    ["Popularity score", fixed(movie.popularity_score), movie.popularity_score],
+    ["Tag score", fixed(movie.tag_score), movie.tag_score],
+    ["Tag evidence", fixed(movie.tag_evidence), movie.tag_evidence],
+    ["Freshness score", fixed(movie.freshness_score), movie.freshness_score],
+  ].filter(([, , raw]) => raw !== undefined && raw !== null);
 
   const contextRows = [
     ["Recommendation source", movie.recommendation_bucket ? bucketLabel(movie.recommendation_bucket) : null],
@@ -347,14 +464,18 @@ function movieDetailsHtml(movie) {
         </div>
       </div>
     ` : ""}
-    <div class="detail-section">
+    ${(movie.genres || []).length ? `
+      <div class="detail-section">
       <h3>Genres</h3>
       <div>${genreTags(movie.genres)}</div>
-    </div>
-    <div class="detail-section">
-      <h3>Tags</h3>
-      <div>${detailTags(movie.tag_details || movie.tags)}</div>
-    </div>
+      </div>
+    ` : ""}
+    ${config.supportsTags ? `
+      <div class="detail-section">
+        <h3>Tags</h3>
+        <div>${detailTags(movie.tag_details || movie.tags)}</div>
+      </div>
+    ` : ""}
   `;
 }
 
@@ -389,6 +510,11 @@ function detailTags(tags) {
 function fixed(value) {
   const number = Number(value || 0);
   return number.toFixed(2);
+}
+
+function signedFixed(value) {
+  const number = Number(value || 0);
+  return `${number >= 0 ? "+" : ""}${number.toFixed(2)}`;
 }
 
 async function recordInteraction(event, options = {}) {
@@ -498,6 +624,12 @@ function renderProfileChips(profile) {
 }
 
 async function renderTagSemantics(options = {}) {
+  if (!datasetConfig().supportsTagSemantics) {
+    document.querySelector("#semanticMeta").textContent = "";
+    document.querySelector("#semanticResults").innerHTML = "";
+    return;
+  }
+
   const requestId = ++state.tagSemanticRequest;
   const query = document.querySelector("#semanticInput").value.trim();
   const meta = document.querySelector("#semanticMeta");
@@ -556,7 +688,7 @@ async function runSearch(options = {}) {
     const payload = await timeApiGet("Movie Search", `${kind}: ${query}`, "/api/search", { kind, query, n: 20 }, options);
     if (requestId !== state.searchRequest) return;
     meta.textContent = `${payload.count} results | ${payload.elapsed_ms.toFixed(3)} ms via backend ${payload.engine}`;
-    results.innerHTML = payload.items.map((movie) => resultItem(movie)).join("") || "<div class=\"result-item\"><strong>No result</strong><span>Try Comedy, funny, or Toy Story.</span></div>";
+    results.innerHTML = payload.items.map((movie) => resultItem(movie)).join("") || `<div class="result-item"><strong>No result</strong><span>${escapeHtml(datasetConfig().emptySearchHint)}</span></div>`;
     if (shouldRecord) {
       await recordInteraction({ event_type: "search", kind, query });
     }
@@ -590,8 +722,7 @@ async function recommendSimilar(options = {}) {
     }
     targetEl.textContent = `Target: ${payload.target.title} | ${payload.elapsed_ms.toFixed(3)} ms via backend ${payload.engine}`;
     resultsEl.innerHTML = payload.items.map((movie) => {
-      const extra = ` | shared genres ${movie.shared_genres} | shared tags ${movie.shared_tags}`;
-      return resultItem(movie, extra);
+      return resultItem(movie, similarExtra(movie));
     }).join("");
     if (shouldRecord) {
       await recordInteraction({
@@ -605,6 +736,20 @@ async function recommendSimilar(options = {}) {
     targetEl.textContent = error.message;
     resultsEl.innerHTML = "";
   }
+}
+
+function similarExtra(movie) {
+  if (state.dataset === "netflix") {
+    const parts = [];
+    if (movie.similar_user_count !== undefined) parts.push(`similar users ${numberFmt.format(movie.similar_user_count)}`);
+    if (movie.collaborative_support !== undefined) parts.push(`support ${numberFmt.format(movie.collaborative_support)}`);
+    if (movie.shared_movie_count !== undefined) parts.push(`shared movies ${numberFmt.format(movie.shared_movie_count)}`);
+    return parts.length ? ` | ${parts.join(" | ")}` : "";
+  }
+  const parts = [];
+  if (movie.shared_genres !== undefined) parts.push(`shared genres ${movie.shared_genres}`);
+  if (movie.shared_tags !== undefined) parts.push(`shared tags ${movie.shared_tags}`);
+  return parts.length ? ` | ${parts.join(" | ")}` : "";
 }
 
 function renderCharts() {
@@ -624,6 +769,15 @@ function renderCharts() {
   `).join("");
 
   const searchRows = state.data.searchRuntime || [];
+  if (!searchRows.length) {
+    document.querySelector("#searchChart").innerHTML = `
+      <div class="runtime-empty">
+        <strong>No search benchmark for this dataset.</strong>
+        <span>Live request timing is still recorded below.</span>
+      </div>
+    `;
+    return;
+  }
   const maxSearch = Math.max(...searchRows.flatMap((row) => [Number(row.linear_seconds), Number(row.index_seconds)]), 0.001);
   document.querySelector("#searchChart").innerHTML = searchRows.map((row) => `
     ${barRow(row.query_type, Number(row.linear_seconds), maxSearch, "linear", "linear")}
@@ -643,6 +797,17 @@ function barRow(label, value, max, kind, text) {
 }
 
 async function init() {
+  applyDatasetChrome();
+  await loadDataset({ resetInputs: false });
+}
+
+async function loadDataset(options = {}) {
+  closeMovieDetails();
+  clearRuntimeSamples();
+  invalidateRequests();
+  state.movieCache.clear();
+  applyDatasetChrome({ resetInputs: options.resetInputs !== false });
+  document.querySelector("#datasetStatus").textContent = "Loading data...";
   state.data = await apiGet("/api/dashboard");
   renderStats();
   await renderForYou({ measure: false });
@@ -654,8 +819,33 @@ async function init() {
   renderLiveRuntime();
 }
 
+function invalidateRequests() {
+  state.topRequest += 1;
+  state.forYouRequest += 1;
+  state.searchRequest += 1;
+  state.similarRequest += 1;
+  state.tagSemanticRequest += 1;
+}
+
+function clearRuntimeSamples() {
+  state.runtimeTimers.forEach((timer) => window.clearInterval(timer));
+  state.runtimeTimers.clear();
+  state.runtimeSamples = [];
+}
+
+document.querySelector("#datasetSelect").addEventListener("change", async (event) => {
+  state.dataset = event.target.value;
+  window.localStorage.setItem("movie_lab_dataset", state.dataset);
+  try {
+    await loadDataset();
+  } catch (error) {
+    document.querySelector("#datasetStatus").textContent = "Failed to load backend API";
+    console.error(error);
+  }
+});
 document.querySelector("#topLimit").addEventListener("change", () => renderTopMovies());
 document.querySelector("#algorithmSelect").addEventListener("change", () => renderTopMovies());
+document.querySelector("#scoreModeSelect").addEventListener("change", () => renderTopMovies());
 document.querySelector("#forYouRefresh").addEventListener("click", () => renderForYou());
 document.querySelector("#forYouReset").addEventListener("click", async () => {
   await recordInteraction({ event_type: "reset" });

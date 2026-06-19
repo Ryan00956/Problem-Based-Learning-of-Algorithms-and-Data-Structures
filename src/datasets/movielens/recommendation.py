@@ -4,12 +4,28 @@ from src.algorithms.sorting import heap_sort, merge_sort, top_n_heap
 from src.datasets.movielens.search import MovieLensSearchEngine, normalize
 
 
-def top_n_movies(profiles: list[dict], n: int = 10, algorithm: str = "heap") -> list[dict]:
+TOP_N_SCORE_KEYS = {
+    "default": "comprehensive_score",
+    "preference_adjusted": "preference_adjusted_comprehensive_score",
+}
+
+
+def top_n_movies(
+    profiles: list[dict],
+    n: int = 10,
+    algorithm: str = "heap",
+    score_mode: str = "default",
+) -> list[dict]:
+    try:
+        score_key = TOP_N_SCORE_KEYS[score_mode]
+    except KeyError as exc:
+        raise ValueError(f"unknown score mode: {score_mode}") from exc
+
     if algorithm == "merge":
-        ranked = merge_sort(profiles, key="comprehensive_score", reverse=True)
+        ranked = merge_sort(profiles, key=score_key, reverse=True)
         return ranked[:n]
     elif algorithm == "heap":
-        return top_n_heap(profiles, n=n, key="comprehensive_score", reverse=True)
+        return top_n_heap(profiles, n=n, key=score_key, reverse=True)
     else:
         raise ValueError(f"unknown algorithm: {algorithm}")
 

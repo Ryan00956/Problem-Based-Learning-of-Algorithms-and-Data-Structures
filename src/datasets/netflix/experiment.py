@@ -7,6 +7,14 @@ from typing import Callable
 
 from src.algorithms.sorting import heap_sort, merge_sort, top_n_heap
 from src.core.paths import OUTPUT_DIR
+from src.datasets.netflix.evaluation import (
+    EvaluationConfig,
+    compare_recommenders,
+    grid_search_hybrid_weights,
+    grid_search_matrix_factorization,
+    run_matrix_factorization_evaluation,
+)
+from src.datasets.netflix.matrix_factorization import MatrixFactorizationConfig
 from src.datasets.netflix.scoring import build_movie_scores, load_movie_scores
 
 
@@ -58,10 +66,40 @@ def run_experiments(output_dir: Path = OUTPUT_SUBDIR) -> dict[str, Path]:
     chart_svg = output_dir / "runtime_chart.svg"
     _write_sort_svg(sort_results, chart_svg)
 
+    mf_result = run_matrix_factorization_evaluation()
+    mf_metrics_csv = output_dir / "matrix_factorization_metrics.csv"
+    _write_csv(mf_metrics_csv, [mf_result["metrics"]])
+    mf_training_csv = output_dir / "matrix_factorization_training.csv"
+    _write_csv(mf_training_csv, mf_result["training_curve"])
+
+    comparison = compare_recommenders()
+    comparison_csv = output_dir / "recommender_comparison.csv"
+    _write_csv(comparison_csv, comparison["metrics"])
+
+    tuning_config = EvaluationConfig(max_users=160, min_ratings_per_user=12, top_k=10, candidate_limit=1200)
+    tuning = grid_search_matrix_factorization(
+        model_configs=_matrix_factorization_grid(),
+        evaluation_config=tuning_config,
+    )
+    tuning_csv = output_dir / "matrix_factorization_tuning.csv"
+    _write_csv(tuning_csv, tuning["results"])
+    tuning_training_csv = output_dir / "matrix_factorization_tuning_training.csv"
+    _write_csv(tuning_training_csv, tuning["training_curves"])
+
+    hybrid_tuning = grid_search_hybrid_weights(evaluation_config=tuning_config)
+    hybrid_tuning_csv = output_dir / "hybrid_weight_tuning.csv"
+    _write_csv(hybrid_tuning_csv, hybrid_tuning["results"])
+
     return {
         "scores": score_csv,
         "sorting_runtime": sort_csv,
         "runtime_chart": chart_svg,
+        "matrix_factorization_metrics": mf_metrics_csv,
+        "matrix_factorization_training": mf_training_csv,
+        "recommender_comparison": comparison_csv,
+        "matrix_factorization_tuning": tuning_csv,
+        "matrix_factorization_tuning_training": tuning_training_csv,
+        "hybrid_weight_tuning": hybrid_tuning_csv,
     }
 
 
@@ -70,11 +108,25 @@ def _experiment_sizes(total: int) -> list[int]:
     return sorted({size for size in candidates if 0 < size <= total})
 
 
+def _matrix_factorization_grid() -> list[MatrixFactorizationConfig]:
+    return [
+        MatrixFactorizationConfig(factors=16, epochs=12, learning_rate=0.015, regularization=0.04),
+        MatrixFactorizationConfig(factors=32, epochs=16, learning_rate=0.02, regularization=0.03),
+        MatrixFactorizationConfig(factors=48, epochs=20, learning_rate=0.02, regularization=0.04),
+        MatrixFactorizationConfig(factors=64, epochs=20, learning_rate=0.015, regularization=0.05),
+    ]
+
+
 def _write_csv(path: Path, rows: list[dict]) -> None:
     if not rows:
         return
+    fieldnames = []
+    for row in rows:
+        for key in row:
+            if key not in fieldnames:
+                fieldnames.append(key)
     with path.open("w", newline="", encoding="utf-8-sig") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
 

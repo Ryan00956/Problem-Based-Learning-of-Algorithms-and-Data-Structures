@@ -160,6 +160,17 @@ def create_stats(conn: duckdb.DuckDBPyConnection) -> None:
         GROUP BY user_id
         """
     )
+    conn.execute(
+        """
+        CREATE TABLE user_norms AS
+        SELECT
+            ratings.user_id,
+            SQRT(SUM(POWER(ratings.rating::DOUBLE - user_stats.rating_avg::DOUBLE, 2))) AS rating_norm
+        FROM ratings
+        JOIN user_stats ON user_stats.user_id = ratings.user_id
+        GROUP BY ratings.user_id
+        """
+    )
 
 
 def record_metadata(conn: duckdb.DuckDBPyConnection, values: dict[str, str]) -> None:

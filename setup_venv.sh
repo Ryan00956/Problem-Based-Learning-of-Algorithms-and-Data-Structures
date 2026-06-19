@@ -2,6 +2,7 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REQUIREMENTS="${1:-requirements.txt}"
 cd "$PROJECT_ROOT"
 
 if [[ ! -x ".venv/bin/python" ]]; then
@@ -16,7 +17,8 @@ if [[ ! -x ".venv/bin/python" ]]; then
 fi
 
 ".venv/bin/python" -m pip install --upgrade pip
-".venv/bin/python" -m pip install -r requirements.txt
+".venv/bin/python" -m pip install -r "$REQUIREMENTS"
 
 echo "Virtual environment is ready: $PROJECT_ROOT/.venv"
+echo "Installed dependencies from: $REQUIREMENTS"
 echo "Run commands with ./run.sh or start the dashboard with ./start_frontend.sh"
