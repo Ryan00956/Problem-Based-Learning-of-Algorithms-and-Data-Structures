@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 from src.algorithms.sorting import heap_sort, merge_sort, top_n_heap
+from src.core.title_series import series_match
 from src.datasets.movielens.search import MovieLensSearchEngine, normalize
 
+
+SERIES_MATCH_BONUS = 120.0
+SUPPLEMENTAL_SERIES_PENALTY = 35.0
+TITLE_SIMILARITY_WEIGHT = 8.0
 
 TOP_N_SCORE_KEYS = {
     "default": "comprehensive_score",
@@ -50,12 +55,31 @@ def recommend_similar_movies(
             continue
         genre_overlap = len(target_genres & {normalize(value) for value in item["genres"]})
         tag_overlap = len(target_tags & {normalize(value) for value in item["tags"]})
-        similarity_score = genre_overlap * 10.0 + tag_overlap * 15.0 + item["comprehensive_score"] * 0.1
-        if genre_overlap or tag_overlap:
+        series = series_match(target["title"], item["title"])
+        series_score = 0.0
+        if series.is_match:
+            series_score = SERIES_MATCH_BONUS
+            if series.supplemental:
+                series_score -= SUPPLEMENTAL_SERIES_PENALTY
+        title_score = series.title_similarity * TITLE_SIMILARITY_WEIGHT
+        similarity_score = (
+            series_score
+            + genre_overlap * 10.0
+            + tag_overlap * 15.0
+            + title_score
+            + item["comprehensive_score"] * 0.1
+        )
+        if series.is_match or genre_overlap or tag_overlap:
             enriched = dict(item)
             enriched["similarity_score"] = round(similarity_score, 4)
             enriched["shared_genres"] = genre_overlap
             enriched["shared_tags"] = tag_overlap
+            enriched["title_similarity"] = round(series.title_similarity, 4)
+            if series.is_match:
+                enriched["series_match"] = True
+                enriched["series_key"] = series.key
+                enriched["series_score"] = round(series_score, 4)
+                enriched["recommendation_reason"] = f"Same series as {target['title']}."
             scored.append(enriched)
 
     return target, top_n_heap(scored, n=n, key="similarity_score", reverse=True)

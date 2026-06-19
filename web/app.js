@@ -374,10 +374,12 @@ function bucketLabel(bucket) {
     interest: "Interest",
     collaborative: "Similar users",
     explore: "Explore",
+    series: "Series",
   }[bucket] || bucket;
 }
 
 function bucketClass(bucket) {
+  if (bucket === "series") return "bucket-series";
   if (bucket === "collaborative") return "bucket-collaborative";
   return bucket === "explore" ? "bucket-explore" : "bucket-interest";
 }
@@ -433,6 +435,10 @@ function movieDetailsHtml(movie) {
     ["Recommendation source", movie.recommendation_bucket ? bucketLabel(movie.recommendation_bucket) : null],
     ["Recommendation reason", movie.recommendation_reason],
     ["Similarity score", movie.similarity_score],
+    ["Same series", movie.series_match],
+    ["Series key", movie.series_key],
+    ["Series score", movie.series_score],
+    ["Title similarity", movie.title_similarity],
     ["Shared genres", movie.shared_genres],
     ["Shared tags", movie.shared_tags],
     ["Personal score", movie.personal_score],
@@ -741,12 +747,14 @@ async function recommendSimilar(options = {}) {
 function similarExtra(movie) {
   if (state.dataset === "netflix") {
     const parts = [];
+    if (movie.series_match) parts.push("same series");
     if (movie.similar_user_count !== undefined) parts.push(`similar users ${numberFmt.format(movie.similar_user_count)}`);
     if (movie.collaborative_support !== undefined) parts.push(`support ${numberFmt.format(movie.collaborative_support)}`);
     if (movie.shared_movie_count !== undefined) parts.push(`shared movies ${numberFmt.format(movie.shared_movie_count)}`);
     return parts.length ? ` | ${parts.join(" | ")}` : "";
   }
   const parts = [];
+  if (movie.series_match) parts.push("same series");
   if (movie.shared_genres !== undefined) parts.push(`shared genres ${movie.shared_genres}`);
   if (movie.shared_tags !== undefined) parts.push(`shared tags ${movie.shared_tags}`);
   return parts.length ? ` | ${parts.join(" | ")}` : "";

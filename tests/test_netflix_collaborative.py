@@ -172,6 +172,76 @@ class NetflixCollaborativeTest(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual(rows[0]["movieId"], 4)
 
+    def test_title_recommendation_promotes_same_series_before_collaborative_popularity(self) -> None:
+        scores = _scores() + [
+            {
+                "movie_id": 10,
+                "movieId": 10,
+                "title": "The Matrix",
+                "release_year": 1999,
+                "avg_rating": 4.6,
+                "bayesian_rating": 4.5,
+                "rating_count": 1000,
+                "recent_rating_count": 30,
+                "rating_score": 63.0,
+                "popularity_score": 22.0,
+                "freshness_score": 5.0,
+                "comprehensive_score": 90.0,
+            },
+            {
+                "movie_id": 11,
+                "movieId": 11,
+                "title": "The Matrix: Reloaded",
+                "release_year": 2003,
+                "avg_rating": 4.0,
+                "bayesian_rating": 4.0,
+                "rating_count": 900,
+                "recent_rating_count": 20,
+                "rating_score": 56.0,
+                "popularity_score": 19.0,
+                "freshness_score": 4.0,
+                "comprehensive_score": 79.0,
+            },
+            {
+                "movie_id": 12,
+                "movieId": 12,
+                "title": "The Matrix: Revolutions",
+                "release_year": 2003,
+                "avg_rating": 3.8,
+                "bayesian_rating": 3.8,
+                "rating_count": 700,
+                "recent_rating_count": 15,
+                "rating_score": 53.2,
+                "popularity_score": 18.0,
+                "freshness_score": 3.0,
+                "comprehensive_score": 74.2,
+            },
+            {
+                "movie_id": 13,
+                "movieId": 13,
+                "title": "Sexual Matrix",
+                "release_year": 1999,
+                "avg_rating": 4.1,
+                "bayesian_rating": 4.1,
+                "rating_count": 500,
+                "recent_rating_count": 8,
+                "rating_score": 57.4,
+                "popularity_score": 17.0,
+                "freshness_score": 2.0,
+                "comprehensive_score": 76.4,
+            },
+        ]
+
+        target, rows = recommend_similar_movies("Matrix", scores, model=self.model, n=3)
+
+        self.assertIsNotNone(target)
+        assert target is not None
+        self.assertEqual(target["title"], "The Matrix")
+        self.assertEqual([row["movieId"] for row in rows[:2]], [11, 12])
+        self.assertTrue(rows[0]["series_match"])
+        self.assertEqual(rows[0]["recommendation_bucket"], "series")
+        self.assertNotIn(13, [row["movieId"] for row in rows])
+
 
 if __name__ == "__main__":
     unittest.main()

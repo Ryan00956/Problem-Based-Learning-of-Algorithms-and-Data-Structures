@@ -437,6 +437,12 @@ th:first-child {
   color: #6c4b10;
 }
 
+.bucket-series {
+  background: #f4eefb;
+  border-color: #c9a9e6;
+  color: #5a2d7a;
+}
+
 .bucket-explore {
   background: #eef3ff;
   border-color: #b8c9ee;
