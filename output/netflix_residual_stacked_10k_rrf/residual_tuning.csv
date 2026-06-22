@@ -1,0 +1,8 @@
+﻿residual_alpha,algorithm,backend,device,rmse,precision_at_k,recall_at_k,hit_rate_at_k,map_at_k,catalog_coverage,top_k,users,movies,train_ratings,test_ratings,evaluated_users,candidate_movies,relevant_threshold,empty_users
+0.0,residual_hybrid_linear_reranker,torch,cuda,,0.122353,0.068159,0.548188,0.072112,0.065026,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.05,residual_hybrid_linear_reranker,torch,cuda,,0.121219,0.067239,0.544645,0.071609,0.064458,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.1,residual_hybrid_linear_reranker,torch,cuda,,0.120318,0.066446,0.540089,0.071012,0.06389,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.15,residual_hybrid_linear_reranker,torch,cuda,,0.119751,0.065903,0.536951,0.070658,0.063228,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.2,residual_hybrid_linear_reranker,torch,cuda,,0.118982,0.065167,0.533003,0.070174,0.06266,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.25,residual_hybrid_linear_reranker,torch,cuda,,0.118384,0.064379,0.530269,0.069737,0.062281,10,10000,15626,1316740,438909,9878,10565,4.0,0
+0.3,residual_hybrid_linear_reranker,torch,cuda,,0.11721,0.063185,0.525815,0.069167,0.06247,10,10000,15626,1316740,438909,9878,10565,4.0,0

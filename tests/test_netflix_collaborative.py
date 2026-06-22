@@ -8,6 +8,7 @@ import unittest
 import duckdb
 
 from src.datasets.netflix.collaborative import NetflixCollaborativeModel
+from src.datasets.netflix.online_reranker import FEATURE_NAMES, OnlineNetflixReranker
 from src.datasets.netflix.recommendation import recommend_for_events, recommend_similar_movies
 
 
@@ -97,8 +98,60 @@ def _create_db(path: Path) -> None:
             GROUP BY ratings.user_id
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE movies (
+                movie_id INTEGER,
+                title VARCHAR,
+                release_year INTEGER
+            )
+            """
+        )
+        conn.executemany(
+            "INSERT INTO movies VALUES (?, ?, ?)",
+            [
+                (1, "Seed One", 2001),
+                (2, "Seed Two", 2002),
+                (3, "Rejected", 2003),
+                (4, "Neighbor Favorite", 2004),
+                (5, "Weak Neighbor Extra", 2005),
+                (6, "Cold Start Backup", 2006),
+            ],
+        )
     finally:
         conn.close()
+
+
+def _create_reranker_artifact(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+    with (path / "feature_weights.csv").open("w", encoding="utf-8", newline="") as handle:
+        handle.write("feature,weight,mean,std\n")
+        for feature in FEATURE_NAMES:
+            weight = 0.0
+            if feature == "collaborative_score":
+                weight = 1.0
+            elif feature == "recall_user_user_cf":
+                weight = 0.5
+            elif feature == "quality_score":
+                weight = 0.1
+            handle.write(f"{feature},{weight},0.0,1.0\n")
+    (path / "summary.json").write_text(
+        """
+{
+  "config": {
+    "candidate_limit": 60,
+    "candidate_recall_rrf_k": 20.0,
+    "candidate_recall_priors": []
+  },
+  "best_metric": {
+    "algorithm": "stacked_linear_hybrid_reranker",
+    "precision_at_k": 0.1
+  },
+  "linear_blend_weight": 1.0
+}
+""".strip(),
+        encoding="utf-8",
+    )
 
 
 class NetflixCollaborativeTest(unittest.TestCase):
@@ -162,6 +215,30 @@ class NetflixCollaborativeTest(unittest.TestCase):
         self.assertEqual(payload["items"][0]["movieId"], 4)
         self.assertEqual(payload["items"][0]["recommendation_bucket"], "collaborative")
         self.assertEqual(payload["count"], 3)
+
+    def test_for_you_uses_online_stacked_reranker_when_artifact_exists(self) -> None:
+        artifact_dir = Path(self.tmpdir.name) / "artifact"
+        _create_reranker_artifact(artifact_dir)
+        reranker = OnlineNetflixReranker(self.db_path, artifact_dir)
+
+        payload = recommend_for_events(
+            [
+                Event("like", 1),
+                Event("like", 2),
+                Event("dislike", 3),
+            ],
+            _scores(),
+            model=self.model,
+            reranker=reranker,
+            n=3,
+        )
+
+        self.assertEqual(payload["engine"], "netflix_stacked_hybrid_reranker")
+        self.assertEqual(payload["fallback_engine"], "netflix_user_user_collaborative")
+        self.assertEqual(payload["collaborative"]["neighbor_count"], 2)
+        self.assertEqual(payload["items"][0]["movieId"], 4)
+        self.assertIn("user_user_cf", payload["items"][0]["recommendation_sources"])
+        self.assertEqual(payload["model"]["name"], "stacked_linear_hybrid_reranker")
 
     def test_title_recommendation_finds_similar_movies(self) -> None:
         target, rows = recommend_similar_movies("Seed One", _scores(), model=self.model, n=3)

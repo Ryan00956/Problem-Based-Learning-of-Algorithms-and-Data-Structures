@@ -1,0 +1,7 @@
+﻿algorithm,backend,device,rmse,precision_at_k,recall_at_k,hit_rate_at_k,map_at_k,catalog_coverage,top_k,users,movies,train_ratings,test_ratings,evaluated_users,candidate_movies,relevant_threshold,empty_users,mf_weight,collaborative_weight,quality_weight,residual_alpha
+popular_quality_baseline,python,cpu,,0.074112,0.024215,0.307436,0.045325,0.007478,10,10000,15626,1316740,438909,9885,10565,4.0,0,,,,
+user_user_collaborative_filtering,python,cpu,,0.029713,0.017375,0.223835,0.010972,0.303171,10,9965,15626,1316740,438909,9851,10565,4.0,34,,,,
+biased_matrix_factorization_adam,torch,cuda,1.058282,0.008912,0.003754,0.076176,0.003675,0.894179,10,10000,15626,1316740,438909,9885,10565,4.0,0,,,,
+hybrid_mf_user_user_quality,torch,cuda,,0.08088,0.033912,0.385129,0.045146,0.094841,10,10000,15626,1316740,438909,9885,10565,4.0,0,0.35518699276413085,0.08412705524518764,0.5606859519906815,
+stacked_linear_hybrid_reranker,torch,cuda,,0.102468,0.051382,0.477188,0.058697,0.068434,10,10000,15626,1316740,438909,9885,10565,4.0,0,,,,
+residual_hybrid_linear_reranker,torch,cuda,,0.102468,0.051382,0.477188,0.058697,0.068434,10,10000,15626,1316740,438909,9885,10565,4.0,0,,,,0.0

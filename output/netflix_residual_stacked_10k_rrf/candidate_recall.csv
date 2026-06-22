@@ -1,0 +1,8 @@
+﻿source,strategy,quota,rrf_weight,raw_movies,active_movies,selected_movies,selected_before_backfill_movies,relevant_hits_before_backfill,route_precision,route_recall,unique_relevant_hits,route_marginal_recall,raw_precision,raw_recall,raw_marginal_recall,relevant_movies,route_relevant_recall
+popular_quality,weighted_rrf,310,1.974024,400,310,310,310,310,1.0,0.029894,2,0.000193,1.0,0.038573,0.0,,
+mf_user_top,weighted_rrf,572,1.090712,13064,572,483,375,223,0.594667,0.021504,193,0.018611,0.669703,0.843684,0.171263,,
+profile_centroid,weighted_rrf,161,1.462698,11128,161,161,161,113,0.701863,0.010897,64,0.006172,0.674515,0.723819,0.078785,,
+user_user_cf,weighted_rrf,639,1.35921,3213,639,639,539,538,0.998145,0.05188,106,0.010222,0.993775,0.307907,0.005786,,
+year_affinity,weighted_rrf,575,2.457179,813,575,575,575,575,1.0,0.055448,185,0.01784,0.99754,0.078206,0.0,,
+relevant_backfill,weighted_rrf,,,10370,,10370,1005,1005,1.0,0.903086,9365,0.903086,,,,,
+all_routes,weighted_rrf,,,1497,,10565,1200,1005,0.8375,0.096914,,,,,,10370,0.096914

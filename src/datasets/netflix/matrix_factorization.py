@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+import json
 import math
 import os
+from pathlib import Path
 from typing import Iterable
 
 import numpy as np
@@ -60,6 +62,46 @@ class MatrixFactorizationModel:
     @property
     def fitted(self) -> bool:
         return bool(self.user_to_index and self.movie_to_index)
+
+    def save(self, path: Path) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(
+            path,
+            config=np.array(json.dumps(asdict(self.config), ensure_ascii=False)),
+            global_mean=np.array(self.global_mean, dtype=np.float32),
+            index_to_user=np.array(self.index_to_user, dtype=np.int64),
+            index_to_movie=np.array(self.index_to_movie, dtype=np.int64),
+            user_bias=self.user_bias.astype(np.float32, copy=False),
+            movie_bias=self.movie_bias.astype(np.float32, copy=False),
+            user_factors=self.user_factors.astype(np.float32, copy=False),
+            movie_factors=self.movie_factors.astype(np.float32, copy=False),
+            backend_used=np.array(self.backend_used),
+            device_used=np.array(self.device_used),
+            training_curve=np.array(json.dumps(self.training_curve, ensure_ascii=False)),
+        )
+
+    @classmethod
+    def load(cls, path: Path) -> "MatrixFactorizationModel":
+        with np.load(path, allow_pickle=False) as payload:
+            config = MatrixFactorizationConfig(**json.loads(str(payload["config"].item())))
+            model = cls(config)
+            model.global_mean = float(payload["global_mean"].item())
+            model.index_to_user = [int(value) for value in payload["index_to_user"].tolist()]
+            model.index_to_movie = [int(value) for value in payload["index_to_movie"].tolist()]
+            model.user_to_index = {user_id: index for index, user_id in enumerate(model.index_to_user)}
+            model.movie_to_index = {movie_id: index for index, movie_id in enumerate(model.index_to_movie)}
+            model.user_bias = payload["user_bias"].astype(np.float32)
+            model.movie_bias = payload["movie_bias"].astype(np.float32)
+            model.user_factors = payload["user_factors"].astype(np.float32)
+            model.movie_factors = payload["movie_factors"].astype(np.float32)
+            model.backend_used = str(payload["backend_used"].item())
+            model.device_used = str(payload["device_used"].item())
+            model.training_curve = json.loads(str(payload["training_curve"].item()))
+        model._movie_index_lookup = None
+        model._batch_score_user_row = None
+        model._batch_score_col_lookup = None
+        model._batch_score_matrix = None
+        return model
 
     def fit(self, ratings: Iterable[TrainingRating]) -> list[dict]:
         rows = list(ratings)

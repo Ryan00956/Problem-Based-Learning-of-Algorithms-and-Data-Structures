@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 import numpy as np
@@ -88,6 +90,27 @@ class MatrixFactorizationTest(unittest.TestCase):
 
         self.assertEqual(len(ranked), 2)
         self.assertNotIn(ranked[0][0], {10, 11})
+
+    def test_model_artifact_round_trips_predictions(self) -> None:
+        model = MatrixFactorizationModel(
+            MatrixFactorizationConfig(factors=4, epochs=3, backend="numpy")
+        )
+        model.fit(_ratings())
+
+        with TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "mf_model.npz"
+            model.save(path)
+            loaded = MatrixFactorizationModel.load(path)
+
+        self.assertEqual(loaded.config.factors, 4)
+        self.assertEqual(loaded.index_to_user, model.index_to_user)
+        self.assertEqual(loaded.index_to_movie, model.index_to_movie)
+        self.assertAlmostEqual(loaded.predict(1, 10), model.predict(1, 10), places=6)
+        np.testing.assert_allclose(
+            loaded.score_known_user(1, np.array([10, 11, 12], dtype=np.int32)),
+            model.score_known_user(1, np.array([10, 11, 12], dtype=np.int32)),
+            rtol=1e-6,
+        )
 
     def test_time_split_evaluation_returns_ranking_metrics(self) -> None:
         config = EvaluationConfig(

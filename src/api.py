@@ -26,6 +26,7 @@ from src.datasets.movielens.search import MovieLensSearchEngine
 from src.datasets.movielens.tag_semantics import TagSemanticModel
 from src.datasets.netflix.collaborative import NetflixCollaborativeModel
 from src.datasets.netflix.import_duckdb import DEFAULT_DB_PATH as NETFLIX_DB_PATH
+from src.datasets.netflix.online_reranker import OnlineNetflixReranker
 from src.datasets.netflix.recommendation import recommend_for_events as recommend_netflix_for_events
 from src.datasets.netflix.recommendation import recommend_similar_movies as recommend_netflix_similar_movies
 from src.datasets.netflix.scoring import load_movie_scores, rank_movie_scores
@@ -227,6 +228,7 @@ class NetflixApiService:
         self._scores: list[dict] | None = None
         self._engine: MovieLensSearchEngine | None = None
         self._collaborative_model: NetflixCollaborativeModel | None = None
+        self._reranker: OnlineNetflixReranker | None = None
         self._summary: dict | None = None
         self._events = PersonalizationStore(NETFLIX_OUTPUT_DIR / "user_events.jsonl")
 
@@ -235,6 +237,7 @@ class NetflixApiService:
             self._scores is not None
             and self._engine is not None
             and self._collaborative_model is not None
+            and self._reranker is not None
             and self._summary is not None
         ):
             return
@@ -243,6 +246,7 @@ class NetflixApiService:
         self._scores = scores
         self._engine = build_search_engine(scores)
         self._collaborative_model = NetflixCollaborativeModel(NETFLIX_DB_PATH)
+        self._reranker = OnlineNetflixReranker(NETFLIX_DB_PATH)
         self._summary = {
             "movie_count": len(scores),
             "rating_count": int(sum(item["rating_count"] for item in scores)),
@@ -268,6 +272,12 @@ class NetflixApiService:
         self._ensure_loaded()
         assert self._collaborative_model is not None
         return self._collaborative_model
+
+    @property
+    def reranker(self) -> OnlineNetflixReranker:
+        self._ensure_loaded()
+        assert self._reranker is not None
+        return self._reranker
 
     def dashboard(self) -> dict:
         self._ensure_loaded()
@@ -357,6 +367,7 @@ class NetflixApiService:
             self._events.get(session_id),
             self.scores,
             model=self.collaborative_model,
+            reranker=self.reranker,
             n=n,
         )
         payload["elapsed_ms"] = _elapsed_ms(started)

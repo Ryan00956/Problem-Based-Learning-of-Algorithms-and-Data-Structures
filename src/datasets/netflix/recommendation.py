@@ -10,6 +10,7 @@ from src.datasets.netflix.collaborative import (
     enrich_candidates,
 )
 from src.datasets.netflix.import_duckdb import DEFAULT_DB_PATH
+from src.datasets.netflix.online_reranker import OnlineNetflixReranker
 from src.datasets.netflix.scoring import load_movie_scores
 from src.datasets.netflix.search import build_search_engine
 
@@ -58,10 +59,16 @@ def recommend_for_events(
     scores: list[dict],
     *,
     model: NetflixCollaborativeModel | None = None,
+    reranker: OnlineNetflixReranker | None = None,
     n: int = 10,
 ) -> dict:
     events = list(events)
     model = model or NetflixCollaborativeModel()
+    if reranker is not None and reranker.available:
+        payload = reranker.recommend_for_events(events, scores, model=model, n=n)
+        if payload is not None:
+            return payload
+
     exclude_movie_ids = {
         int(event.movie_id)
         for event in events

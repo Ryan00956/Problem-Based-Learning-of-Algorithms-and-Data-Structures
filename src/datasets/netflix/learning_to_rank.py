@@ -566,6 +566,7 @@ def run_learning_to_rank(
     residual_tuning_path = output_dir / "residual_tuning.csv"
     candidate_recall_path = output_dir / "candidate_recall.csv"
     mf_training_path = output_dir / "mf_training.csv"
+    mf_model_path = output_dir / "mf_model.npz"
     weights_path = output_dir / "feature_weights.csv"
     summary_path = output_dir / "summary.json"
     metrics_rows = [
@@ -584,6 +585,7 @@ def run_learning_to_rank(
     _write_csv(residual_tuning_path, residual_tuning_rows)
     _write_csv(candidate_recall_path, recall_result.source_rows)
     _write_csv(mf_training_path, mf_training_curve)
+    model.save(mf_model_path)
     _write_csv(weights_path, ranker.feature_weights())
     summary_path.write_text(
         json.dumps(
@@ -595,6 +597,7 @@ def run_learning_to_rank(
                 "linear_blend_weight": float(blend_weight),
                 "linear_blend_mode": ranker.blend_mode,
                 "residual_alpha": float(residual_alpha),
+                "mf_model": str(mf_model_path),
                 "pairwise_pairs": int(pairwise_training_curve[-1]["pairs"]) if pairwise_training_curve else 0,
                 "best_metric": max(
                     metrics_rows,
@@ -616,6 +619,7 @@ def run_learning_to_rank(
         "residual_tuning": residual_tuning_path,
         "candidate_recall": candidate_recall_path,
         "mf_training": mf_training_path,
+        "mf_model": mf_model_path,
         "feature_weights": weights_path,
         "summary": summary_path,
     }
